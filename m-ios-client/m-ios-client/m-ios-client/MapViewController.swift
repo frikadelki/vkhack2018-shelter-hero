@@ -57,9 +57,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     @objc func filterAction(sender: Any) {
-        let filterVC = FilterViewController(venueTags: Set(["veterinary clinic"]),
+        let filterVC = FilterViewController(venueTags: Set(mapObjects?.venues.flatMap({ $0.tags }) ?? []),
                                             venueTagsCheked: venueTagsCheked,
-                                            taskTags: Set(["tag1", "tag2"]),
+                                            taskTags: Set(mapObjects?.shelters.flatMap({ $0.availableTasks.flatMap({ $0.tags }) }) ?? []),
                                             taskTagsCheked: taskTagsCheked)
         filterVC.delegate = self
         navigationController?.pushViewController(filterVC, animated: true)
