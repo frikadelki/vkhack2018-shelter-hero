@@ -37,7 +37,7 @@ FILE(GLOB RPC_SOURCES
     "${PROJECT_SRC_DIR}/rpc/*.h"
 )
 
-FILE(GLOB GRAPH_SOURCES
+FILE(GLOB RECOMM_SOURCES
     "${PROJECT_SRC_DIR}/recommendations/*.cpp"
     "${PROJECT_SRC_DIR}/recommendations/*.h"
 )
@@ -49,7 +49,7 @@ link_directories(${DEPS_ROOT_LIB})
 add_library(shlib STATIC
     ${GENERATED_SOURCES}
     ${RPC_SOURCES}
-    ${GRAPH_SOURCES}
+    ${RECOMM_SOURCES}
 )
 
 target_link_libraries(shlib
