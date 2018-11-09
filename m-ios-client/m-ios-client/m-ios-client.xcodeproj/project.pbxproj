@@ -12,9 +12,14 @@
 		CBD2BFC82195F7C0005006DD /* MapObject.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFC62195F7C0005006DD /* MapObject.grpc.swift */; };
 		CBD2BFCB2195F7EF005006DD /* MapObject.proto in Resources */ = {isa = PBXBuildFile; fileRef = CBD2BFCA2195F7EF005006DD /* MapObject.proto */; };
 		CBD2BFCD2195FB62005006DD /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFCC2195FB62005006DD /* MapController.swift */; };
-		CBD2BFCF2195FC9E005006DD /* TokenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFCE2195FC9E005006DD /* TokenProvider.swift */; };
 		CBD2BFD121961F28005006DD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CBD2BFD021961F28005006DD /* Localizable.strings */; };
 		CBD2BFD5219620DA005006DD /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFD4219620DA005006DD /* FilterViewController.swift */; };
+		CBD2BFD921963DE7005006DD /* Auth.proto in Resources */ = {isa = PBXBuildFile; fileRef = CBD2BFD821963DE7005006DD /* Auth.proto */; };
+		CBD2BFDC21963E93005006DD /* Auth.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFDA21963E93005006DD /* Auth.grpc.swift */; };
+		CBD2BFDD21963E93005006DD /* Auth.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFDB21963E93005006DD /* Auth.pb.swift */; };
+		CBD2BFDF21963ED5005006DD /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFDE21963ED5005006DD /* AuthController.swift */; };
+		CBD2BFE121963F57005006DD /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFE021963F57005006DD /* ApiConfig.swift */; };
+		CBD2BFE32196422E005006DD /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFE22196422E005006DD /* MapView.swift */; };
 		CBDEDA4B2195C0DA009F337A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDEDA4A2195C0DA009F337A /* AppDelegate.swift */; };
 		CBDEDA4D2195C0DA009F337A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDEDA4C2195C0DA009F337A /* MapViewController.swift */; };
 		CBDEDA522195C0DC009F337A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBDEDA512195C0DC009F337A /* Assets.xcassets */; };
@@ -28,9 +33,14 @@
 		CBD2BFC62195F7C0005006DD /* MapObject.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapObject.grpc.swift; sourceTree = "<group>"; };
 		CBD2BFCA2195F7EF005006DD /* MapObject.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MapObject.proto; sourceTree = "<group>"; };
 		CBD2BFCC2195FB62005006DD /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
-		CBD2BFCE2195FC9E005006DD /* TokenProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenProvider.swift; sourceTree = "<group>"; };
 		CBD2BFD021961F28005006DD /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		CBD2BFD4219620DA005006DD /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
+		CBD2BFD821963DE7005006DD /* Auth.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Auth.proto; sourceTree = "<group>"; };
+		CBD2BFDA21963E93005006DD /* Auth.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.grpc.swift; sourceTree = "<group>"; };
+		CBD2BFDB21963E93005006DD /* Auth.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.pb.swift; sourceTree = "<group>"; };
+		CBD2BFDE21963ED5005006DD /* AuthController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
+		CBD2BFE021963F57005006DD /* ApiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
+		CBD2BFE22196422E005006DD /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		CBDEDA472195C0DA009F337A /* m-ios-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "m-ios-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBDEDA4A2195C0DA009F337A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBDEDA4C2195C0DA009F337A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -64,9 +74,10 @@
 		CBD2BFC42195F7C0005006DD /* ApiLayer */ = {
 			isa = PBXGroup;
 			children = (
+				CBD2BFDA21963E93005006DD /* Auth.grpc.swift */,
+				CBD2BFDB21963E93005006DD /* Auth.pb.swift */,
 				CBD2BFC52195F7C0005006DD /* MapObject.pb.swift */,
 				CBD2BFC62195F7C0005006DD /* MapObject.grpc.swift */,
-				CBD2BFCE2195FC9E005006DD /* TokenProvider.swift */,
 			);
 			path = ApiLayer;
 			sourceTree = "<group>";
@@ -74,6 +85,7 @@
 		CBD2BFC92195F7EF005006DD /* m-protos */ = {
 			isa = PBXGroup;
 			children = (
+				CBD2BFD821963DE7005006DD /* Auth.proto */,
 				CBD2BFCA2195F7EF005006DD /* MapObject.proto */,
 			);
 			name = "m-protos";
@@ -104,6 +116,7 @@
 				CBD2BFC92195F7EF005006DD /* m-protos */,
 				CBD2BFC42195F7C0005006DD /* ApiLayer */,
 				CBDEDA4A2195C0DA009F337A /* AppDelegate.swift */,
+				CBD2BFDE21963ED5005006DD /* AuthController.swift */,
 				CBD2BFCC2195FB62005006DD /* MapController.swift */,
 				CBDEDA4C2195C0DA009F337A /* MapViewController.swift */,
 				CBDEDA512195C0DC009F337A /* Assets.xcassets */,
@@ -111,6 +124,8 @@
 				CBDEDA562195C0DC009F337A /* Info.plist */,
 				CBD2BFD021961F28005006DD /* Localizable.strings */,
 				CBD2BFD4219620DA005006DD /* FilterViewController.swift */,
+				CBD2BFE021963F57005006DD /* ApiConfig.swift */,
+				CBD2BFE22196422E005006DD /* MapView.swift */,
 			);
 			path = "m-ios-client";
 			sourceTree = "<group>";
@@ -183,6 +198,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBD2BFD921963DE7005006DD /* Auth.proto in Resources */,
 				CBD2BFCB2195F7EF005006DD /* MapObject.proto in Resources */,
 				CBD2BFD121961F28005006DD /* Localizable.strings in Resources */,
 				CBDEDA552195C0DC009F337A /* LaunchScreen.storyboard in Resources */,
@@ -247,11 +263,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBD2BFD5219620DA005006DD /* FilterViewController.swift in Sources */,
+				CBD2BFDD21963E93005006DD /* Auth.pb.swift in Sources */,
 				CBD2BFC72195F7C0005006DD /* MapObject.pb.swift in Sources */,
-				CBD2BFCF2195FC9E005006DD /* TokenProvider.swift in Sources */,
+				CBD2BFE32196422E005006DD /* MapView.swift in Sources */,
 				CBDEDA4D2195C0DA009F337A /* MapViewController.swift in Sources */,
+				CBD2BFDF21963ED5005006DD /* AuthController.swift in Sources */,
 				CBD2BFC82195F7C0005006DD /* MapObject.grpc.swift in Sources */,
 				CBD2BFCD2195FB62005006DD /* MapController.swift in Sources */,
+				CBD2BFE121963F57005006DD /* ApiConfig.swift in Sources */,
+				CBD2BFDC21963E93005006DD /* Auth.grpc.swift in Sources */,
 				CBDEDA4B2195C0DA009F337A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

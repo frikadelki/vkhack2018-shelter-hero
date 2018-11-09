@@ -17,7 +17,7 @@ class MapController {
 
     func allObjects(completion: @escaping (_ result: Result) -> Void) {
         var request = Sh_Generated_MapObjectRequest()
-        request.token = TokenProvider.shared.token
+        request.token = AuthController.shared.token
 
         let completionOnMainThread = { (result: Result) in
             if Thread.isMainThread {
@@ -30,8 +30,8 @@ class MapController {
         }
 
         do {
-            let _ = try Sh_Generated_MapObjectServiceServiceClient(address: "").allObjects(request) { (response, callResult) in
-                if TokenProvider.shared.fakeResponses {
+            let _ = try Sh_Generated_MapObjectServiceServiceClient(address: ApiConfig().address).allObjects(request) { (response, callResult) in
+                if AuthController.shared.fakeResponses {
                     self.fakeResponse(completion: completionOnMainThread)
                 } else if let response = response {
                     completionOnMainThread(.success(mapObjects: response))

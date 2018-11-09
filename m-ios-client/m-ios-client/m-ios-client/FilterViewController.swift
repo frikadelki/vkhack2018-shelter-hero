@@ -65,7 +65,7 @@ class FilterViewController: UIViewController {
         self.taskTagsCheked = taskTagsCheked
         super.init(nibName: nil, bundle: nil)
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "apply",
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("apply", comment: ""),
                                                             style: .plain,
                                                             target: self,
                                                             action: #selector(FilterViewController.applyAction(sender:)))
@@ -118,47 +118,46 @@ class FilterViewController: UIViewController {
         }
     }
 
-    func makeViews(tags: [String], checkedTags: Set<String>, title: String) -> (view: UIView?, controls: [CheckBoxElement]?) {
-        guard !venueTags.isEmpty else {
+    func makeViews(tags: [String], checkedTags: Set<String>, title titleString: String) -> (view: UIView?, controls: [CheckBoxElement]?) {
+        guard !tags.isEmpty else {
             return (nil, nil)
         }
-        let venuesView = UIView()
-        venuesView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(venuesView)
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
 
-        let venuesTitles = UILabel()
-        venuesTitles.translatesAutoresizingMaskIntoConstraints = false
-        venuesTitles.font = UIFont.systemFont(ofSize: 22)
-        venuesTitles.text = title
-        venuesView.addSubview(venuesTitles)
+        let title = UILabel()
+        title.translatesAutoresizingMaskIntoConstraints = false
+        title.font = UIFont.systemFont(ofSize: 22)
+        title.text = titleString
+        view.addSubview(title)
 
-        let venueTagsControls = tags.map({ venueTag -> CheckBoxElement in
+        let tagsControls = tags.map({ tag -> CheckBoxElement in
             let checkBox = CheckBoxElement()
             checkBox.translatesAutoresizingMaskIntoConstraints = false
-            checkBox.checkBox.isOn = checkedTags.contains(venueTag)
-            checkBox.label.text = NSLocalizedString(venueTag, comment: "")
+            checkBox.checkBox.isOn = checkedTags.contains(tag)
+            checkBox.label.text = NSLocalizedString(tag, comment: "")
             return checkBox
         })
 
-        let venuesCheckboxsStackView = UIStackView(arrangedSubviews: venueTagsControls.map { $0 as UIView })
-        venuesCheckboxsStackView.translatesAutoresizingMaskIntoConstraints = false
-        venuesCheckboxsStackView.axis = .vertical
-        venuesView.addSubview(venuesCheckboxsStackView)
+        let checkboxsStackView = UIStackView(arrangedSubviews: tagsControls.map { $0 as UIView })
+        checkboxsStackView.translatesAutoresizingMaskIntoConstraints = false
+        checkboxsStackView.axis = .vertical
+        view.addSubview(checkboxsStackView)
 
-        venuesTitles.snp.makeConstraints { maker in
-            maker.top.equalTo(venuesView).offset(16)
-            maker.leading.equalTo(venuesView).offset(20)
-            maker.trailing.equalTo(venuesView).offset(-20)
+        title.snp.makeConstraints { maker in
+            maker.top.equalTo(view).offset(16)
+            maker.leading.equalTo(view).offset(20)
+            maker.trailing.equalTo(view).offset(-20)
         }
 
-        venuesCheckboxsStackView.snp.makeConstraints { maker in
-            maker.top.equalTo(venuesTitles.snp.bottom).offset(8)
-            maker.leading.equalTo(venuesView)
-            maker.trailing.equalTo(venuesView)
-            maker.bottom.equalTo(venuesView)
+        checkboxsStackView.snp.makeConstraints { maker in
+            maker.top.equalTo(title.snp.bottom).offset(8)
+            maker.leading.equalTo(view)
+            maker.trailing.equalTo(view)
+            maker.bottom.equalTo(view)
         }
 
-        return (venuesView, venueTagsControls)
+        return (view, tagsControls)
     }
 
     @objc func applyAction(sender: Any) {
