@@ -78,10 +78,17 @@ message Action
     int32 timeStart = 2;
 }
 
+message Stats
+{
+    int32 timeSpent = 1;
+    int32 distanceTraveled = 2;
+}
+
 message Trip
 {
     int32 orderId = 1;
     repeated Action actions = 2;
+    Stats stats = 3;
 }
 
 message Recommendations

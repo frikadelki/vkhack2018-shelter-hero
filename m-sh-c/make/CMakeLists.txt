@@ -1,4 +1,4 @@
-PROJECT(hrp CXX)
+PROJECT(shrecomm CXX)
 
 CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 
@@ -19,7 +19,7 @@ SET(LIBRARY_OUTPUT_PATH "${PROJECT_DIR}/target/bin/")
 SET(PROJECT_INCLUDE_DIRS
     "${PROJECT_SRC_DIR}/generated/"
     "${PROJECT_SRC_DIR}/rpc/"
-    "${PROJECT_SRC_DIR}/graph/"
+    "${PROJECT_SRC_DIR}/recommendations/"
 )
 
 INCLUDE_DIRECTORIES(${PROJECT_INCLUDE_DIRS})
@@ -38,23 +38,25 @@ FILE(GLOB RPC_SOURCES
 )
 
 FILE(GLOB GRAPH_SOURCES
-    "${PROJECT_SRC_DIR}/graph/*.cpp"
-    "${PROJECT_SRC_DIR}/graph/*.h"
+    "${PROJECT_SRC_DIR}/recommendations/*.cpp"
+    "${PROJECT_SRC_DIR}/recommendations/*.h"
 )
 
 
 link_directories(${DEPS_ROOT_LIB})
 
 # define targets
-add_library(hrplib STATIC
+add_library(shlib STATIC
     ${GENERATED_SOURCES}
     ${RPC_SOURCES}
     ${GRAPH_SOURCES}
 )
 
-target_link_libraries(hrplib
+target_link_libraries(shlib
     -Wl,-Bstatic
         -lgrpc++
+        -lgrpc++_unsecure
+        -lgrpc_unsecure
         -lgrpc
         -lprotobuf
     -Wl,-Bdynamic
@@ -62,16 +64,10 @@ target_link_libraries(hrplib
         -lz
 )
 
-add_executable(hrp
-    ${PROJECT_SRC_DIR}/MainRouting.cpp
+add_executable(shrecomm
+    ${PROJECT_SRC_DIR}/MainRecommendations.cpp
 )
 
-add_dependencies(hrp hrplib)
-target_link_libraries(hrp hrplib)
+add_dependencies(shrecomm shlib)
+target_link_libraries(shrecomm shlib)
 
-add_executable(tojson
-    ${PROJECT_SRC_DIR}/MainJson.cpp
-)
-
-add_dependencies(tojson hrplib)
-target_link_libraries(tojson hrplib)
