@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.piggybank.sh.generated";
+option java_outer_classname = "RecommendationsDataProto";
+
+package sh.generated;
+
+message TimeWindow
+{
+    int32 from = 1;
+    int32 to = 2;
+}
+
+message GeoPoint
+{
+    double lat = 1;
+    double lon = 2;
+}
+
+message Location
+{
+    int32 id = 1;
+
+    GeoPoint geoPoint = 2;
+}
+
+message Event
+{
+    int32 id = 1;
+
+    Location location = 2;
+    TimeWindow timeWindow = 3;
+    int32 duration = 4;
+}
+
+message Demand
+{
+    repeated Event events = 1;
+}
+
+message Order
+{
+    int32 id = 1;
+
+    repeated Demand demands = 2;
+}
+
+enum Transport
+{
+    PEDESTRIAN = 0;
+    CAR = 1;
+    PUBLIC_TRANSPORT = 2;
+}
+
+message SearchParams
+{
+    int32 id = 1;
+
+    GeoPoint start = 2;
+    GeoPoint finish = 3;
+    Transport transport = 4;
+    TimeWindow availabilityWindow = 5;
+    int32 distanceLimit = 6;
+}
+
+message Task
+{
+    int32 id = 1;
+
+    SearchParams params = 2;
+    repeated Order orders = 3;
+}
+
+message Action
+{
+    int32 eventId = 1;
+    int32 timeStart = 2;
+}
+
+message Trip
+{
+    int32 orderId = 1;
+    repeated Action actions = 2;
+}
+
+message Recommendations
+{
+    repeated Trip recommendations = 1;
+}
+
+service RecommendationsSearcher
+{
+    rpc findRecommendations(Task) returns (Recommendations) {};
+}
