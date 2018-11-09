@@ -67,7 +67,11 @@ target_link_libraries(shlib
 add_executable(shrecomm
     ${PROJECT_SRC_DIR}/MainRecommendations.cpp
 )
-
 add_dependencies(shrecomm shlib)
 target_link_libraries(shrecomm shlib)
 
+add_executable(shtests
+    ${PROJECT_SRC_DIR}/MainTests.cpp
+)
+add_dependencies(shtests shlib)
+target_link_libraries(shtests shlib)
