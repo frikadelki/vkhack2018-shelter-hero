@@ -1,0 +1,34 @@
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+
+mainClassName = "com.piggybank.sh.backend.MainKt"
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$lib_kotlin_v"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$lib_kotlin_v"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:$lib_kotlin_coroutines_v"
+
+    compile "io.ktor:ktor-server-core:$lib_ktor_v"
+    compile "io.ktor:ktor-server-netty:$lib_ktor_v"
+    compile "io.ktor:ktor-html-builder:$lib_ktor_v"
+    compile "io.ktor:ktor-gson:$lib_ktor_v"
+
+    compile "com.h2database:h2:1.4.197"
+    compile "org.jetbrains.exposed:exposed:0.11.2"
+
+    compile "org.slf4j:slf4j-simple:1.7.25"
+
+    testCompile "org.jetbrains.kotlin:kotlin-test:$lib_kotlin_v"
+    testCompile "org.jetbrains.kotlin:kotlin-test-junit:$lib_kotlin_v"
+    testCompile "junit:junit:4.12"
+}
