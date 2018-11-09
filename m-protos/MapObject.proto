@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package sh.generated;
+
+service MapObjectService {
+    rpc allObjects(MapObjectRequest) returns (MapObjectResponse) {}
+}
+
+message MapObjectRequest {
+    string token = 1;
+}
+
+message MapObjectTask {
+    repeated string tags = 1;
+}
+
+message MapObjectCoordinate {
+    double latitude = 1;
+    double longitude = 2;
+}
+
+message VenueMapObject {
+    int32 id = 1;
+    MapObjectCoordinate coordinate = 2;
+    string iconName = 3;
+    repeated string tags = 4;
+}
+
+message ShelterMapObject {
+    int32 id = 1;
+    MapObjectCoordinate coordinate = 2;
+    string iconName = 3;
+    repeated MapObjectTask availableTasks = 4;
+}
+
+message MapObjectResponse {
+    repeated ShelterMapObject shelters = 1;
+    repeated VenueMapObject venues = 2;
+}
