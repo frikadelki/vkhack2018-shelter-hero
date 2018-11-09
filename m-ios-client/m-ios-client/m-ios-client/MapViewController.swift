@@ -72,7 +72,7 @@ class VenueAnnotationView: MKAnnotationView {
     }
 }
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, FilterViewControllerDelegate {
 
     var mapView: MKMapView!
 
@@ -83,9 +83,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     var mapObjects: Sh_Generated_MapObjectResponse? {
         didSet {
+            filteredMapObjects = filter(mapObjects: mapObjects)
+        }
+    }
+
+    var filteredMapObjects: Sh_Generated_MapObjectResponse? {
+        didSet {
             mapView.removeAnnotations(mapView.annotations)
 
-            if let mapObjects = mapObjects {
+            if let mapObjects = filteredMapObjects {
 
                 var annotations: [MKAnnotation] = []
 
@@ -110,8 +116,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
 
+    var venueTagsCheked: Set<String> = Set()
+    var taskTagsCheked: Set<String> = Set()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "filter",
+                                                            style: .plain,
+                                                            target: self,
+                                                            action: #selector(MapViewController.filterAction(sender:)))
 
         mapView = MKMapView(frame: view.bounds)
         mapView.showsUserLocation = true
@@ -197,5 +211,51 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             return annotationView
         }
         return nil
+    }
+
+    @objc func filterAction(sender: Any) {
+        let filterVC = FilterViewController(venueTags: Set(["veterinary clinic"]),
+                                            venueTagsCheked: venueTagsCheked,
+                                            taskTags: Set(["tag1", "tag2"]),
+                                            taskTagsCheked: taskTagsCheked)
+        filterVC.delegate = self
+        navigationController?.pushViewController(filterVC, animated: true)
+    }
+
+    func filterViewControllerApplyFilters(_ controller: FilterViewController, venueTags: Set<String>, taskTags: Set<String>) {
+        venueTagsCheked = venueTags
+        taskTagsCheked = taskTags
+
+        navigationController?.popToViewController(self, animated: true)
+
+        self.filteredMapObjects = filter(mapObjects: mapObjects)
+    }
+
+    func filter(mapObjects: Sh_Generated_MapObjectResponse?) -> Sh_Generated_MapObjectResponse? {
+        guard var mapObjects = mapObjects else {
+            return nil
+        }
+
+        guard !taskTagsCheked.isEmpty || !venueTagsCheked.isEmpty else {
+            return mapObjects
+        }
+
+        mapObjects.shelters = mapObjects.shelters
+            .map { shelter in
+                var mappedShelter = shelter
+                mappedShelter.availableTasks = shelter.availableTasks.filter({ task in
+                    return !Set(task.tags).intersection(taskTagsCheked).isEmpty
+                })
+                return mappedShelter
+            }
+            .filter { shelter in
+                return !shelter.availableTasks.isEmpty
+            }
+
+        mapObjects.venues = mapObjects.venues.filter { venue in
+            return !Set(venueTagsCheked).intersection(venue.tags).isEmpty
+        }
+
+        return mapObjects
     }
 }
