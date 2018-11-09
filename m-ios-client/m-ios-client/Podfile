@@ -2,4 +2,5 @@ use_frameworks!
 
 target 'm-ios-client' do
   pod 'SwiftGRPC', '0.6.0'
+  pod 'SnapKit'
 end
