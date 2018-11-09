@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'kotlin'
 apply plugin: 'application'
+apply plugin: 'com.google.protobuf'
 
 sourceCompatibility = 1.8
 
@@ -11,6 +12,28 @@ compileKotlin {
 }
 compileTestKotlin {
     kotlinOptions.jvmTarget = "1.8"
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir "${project.rootDir}/m-protos"
+        }
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.6.1"
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.15.0"
+        }
+    }
+    generateProtoTasks {
+        all()*.plugins { grpc {} }
+    }
 }
 
 dependencies {
