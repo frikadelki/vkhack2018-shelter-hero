@@ -1,6 +1,5 @@
 package com.piggybank.sh.backend.db
 
-import com.piggybank.runtime.SHA1_HEX_STRING_LENGTH
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
@@ -8,7 +7,7 @@ import org.jetbrains.exposed.dao.IntIdTable
 
 object VolunteersTable : IntIdTable() {
     val login = varchar("name", 50)
-    val passwordHash = varchar("password_hash", SHA1_HEX_STRING_LENGTH)
+    val passwordHash = text("password_hash")
 }
 
 class VolunteerEntity(id: EntityID<Int>) : IntEntity(id) {
