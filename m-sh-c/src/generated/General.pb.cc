@@ -166,10 +166,11 @@ void AddDescriptorsImpl() {
       ".generated.TimeWindow\022\021\n\ttimeLimit\030\005 \001(\005"
       "\022\025\n\rdistanceLimit\030\006 \001(\005*:\n\tTransport\022\016\n\n"
       "PEDESTRIAN\020\000\022\024\n\020PUBLIC_TRANSPORT\020\001\022\007\n\003CA"
-      "R\020\002b\006proto3"
+      "R\020\002B\036\n\032com.piggybank.sh.generatedP\001b\006pro"
+      "to3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 411);
+      descriptor, 443);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "General.proto", &protobuf_RegisterTypes);
 }

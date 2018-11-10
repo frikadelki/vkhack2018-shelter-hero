@@ -269,7 +269,6 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::Task, id_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::Task, params_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::Task, orders_),
   ~0u,  // no _has_bits_
@@ -311,10 +310,10 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 16, -1, sizeof(::sh::generated::Demand)},
   { 22, -1, sizeof(::sh::generated::Order)},
   { 29, -1, sizeof(::sh::generated::Task)},
-  { 37, -1, sizeof(::sh::generated::Action)},
-  { 46, -1, sizeof(::sh::generated::Stats)},
-  { 53, -1, sizeof(::sh::generated::Trip)},
-  { 63, -1, sizeof(::sh::generated::Recommendations)},
+  { 36, -1, sizeof(::sh::generated::Action)},
+  { 45, -1, sizeof(::sh::generated::Stats)},
+  { 52, -1, sizeof(::sh::generated::Trip)},
+  { 62, -1, sizeof(::sh::generated::Recommendations)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -358,26 +357,26 @@ void AddDescriptorsImpl() {
       "\0132\030.sh.generated.TimeWindow\022\020\n\010duration\030"
       "\004 \001(\005\"-\n\006Demand\022#\n\006events\030\001 \003(\0132\023.sh.gen"
       "erated.Event\":\n\005Order\022\n\n\002id\030\001 \001(\005\022%\n\007dem"
-      "ands\030\002 \003(\0132\024.sh.generated.Demand\"c\n\004Task"
-      "\022\n\n\002id\030\001 \001(\005\022*\n\006params\030\002 \001(\0132\032.sh.genera"
-      "ted.SearchParams\022#\n\006orders\030\003 \003(\0132\023.sh.ge"
-      "nerated.Order\"Z\n\006Action\022\017\n\007eventId\030\001 \001(\005"
-      "\022\021\n\ttimeStart\030\002 \001(\005\022\022\n\ntimeFinish\030\003 \001(\005\022"
-      "\030\n\020distanceTraveled\030\004 \001(\005\"4\n\005Stats\022\021\n\tti"
-      "meSpent\030\001 \001(\005\022\030\n\020distanceTraveled\030\002 \001(\005\""
-      "\261\001\n\004Trip\022\017\n\007orderId\030\001 \001(\005\022%\n\005start\030\002 \001(\013"
-      "2\026.sh.generated.GeoPoint\022&\n\006finish\030\003 \001(\013"
-      "2\026.sh.generated.GeoPoint\022%\n\007actions\030\004 \003("
-      "\0132\024.sh.generated.Action\022\"\n\005stats\030\005 \001(\0132\023"
-      ".sh.generated.Stats\">\n\017Recommendations\022+"
-      "\n\017recommendations\030\001 \003(\0132\022.sh.generated.T"
-      "rip2e\n\027RecommendationsSearcher\022J\n\023findRe"
-      "commendations\022\022.sh.generated.Task\032\035.sh.g"
-      "enerated.Recommendations\"\000B\036\n\032com.piggyb"
-      "ank.sh.generatedP\001b\006proto3"
+      "ands\030\002 \003(\0132\024.sh.generated.Demand\"W\n\004Task"
+      "\022*\n\006params\030\001 \001(\0132\032.sh.generated.SearchPa"
+      "rams\022#\n\006orders\030\002 \003(\0132\023.sh.generated.Orde"
+      "r\"Z\n\006Action\022\017\n\007eventId\030\001 \001(\005\022\021\n\ttimeStar"
+      "t\030\002 \001(\005\022\022\n\ntimeFinish\030\003 \001(\005\022\030\n\020distanceT"
+      "raveled\030\004 \001(\005\"4\n\005Stats\022\021\n\ttimeSpent\030\001 \001("
+      "\005\022\030\n\020distanceTraveled\030\002 \001(\005\"\261\001\n\004Trip\022\017\n\007"
+      "orderId\030\001 \001(\005\022%\n\005start\030\002 \001(\0132\026.sh.genera"
+      "ted.GeoPoint\022&\n\006finish\030\003 \001(\0132\026.sh.genera"
+      "ted.GeoPoint\022%\n\007actions\030\004 \003(\0132\024.sh.gener"
+      "ated.Action\022\"\n\005stats\030\005 \001(\0132\023.sh.generate"
+      "d.Stats\">\n\017Recommendations\022+\n\017recommenda"
+      "tions\030\001 \003(\0132\022.sh.generated.Trip2e\n\027Recom"
+      "mendationsSearcher\022J\n\023findRecommendation"
+      "s\022\022.sh.generated.Task\032\035.sh.generated.Rec"
+      "ommendations\"\000B\036\n\032com.piggybank.sh.gener"
+      "atedP\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 986);
+      descriptor, 974);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Recommendations.proto", &protobuf_RegisterTypes);
   ::protobuf_General_2eproto::AddDescriptors();
@@ -1556,7 +1555,6 @@ void Task::clear_params() {
   params_ = NULL;
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int Task::kIdFieldNumber;
 const int Task::kParamsFieldNumber;
 const int Task::kOrdersFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
@@ -1578,14 +1576,11 @@ Task::Task(const Task& from)
   } else {
     params_ = NULL;
   }
-  id_ = from.id_;
   // @@protoc_insertion_point(copy_constructor:sh.generated.Task)
 }
 
 void Task::SharedCtor() {
-  ::memset(&params_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&id_) -
-      reinterpret_cast<char*>(&params_)) + sizeof(id_));
+  params_ = NULL;
 }
 
 Task::~Task() {
@@ -1622,7 +1617,6 @@ void Task::Clear() {
     delete params_;
   }
   params_ = NULL;
-  id_ = 0;
   _internal_metadata_.Clear();
 }
 
@@ -1636,24 +1630,10 @@ bool Task::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // int32 id = 1;
+      // .sh.generated.SearchParams params = 1;
       case 1: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &id_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .sh.generated.SearchParams params = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(10u /* 10 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                input, mutable_params()));
         } else {
@@ -1662,10 +1642,10 @@ bool Task::MergePartialFromCodedStream(
         break;
       }
 
-      // repeated .sh.generated.Order orders = 3;
-      case 3: {
+      // repeated .sh.generated.Order orders = 2;
+      case 2: {
         if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
+            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
                 input, add_orders()));
         } else {
@@ -1700,22 +1680,17 @@ void Task::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int32 id = 1;
-  if (this->id() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->id(), output);
-  }
-
-  // .sh.generated.SearchParams params = 2;
+  // .sh.generated.SearchParams params = 1;
   if (this->has_params()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->_internal_params(), output);
+      1, this->_internal_params(), output);
   }
 
-  // repeated .sh.generated.Order orders = 3;
+  // repeated .sh.generated.Order orders = 2;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->orders_size()); i < n; i++) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3,
+      2,
       this->orders(static_cast<int>(i)),
       output);
   }
@@ -1734,24 +1709,19 @@ void Task::SerializeWithCachedSizes(
   ::google::protobuf::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  // int32 id = 1;
-  if (this->id() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->id(), target);
-  }
-
-  // .sh.generated.SearchParams params = 2;
+  // .sh.generated.SearchParams params = 1;
   if (this->has_params()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        2, this->_internal_params(), deterministic, target);
+        1, this->_internal_params(), deterministic, target);
   }
 
-  // repeated .sh.generated.Order orders = 3;
+  // repeated .sh.generated.Order orders = 2;
   for (unsigned int i = 0,
       n = static_cast<unsigned int>(this->orders_size()); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageToArray(
-        3, this->orders(static_cast<int>(i)), deterministic, target);
+        2, this->orders(static_cast<int>(i)), deterministic, target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -1771,7 +1741,7 @@ size_t Task::ByteSizeLong() const {
       ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
   }
-  // repeated .sh.generated.Order orders = 3;
+  // repeated .sh.generated.Order orders = 2;
   {
     unsigned int count = static_cast<unsigned int>(this->orders_size());
     total_size += 1UL * count;
@@ -1782,18 +1752,11 @@ size_t Task::ByteSizeLong() const {
     }
   }
 
-  // .sh.generated.SearchParams params = 2;
+  // .sh.generated.SearchParams params = 1;
   if (this->has_params()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSize(
         *params_);
-  }
-
-  // int32 id = 1;
-  if (this->id() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->id());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -1827,9 +1790,6 @@ void Task::MergeFrom(const Task& from) {
   if (from.has_params()) {
     mutable_params()->::sh::generated::SearchParams::MergeFrom(from.params());
   }
-  if (from.id() != 0) {
-    set_id(from.id());
-  }
 }
 
 void Task::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1858,7 +1818,6 @@ void Task::InternalSwap(Task* other) {
   using std::swap;
   CastToBase(&orders_)->InternalSwap(CastToBase(&other->orders_));
   swap(params_, other->params_);
-  swap(id_, other->id_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 
