@@ -21,11 +21,12 @@ class ShelterEntity(id: EntityID<Int>) : IntEntity(id) {
 }
 
 object SheltersOrdersTable : IntIdTable() {
-    val shelter = reference("shelter_ref", SheltersTable)
-
     val title = text("title")
     val description = text("description")
     val tags = text("tags")
+
+    // parent
+    val shelter = reference("shelter_ref", SheltersTable)
 }
 
 class SheltersOrderEntity(id: EntityID<Int>) : IntEntity(id) {
@@ -37,7 +38,7 @@ class SheltersOrderEntity(id: EntityID<Int>) : IntEntity(id) {
 
     var tags by StringListDelegator(SheltersOrdersTable.tags)
 
-    val demands by OrderDemandEntity referrersOn OrderDemandsTable.order
+    val demands by OrderDemandEntity referrersOn OrdersDemandsTable.order
 
     fun addDemand(builder: OrderDemandEntity.() -> Unit) {
         OrderDemandEntity.new {
@@ -45,9 +46,11 @@ class SheltersOrderEntity(id: EntityID<Int>) : IntEntity(id) {
             order = this@SheltersOrderEntity
         }
     }
+
+    var shelter by ShelterEntity referencedOn SheltersOrdersTable.shelter
 }
 
-object OrderDemandsTable : IntIdTable() {
+object OrdersDemandsTable : IntIdTable() {
     val description = text("description")
 
     val type = text("type") // OrderDemandType
@@ -58,7 +61,9 @@ object OrderDemandsTable : IntIdTable() {
 
     val shelter = reference("shelter", SheltersTable).nullable()
 
-    val venue = reference("venue", VenuesTable).nullable()
+    val suitableVenueTag = text("suitable_venue").nullable()
+
+    //val venue = reference("venue", VenuesTable).nullable()
 
     // parent
     val order = reference("order", SheltersOrdersTable)
@@ -72,11 +77,11 @@ enum class OrderDemandType {
 }
 
 class OrderDemandEntity(id: EntityID<Int>) : IntEntity(id) {
-    companion object : IntEntityClass<OrderDemandEntity>(OrderDemandsTable)
+    companion object : IntEntityClass<OrderDemandEntity>(OrdersDemandsTable)
 
-    var description by OrderDemandsTable.description
+    var description by OrdersDemandsTable.description
 
-    private var _type by OrderDemandsTable.type
+    private var _type by OrdersDemandsTable.type
 
     var type: OrderDemandType
         get() = OrderDemandType.valueOf(_type)
@@ -84,16 +89,15 @@ class OrderDemandEntity(id: EntityID<Int>) : IntEntity(id) {
             _type = value.name
         }
 
-    var duration by OrderDemandsTable.duration
+    var duration by OrdersDemandsTable.duration
 
-    var timeWindow by ProtobufMessageDelegatorNullable<TimeWindow>(OrderDemandsTable.timeWindow) { TimeWindow.newBuilder() }
+    var timeWindow by ProtobufMessageDelegatorNullable<TimeWindow>(OrdersDemandsTable.timeWindow) { TimeWindow.newBuilder() }
 
-    var shelter by ShelterEntity optionalReferencedOn OrderDemandsTable.shelter
+    var shelter by ShelterEntity optionalReferencedOn OrdersDemandsTable.shelter
 
-    var venue by VenueEntity optionalReferencedOn OrderDemandsTable.venue
+    var suitableVenueTag by OrdersDemandsTable.suitableVenueTag
 
-    var order by SheltersOrderEntity referencedOn OrderDemandsTable.order
+    //var venue by VenueEntity optionalReferencedOn OrdersDemandsTable.venue
 
-    init {
-    }
+    var order by SheltersOrderEntity referencedOn OrdersDemandsTable.order
 }

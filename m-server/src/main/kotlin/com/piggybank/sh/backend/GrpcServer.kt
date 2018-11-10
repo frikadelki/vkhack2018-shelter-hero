@@ -37,7 +37,7 @@ class MapObjectServiceImpl(private val app: SHApp) : MapObjectServiceGrpc.MapObj
     override fun allObjects(request: MapObjectRequest, responseObserver: StreamObserver<MapObjectResponse>) {
         val response = MapObjectResponse.newBuilder()
                 .addAllShelters(app.shelterMapObjects())
-                .addAllVenues(emptyList())
+                .addAllVenues(app.venueMapObjects())
                 .build()
 
         responseObserver.onNext(response)
