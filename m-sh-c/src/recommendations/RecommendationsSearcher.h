@@ -5,5 +5,5 @@
 
 namespace sh
 {
-    Opt<Trip> planOrder(const Order& order, const SearchParams& searchParams);
+    Recommendations findRecommendations(const Task& task);
 }

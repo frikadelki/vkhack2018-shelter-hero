@@ -10,4 +10,18 @@ namespace sh
         google::protobuf::util::MessageToJsonString(trip, &result);
         return result;
     }
+
+    std::string toString(const Task& task)
+    {
+        std::string result;
+        google::protobuf::util::MessageToJsonString(task, &result);
+        return result;
+    }
+
+    std::string toString(const Recommendations& recommendations)
+    {
+        std::string result;
+        google::protobuf::util::MessageToJsonString(recommendations, &result);
+        return result;
+    }
 }

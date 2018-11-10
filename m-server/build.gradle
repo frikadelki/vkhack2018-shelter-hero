@@ -28,7 +28,7 @@ sourceSets {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.6.1"
+        artifact = "com.google.protobuf:protoc:3.5.1"
     }
     plugins {
         grpc {
@@ -53,6 +53,7 @@ dependencies {
     compile "io.grpc:grpc-netty-shaded:$lib_grpc_v"
     compile "io.grpc:grpc-protobuf:$lib_grpc_v"
     compile "io.grpc:grpc-stub:$lib_grpc_v"
+    compile "com.google.protobuf:protobuf-java-util:3.5.1"
 
     compile "com.h2database:h2:1.4.197"
     compile "org.jetbrains.exposed:exposed:0.11.2"

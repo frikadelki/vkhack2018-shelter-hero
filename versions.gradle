@@ -4,3 +4,4 @@ ext.lib_junit_v = "4.12"
 
 ext.lib_ktor_v = "1.0.0-beta-3"
 ext.lib_grpc_v = "1.15.0"
+//ext.lib_grpc_v = "1.12.0"
