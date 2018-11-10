@@ -6,6 +6,6 @@
 
 namespace sh
 {
-    Time time(const GeoPoint& from, const GeoPoint& to, Transport transport);
-    Dist dist(const GeoPoint& from, const GeoPoint& to, Transport transport);
+    Time calcTime(const GeoPoint& from, const GeoPoint& to, Transport transport);
+    Dist calcDist(const GeoPoint& from, const GeoPoint& to, Transport transport);
 }

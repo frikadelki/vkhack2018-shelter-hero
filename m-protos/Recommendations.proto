@@ -58,8 +58,10 @@ message Stats
 message Trip
 {
     int32 orderId = 1;
-    repeated Action actions = 2;
-    Stats stats = 3;
+    GeoPoint start = 2;
+    GeoPoint finish = 3;
+    repeated Action actions = 4;
+    Stats stats = 5;
 }
 
 message Recommendations

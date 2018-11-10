@@ -14,7 +14,8 @@ void testRouting()
     p2.set_lat(45.7486);
     p2.set_lon(70.9864);
 
-    std::cout << dist(p1, p2, Transport::PEDESTRIAN) << std::endl;
+    // approx. 606634 m
+    std::cout << calcDist(p1, p2, Transport::PEDESTRIAN) << std::endl;
 }
 
 int main()
