@@ -88,16 +88,16 @@ class MapView: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
 
                 mapObjects.shelters.forEach({ shelter in
                     let annotation = ShelterAnnotation()
-                    annotation.coordinate = CLLocationCoordinate2D(latitude: shelter.coordinate.latitude,
-                                                                   longitude: shelter.coordinate.longitude)
+                    annotation.coordinate = CLLocationCoordinate2D(latitude: shelter.shelter.coordinate.lat,
+                                                                   longitude: shelter.shelter.coordinate.lon)
                     annotation.shelter = shelter
                     annotations.append(annotation)
                 })
 
                 mapObjects.venues.forEach({ venue in
                     let annotation = VenueAnnotation()
-                    annotation.coordinate = CLLocationCoordinate2D(latitude: venue.coordinate.latitude,
-                                                                   longitude: venue.coordinate.longitude)
+                    annotation.coordinate = CLLocationCoordinate2D(latitude: venue.venue.coordinate.lat,
+                                                                   longitude: venue.venue.coordinate.lon)
                     annotation.venue = venue
                     annotations.append(annotation)
                 })
@@ -149,7 +149,7 @@ class MapView: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
 
     func cameraPositionToUser() {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            if (!mkMap.userLocation.isUpdating) {
+            if (!mkMap.userLocation.isUpdating || mkMap.userLocation.location != nil) {
                 myLocation(sender: nil)
             } else {
                 needMoveCameraToUser = true
@@ -181,8 +181,8 @@ class MapView: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
             } else {
                 annotationView = ShelterAnnotationView(annotation: annotation, reuseIdentifier: "ShelterAnnotation")
             }
-            annotationView.badgeCount = annotationShetler.shelter.availableTasks.count
-            annotationView.image = UIImage(named: annotationShetler.shelter.iconName)
+            annotationView.badgeCount = annotationShetler.shelter.availableOrders.count
+            annotationView.image = UIImage(named: annotationShetler.shelter.shelter.iconName)
             return annotationView
         } else  if let annotationVenue = annotation as? VenueAnnotation {
             let annotationView: VenueAnnotationView
@@ -192,7 +192,7 @@ class MapView: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
             } else {
                 annotationView = VenueAnnotationView(annotation: annotation, reuseIdentifier: "VenueAnnotation")
             }
-            annotationView.image = UIImage(named: annotationVenue.venue.iconName)
+            annotationView.image = UIImage(named: annotationVenue.venue.venue.iconName)
             return annotationView
         }
         return nil

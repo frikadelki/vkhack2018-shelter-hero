@@ -10,16 +10,24 @@
 		3ADAE14AEC4AD07592CEFB3D /* Pods_m_ios_client.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EACBEAEBEE0817887E0037B2 /* Pods_m_ios_client.framework */; };
 		CBD2BFC72195F7C0005006DD /* MapObject.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFC52195F7C0005006DD /* MapObject.pb.swift */; };
 		CBD2BFC82195F7C0005006DD /* MapObject.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFC62195F7C0005006DD /* MapObject.grpc.swift */; };
-		CBD2BFCB2195F7EF005006DD /* MapObject.proto in Resources */ = {isa = PBXBuildFile; fileRef = CBD2BFCA2195F7EF005006DD /* MapObject.proto */; };
 		CBD2BFCD2195FB62005006DD /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFCC2195FB62005006DD /* MapController.swift */; };
 		CBD2BFD121961F28005006DD /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CBD2BFD021961F28005006DD /* Localizable.strings */; };
 		CBD2BFD5219620DA005006DD /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFD4219620DA005006DD /* FilterViewController.swift */; };
-		CBD2BFD921963DE7005006DD /* Auth.proto in Resources */ = {isa = PBXBuildFile; fileRef = CBD2BFD821963DE7005006DD /* Auth.proto */; };
 		CBD2BFDC21963E93005006DD /* Auth.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFDA21963E93005006DD /* Auth.grpc.swift */; };
 		CBD2BFDD21963E93005006DD /* Auth.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFDB21963E93005006DD /* Auth.pb.swift */; };
 		CBD2BFDF21963ED5005006DD /* AuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFDE21963ED5005006DD /* AuthController.swift */; };
 		CBD2BFE121963F57005006DD /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFE021963F57005006DD /* ApiConfig.swift */; };
 		CBD2BFE32196422E005006DD /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFE22196422E005006DD /* MapView.swift */; };
+		CBD2BFEB2196BB66005006DD /* Recommendations.proto in Resources */ = {isa = PBXBuildFile; fileRef = CBD2BFEA2196BB65005006DD /* Recommendations.proto */; };
+		CBD2BFF22196BD7C005006DD /* General.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFF12196BD7C005006DD /* General.pb.swift */; };
+		CBD2BFF52196C0A9005006DD /* QuestsSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFF42196C0A9005006DD /* QuestsSearchViewController.swift */; };
+		CBD2BFF72196C0C1005006DD /* QuestsSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFF62196C0C1005006DD /* QuestsSearchController.swift */; };
+		CBD2BFF92196C942005006DD /* Shelter.proto in Resources */ = {isa = PBXBuildFile; fileRef = CBD2BFF82196C942005006DD /* Shelter.proto */; };
+		CBD2BFFB2196CA53005006DD /* Shelter.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD2BFFA2196CA52005006DD /* Shelter.pb.swift */; };
+		CBDAC8902196EB67003053E9 /* Venue.proto in Resources */ = {isa = PBXBuildFile; fileRef = CBDAC88F2196EB67003053E9 /* Venue.proto */; };
+		CBDAC8942196EC4B003053E9 /* Quests.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC8912196EC4A003053E9 /* Quests.grpc.swift */; };
+		CBDAC8952196EC4B003053E9 /* Quests.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC8922196EC4B003053E9 /* Quests.pb.swift */; };
+		CBDAC8962196EC4B003053E9 /* Venue.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC8932196EC4B003053E9 /* Venue.pb.swift */; };
 		CBDEDA4B2195C0DA009F337A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDEDA4A2195C0DA009F337A /* AppDelegate.swift */; };
 		CBDEDA4D2195C0DA009F337A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDEDA4C2195C0DA009F337A /* MapViewController.swift */; };
 		CBDEDA522195C0DC009F337A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBDEDA512195C0DC009F337A /* Assets.xcassets */; };
@@ -41,6 +49,18 @@
 		CBD2BFDE21963ED5005006DD /* AuthController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthController.swift; sourceTree = "<group>"; };
 		CBD2BFE021963F57005006DD /* ApiConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
 		CBD2BFE22196422E005006DD /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		CBD2BFE82196B639005006DD /* Quests.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Quests.proto; sourceTree = "<group>"; };
+		CBD2BFEA2196BB65005006DD /* Recommendations.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Recommendations.proto; sourceTree = "<group>"; };
+		CBD2BFEC2196BC02005006DD /* General.proto */ = {isa = PBXFileReference; lastKnownFileType = text; path = General.proto; sourceTree = "<group>"; };
+		CBD2BFF12196BD7C005006DD /* General.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = General.pb.swift; sourceTree = "<group>"; };
+		CBD2BFF42196C0A9005006DD /* QuestsSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestsSearchViewController.swift; sourceTree = "<group>"; };
+		CBD2BFF62196C0C1005006DD /* QuestsSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestsSearchController.swift; sourceTree = "<group>"; };
+		CBD2BFF82196C942005006DD /* Shelter.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Shelter.proto; sourceTree = "<group>"; };
+		CBD2BFFA2196CA52005006DD /* Shelter.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shelter.pb.swift; sourceTree = "<group>"; };
+		CBDAC88F2196EB67003053E9 /* Venue.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Venue.proto; sourceTree = "<group>"; };
+		CBDAC8912196EC4A003053E9 /* Quests.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quests.grpc.swift; sourceTree = "<group>"; };
+		CBDAC8922196EC4B003053E9 /* Quests.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quests.pb.swift; sourceTree = "<group>"; };
+		CBDAC8932196EC4B003053E9 /* Venue.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.pb.swift; sourceTree = "<group>"; };
 		CBDEDA472195C0DA009F337A /* m-ios-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "m-ios-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBDEDA4A2195C0DA009F337A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBDEDA4C2195C0DA009F337A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +94,11 @@
 		CBD2BFC42195F7C0005006DD /* ApiLayer */ = {
 			isa = PBXGroup;
 			children = (
+				CBDAC8912196EC4A003053E9 /* Quests.grpc.swift */,
+				CBDAC8922196EC4B003053E9 /* Quests.pb.swift */,
+				CBDAC8932196EC4B003053E9 /* Venue.pb.swift */,
+				CBD2BFFA2196CA52005006DD /* Shelter.pb.swift */,
+				CBD2BFF12196BD7C005006DD /* General.pb.swift */,
 				CBD2BFDA21963E93005006DD /* Auth.grpc.swift */,
 				CBD2BFDB21963E93005006DD /* Auth.pb.swift */,
 				CBD2BFC52195F7C0005006DD /* MapObject.pb.swift */,
@@ -85,6 +110,11 @@
 		CBD2BFC92195F7EF005006DD /* m-protos */ = {
 			isa = PBXGroup;
 			children = (
+				CBDAC88F2196EB67003053E9 /* Venue.proto */,
+				CBD2BFF82196C942005006DD /* Shelter.proto */,
+				CBD2BFEC2196BC02005006DD /* General.proto */,
+				CBD2BFEA2196BB65005006DD /* Recommendations.proto */,
+				CBD2BFE82196B639005006DD /* Quests.proto */,
 				CBD2BFD821963DE7005006DD /* Auth.proto */,
 				CBD2BFCA2195F7EF005006DD /* MapObject.proto */,
 			);
@@ -130,6 +160,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		CBD2BFF32196BF6B005006DD /* Quests */ = {
+			isa = PBXGroup;
+			children = (
+				CBD2BFF42196C0A9005006DD /* QuestsSearchViewController.swift */,
+				CBD2BFF62196C0C1005006DD /* QuestsSearchController.swift */,
+			);
+			path = Quests;
+			sourceTree = "<group>";
+		};
 		CBDEDA3E2195C0DA009F337A = {
 			isa = PBXGroup;
 			children = (
@@ -151,6 +190,7 @@
 		CBDEDA492195C0DA009F337A /* m-ios-client */ = {
 			isa = PBXGroup;
 			children = (
+				CBD2BFF32196BF6B005006DD /* Quests */,
 				CBD2BFE72196B5B7005006DD /* Resources */,
 				CBD2BFE62196B5A9005006DD /* FiltersScreen */,
 				CBD2BFE52196B59D005006DD /* MapScreen */,
@@ -230,11 +270,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CBD2BFD921963DE7005006DD /* Auth.proto in Resources */,
-				CBD2BFCB2195F7EF005006DD /* MapObject.proto in Resources */,
 				CBD2BFD121961F28005006DD /* Localizable.strings in Resources */,
 				CBDEDA552195C0DC009F337A /* LaunchScreen.storyboard in Resources */,
 				CBDEDA522195C0DC009F337A /* Assets.xcassets in Resources */,
+				CBD2BFF92196C942005006DD /* Shelter.proto in Resources */,
+				CBDAC8902196EB67003053E9 /* Venue.proto in Resources */,
+				CBD2BFEB2196BB66005006DD /* Recommendations.proto in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,17 +335,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBD2BFF72196C0C1005006DD /* QuestsSearchController.swift in Sources */,
+				CBDAC8952196EC4B003053E9 /* Quests.pb.swift in Sources */,
+				CBD2BFFB2196CA53005006DD /* Shelter.pb.swift in Sources */,
 				CBD2BFD5219620DA005006DD /* FilterViewController.swift in Sources */,
 				CBD2BFDD21963E93005006DD /* Auth.pb.swift in Sources */,
 				CBD2BFC72195F7C0005006DD /* MapObject.pb.swift in Sources */,
+				CBD2BFF22196BD7C005006DD /* General.pb.swift in Sources */,
+				CBDAC8962196EC4B003053E9 /* Venue.pb.swift in Sources */,
 				CBD2BFE32196422E005006DD /* MapView.swift in Sources */,
 				CBDEDA4D2195C0DA009F337A /* MapViewController.swift in Sources */,
 				CBD2BFDF21963ED5005006DD /* AuthController.swift in Sources */,
 				CBD2BFC82195F7C0005006DD /* MapObject.grpc.swift in Sources */,
+				CBD2BFF52196C0A9005006DD /* QuestsSearchViewController.swift in Sources */,
 				CBD2BFCD2195FB62005006DD /* MapController.swift in Sources */,
 				CBD2BFE121963F57005006DD /* ApiConfig.swift in Sources */,
 				CBD2BFDC21963E93005006DD /* Auth.grpc.swift in Sources */,
 				CBDEDA4B2195C0DA009F337A /* AppDelegate.swift in Sources */,
+				CBDAC8942196EC4B003053E9 /* Quests.grpc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

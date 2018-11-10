@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package sh.generated;
+
+import "General.proto";
+import "Shelter.proto";
+import "Venue.proto";
+
+service QuestsService {
+    rpc search(SearchQuestsRequest) returns (SearchQuestsResponse) {}
+}
+
+message ShelterQuest {
+    ShelterOrder order = 1;
+    repeated ShelterQuestStep steps = 2;
+}
+
+message ShelterQuestStep {
+    ShelterDemand demand = 1;
+    Venue venue = 2;
+    TimeWindow timeWindow = 3;
+    int32 duration = 4;
+}
+
+message SearchQuestsRequest {
+    SearchParams params = 1;
+    repeated string orderTags = 2;
+}
+
+message SearchQuestsResponse {
+    repeated ShelterQuest quests = 1;
+}

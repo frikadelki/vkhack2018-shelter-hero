@@ -46,29 +46,44 @@ protocol FilterViewControllerDelegate: AnyObject {
 
 class FilterViewController: UIViewController {
 
+    enum Style {
+        case apply
+        case search
+    }
+
     weak var delegate: FilterViewControllerDelegate?
 
     private let venueTags: [String]
     private let venueTagsCheked: Set<String>
     private let taskTags: [String]
     private let taskTagsCheked: Set<String>
+    private let style: Style
 
     private var venueTagsControls: [CheckBoxElement]?
     private var taskTagsControls: [CheckBoxElement]?
 
     private let scrollView = UIScrollView()
 
-    init(venueTags: Set<String>, venueTagsCheked: Set<String>, taskTags: Set<String>, taskTagsCheked: Set<String>) {
+    init(venueTags: Set<String>, venueTagsCheked: Set<String>, taskTags: Set<String>, taskTagsCheked: Set<String>, style: Style) {
         self.venueTags = Array(venueTags)
         self.taskTags = Array(taskTags)
         self.venueTagsCheked = venueTagsCheked
         self.taskTagsCheked = taskTagsCheked
+        self.style = style
         super.init(nibName: nil, bundle: nil)
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("apply", comment: ""),
-                                                            style: .plain,
-                                                            target: self,
-                                                            action: #selector(FilterViewController.applyAction(sender:)))
+        switch self.style {
+        case .apply:
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("apply", comment: ""),
+                                                                style: .plain,
+                                                                target: self,
+                                                                action: #selector(FilterViewController.applyAction(sender:)))
+        case .search:
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("search", comment: ""),
+                                                                style: .plain,
+                                                                target: self,
+                                                                action: #selector(FilterViewController.nextAction(sender:)))
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -181,5 +196,22 @@ class FilterViewController: UIViewController {
         delegate?.filterViewControllerApplyFilters(self,
                                                    venueTags: venueTagsChacked,
                                                    taskTags: taskTagsChacked)
+    }
+
+    @objc func nextAction(sender: Any) {
+        var taskTagsChacked: Set<String> = Set()
+
+        taskTagsControls?.enumerated().forEach({ index, element in
+            if element.checkBox.isOn {
+                taskTagsChacked.insert(taskTags[index])
+            }
+        })
+
+        var timeWindow = Sh_Generated_TimeWindow()
+        timeWindow.from = 0
+        timeWindow.to = Int32.max
+
+        let ordersListVC = QuestsSearchViewController(orderTags: taskTagsChacked, timeWindow: timeWindow)
+        navigationController?.pushViewController(ordersListVC, animated: true)
     }
 }

@@ -18,9 +18,8 @@ message AuthResponse {
 }
 
 message LogoutRequest {
-    string toekn = 1;
+    string token = 1;
 }
 
 message LogoutResponse {
-    string toekn = 1;
 }

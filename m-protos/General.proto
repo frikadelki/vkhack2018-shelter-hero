@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package sh.generated;
+
+message TimeWindow
+{
+    int32 from = 1;
+    int32 to = 2;
+}
+
+message GeoPoint
+{
+    double lat = 1;
+    double lon = 2;
+}
+
+enum Transport
+{
+    PEDESTRIAN = 0;
+    PUBLIC_TRANSPORT = 1;
+    CAR = 2;
+}
+
+message SearchParams
+{
+    GeoPoint start = 1;
+    GeoPoint finish = 2;
+    Transport transport = 3;
+    TimeWindow availabilityWindow = 4;
+    int32 timeLimit = 5;
+    int32 distanceLimit = 6;
+}

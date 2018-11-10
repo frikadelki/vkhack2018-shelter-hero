@@ -5,17 +5,7 @@ option java_package = "com.piggybank.sh.generated";
 
 package sh.generated;
 
-message TimeWindow
-{
-    int32 from = 1;
-    int32 to = 2;
-}
-
-message GeoPoint
-{
-    double lat = 1;
-    double lon = 2;
-}
+import "General.proto";
 
 message Location
 {
@@ -43,24 +33,6 @@ message Order
     int32 id = 1;
 
     repeated Demand demands = 2;
-}
-
-enum Transport
-{
-    PEDESTRIAN = 0;
-    CAR = 1;
-    PUBLIC_TRANSPORT = 2;
-}
-
-message SearchParams
-{
-    int32 id = 1;
-
-    GeoPoint start = 2;
-    GeoPoint finish = 3;
-    Transport transport = 4;
-    TimeWindow availabilityWindow = 5;
-    int32 distanceLimit = 6;
 }
 
 message Task
