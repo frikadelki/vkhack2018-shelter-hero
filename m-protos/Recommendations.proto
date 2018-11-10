@@ -36,24 +36,6 @@ message Order
     repeated Demand demands = 2;
 }
 
-enum Transport
-{
-    PEDESTRIAN = 0;
-    CAR = 1;
-    PUBLIC_TRANSPORT = 2;
-}
-
-message SearchParams
-{
-    int32 id = 1;
-
-    GeoPoint start = 2;
-    GeoPoint finish = 3;
-    Transport transport = 4;
-    TimeWindow availabilityWindow = 5;
-    int32 distanceLimit = 6;
-}
-
 message Task
 {
     int32 id = 1;

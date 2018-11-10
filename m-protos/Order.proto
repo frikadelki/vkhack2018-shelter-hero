@@ -5,30 +5,39 @@ package sh.generated;
 import "General.proto";
 import "Shelter.proto";
 
-service OrderService {
-    rpc availableOrders(AvailableOrdersRequest) returns (OrdersResponse) {}
-    rpc searchOrders(SearchOrdersRequest) returns (OrdersResponse) {}
+service QuestsService {
+    rpc search(SearchQuestsRequest) returns (SearchQuestsResponse) {}
 }
 
-message Order {
+message ShelterOrder {
     string title = 1;
     string description = 2;
     repeated string tags = 3;
     Shelter shelter = 4;
+    repeated ShelterDemand demands = 5;
 }
 
-message AvailableOrdersRequest {
-    string shelterId = 1;
-    string token = 2;
+message ShelterDemand {
+    string text = 1;
 }
 
-message SearchOrdersRequest {
-    repeated string orderTags = 1;
-    GeoPoint startPoint = 2;
+message ShelterQuest {
+    ShelterOrder order = 1;
+    repeated ShelterQuestStep steps = 2;
+}
+
+message ShelterQuestStep {
+    ShelterDemand demand = 1;
+    // TODO: Venue venue
     TimeWindow timeWindow = 3;
-    string token = 4;
+    int32 duration = 4;
 }
 
-message OrdersResponse {
-    repeated Order orders = 1;
+message SearchQuestsRequest {
+    SearchParams params = 1;
+    repeated string orderTags = 2;
+}
+
+message SearchQuestsResponse {
+    repeated ShelterQuest orders = 1;
 }
