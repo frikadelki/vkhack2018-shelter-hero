@@ -8,6 +8,48 @@
 
 import Foundation
 import UIKit
+import SnapKit
+
+class QuestViewCell : UITableViewCell {
+
+    let questTitle = UILabel()
+    let questStatus = UILabel()
+
+    var statusWidth: Constraint!
+
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        questTitle.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(questTitle)
+
+        questStatus.font = UIFont.systemFont(ofSize: 12)
+        questStatus.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(questStatus)
+
+        questTitle.snp.makeConstraints { maker in
+            maker.top.equalTo(contentView).offset(10)
+            maker.leading.equalTo(contentView).offset(20)
+            maker.trailing.equalTo(contentView).offset(-20)
+        }
+
+        questStatus.snp.makeConstraints { maker in
+            maker.top.equalTo(questTitle.snp.bottom)
+            maker.leading.equalTo(questTitle)
+            maker.bottom.equalTo(contentView).offset(-10)
+            statusWidth = maker.height.equalTo(0).constraint
+        }
+    }
+
+    func setStatus(_ status: String) {
+        statusWidth.deactivate()
+        questStatus.text = status
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
 
 class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let tableView = UITableView()
@@ -63,6 +105,10 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
         activityIndicator.snp.makeConstraints { maker in
             maker.center.equalTo(view)
         }
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
 
         if questsSearchController != nil, let request = request {
             activityIndicator.startAnimating()
@@ -96,13 +142,26 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "QuestCellID") ?? UITableViewCell(style: UITableViewCellStyle.subtitle,
-                                                                                                   reuseIdentifier: "QuestCellID")
+        var cell: QuestViewCell! = tableView.dequeueReusableCell(withIdentifier: "QuestCellID") as? QuestViewCell
+        if cell == nil {
+            cell = QuestViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "QuestCellID")
+        }
 
-        cell.textLabel?.text = questsResponse!.quests[indexPath.row].order.title
-        cell.textLabel?.numberOfLines = 0
-        cell.detailTextLabel?.text = questsResponse!.quests[indexPath.row].order.description_p
-        cell.detailTextLabel?.numberOfLines = 0
+        let record = getRecord(index: indexPath.row)
+
+        cell.questTitle.text = questsResponse!.quests[indexPath.row].order.title
+        cell.questTitle.numberOfLines = 0
+
+        if let record = record {
+            switch record.status {
+            case .inProgress: cell.setStatus(NSLocalizedString("status in progress", comment: ""))
+            case .onReview: cell.setStatus(NSLocalizedString("status on reniew", comment: ""))
+            case .checked, .closed: cell.setStatus(NSLocalizedString("status is closed", comment: ""))
+            case .rejected: cell.setStatus(NSLocalizedString("status is rejecred", comment: ""))
+            case .canceled: cell.setStatus(NSLocalizedString("status is canceled", comment: ""))
+            default: assertionFailure("Unknown status")
+            }
+        }
 
         return cell
     }
@@ -128,9 +187,7 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let record = records?.first(where: { record in
-            record.shelterQuest.id == questsResponse!.quests[indexPath.row].id
-        })
+        let record = getRecord(index: indexPath.row)
         let detailsVC = QuestDetailsViewController(quest: questsResponse!.quests[indexPath.row],
                                                    record: record)
         navigationController?.pushViewController(detailsVC, animated: true)
@@ -138,5 +195,11 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
         DispatchQueue.main.async {
             tableView.deselectRow(at: indexPath, animated: true)
         }
+    }
+
+    func getRecord(index: Int) -> Sh_Generated_ShelterQuestRecord? {
+        return records?.first(where: { record in
+            record.shelterQuest.id == questsResponse!.quests[index].id
+        })
     }
 }

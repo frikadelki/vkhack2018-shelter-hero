@@ -49,6 +49,12 @@ fileprivate final class Sh_Generated_ShelterQuestRecordServiceupdateDemandCallBa
   override class var method: String { return "/sh.generated.ShelterQuestRecordService/updateDemand" }
 }
 
+internal protocol Sh_Generated_ShelterQuestRecordServicedoneCall: ClientCallUnary {}
+
+fileprivate final class Sh_Generated_ShelterQuestRecordServicedoneCallBase: ClientCallUnaryBase<Sh_Generated_ShelterQuestRequest, Sh_Generated_ShelterQuestResponse>, Sh_Generated_ShelterQuestRecordServicedoneCall {
+  override class var method: String { return "/sh.generated.ShelterQuestRecordService/done" }
+}
+
 
 /// Instantiate Sh_Generated_ShelterQuestRecordServiceServiceClient, then call methods of this protocol to make API calls.
 internal protocol Sh_Generated_ShelterQuestRecordServiceService: ServiceClient {
@@ -71,6 +77,11 @@ internal protocol Sh_Generated_ShelterQuestRecordServiceService: ServiceClient {
   func updateDemand(_ request: Sh_Generated_ShelterQuestUpdateDemandRequest) throws -> Sh_Generated_ShelterQuestUpdateDemandResponse
   /// Asynchronous. Unary.
   func updateDemand(_ request: Sh_Generated_ShelterQuestUpdateDemandRequest, completion: @escaping (Sh_Generated_ShelterQuestUpdateDemandResponse?, CallResult) -> Void) throws -> Sh_Generated_ShelterQuestRecordServiceupdateDemandCall
+
+  /// Synchronous. Unary.
+  func done(_ request: Sh_Generated_ShelterQuestRequest) throws -> Sh_Generated_ShelterQuestResponse
+  /// Asynchronous. Unary.
+  func done(_ request: Sh_Generated_ShelterQuestRequest, completion: @escaping (Sh_Generated_ShelterQuestResponse?, CallResult) -> Void) throws -> Sh_Generated_ShelterQuestRecordServicedoneCall
 
 }
 
@@ -116,6 +127,17 @@ internal final class Sh_Generated_ShelterQuestRecordServiceServiceClient: Servic
   /// Asynchronous. Unary.
   internal func updateDemand(_ request: Sh_Generated_ShelterQuestUpdateDemandRequest, completion: @escaping (Sh_Generated_ShelterQuestUpdateDemandResponse?, CallResult) -> Void) throws -> Sh_Generated_ShelterQuestRecordServiceupdateDemandCall {
     return try Sh_Generated_ShelterQuestRecordServiceupdateDemandCallBase(channel)
+      .start(request: request, metadata: metadata, completion: completion)
+  }
+
+  /// Synchronous. Unary.
+  internal func done(_ request: Sh_Generated_ShelterQuestRequest) throws -> Sh_Generated_ShelterQuestResponse {
+    return try Sh_Generated_ShelterQuestRecordServicedoneCallBase(channel)
+      .run(request: request, metadata: metadata)
+  }
+  /// Asynchronous. Unary.
+  internal func done(_ request: Sh_Generated_ShelterQuestRequest, completion: @escaping (Sh_Generated_ShelterQuestResponse?, CallResult) -> Void) throws -> Sh_Generated_ShelterQuestRecordServicedoneCall {
+    return try Sh_Generated_ShelterQuestRecordServicedoneCallBase(channel)
       .start(request: request, metadata: metadata, completion: completion)
   }
 

@@ -28,11 +28,11 @@
 		CBDAC8942196EC4B003053E9 /* Quests.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC8912196EC4A003053E9 /* Quests.grpc.swift */; };
 		CBDAC8952196EC4B003053E9 /* Quests.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC8922196EC4B003053E9 /* Quests.pb.swift */; };
 		CBDAC8962196EC4B003053E9 /* Venue.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC8932196EC4B003053E9 /* Venue.pb.swift */; };
-		CBDAC89921970B7A003053E9 /* QuestDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC89821970B7A003053E9 /* QuestDetailsViewController.swift */; };
 		CBDAC89B21971138003053E9 /* ShelterQuestRecord.proto in Resources */ = {isa = PBXBuildFile; fileRef = CBDAC89A21971138003053E9 /* ShelterQuestRecord.proto */; };
 		CBDAC89E2197190B003053E9 /* ShelterQuestRecord.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC89C2197190B003053E9 /* ShelterQuestRecord.pb.swift */; };
 		CBDAC89F2197190B003053E9 /* ShelterQuestRecord.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC89D2197190B003053E9 /* ShelterQuestRecord.grpc.swift */; };
-		CBDAC8A121971F86003053E9 /* ShlterQuestRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC8A021971F86003053E9 /* ShlterQuestRecordController.swift */; };
+		CBDAC8A8219752E2003053E9 /* ShlterQuestRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC8A6219752E2003053E9 /* ShlterQuestRecordController.swift */; };
+		CBDAC8A9219752E2003053E9 /* QuestDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC8A7219752E2003053E9 /* QuestDetailsViewController.swift */; };
 		CBDEDA4B2195C0DA009F337A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDEDA4A2195C0DA009F337A /* AppDelegate.swift */; };
 		CBDEDA4D2195C0DA009F337A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDEDA4C2195C0DA009F337A /* MapViewController.swift */; };
 		CBDEDA522195C0DC009F337A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBDEDA512195C0DC009F337A /* Assets.xcassets */; };
@@ -66,11 +66,11 @@
 		CBDAC8912196EC4A003053E9 /* Quests.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quests.grpc.swift; sourceTree = "<group>"; };
 		CBDAC8922196EC4B003053E9 /* Quests.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quests.pb.swift; sourceTree = "<group>"; };
 		CBDAC8932196EC4B003053E9 /* Venue.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.pb.swift; sourceTree = "<group>"; };
-		CBDAC89821970B7A003053E9 /* QuestDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestDetailsViewController.swift; sourceTree = "<group>"; };
 		CBDAC89A21971138003053E9 /* ShelterQuestRecord.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ShelterQuestRecord.proto; sourceTree = "<group>"; };
 		CBDAC89C2197190B003053E9 /* ShelterQuestRecord.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShelterQuestRecord.pb.swift; sourceTree = "<group>"; };
 		CBDAC89D2197190B003053E9 /* ShelterQuestRecord.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShelterQuestRecord.grpc.swift; sourceTree = "<group>"; };
-		CBDAC8A021971F86003053E9 /* ShlterQuestRecordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShlterQuestRecordController.swift; sourceTree = "<group>"; };
+		CBDAC8A6219752E2003053E9 /* ShlterQuestRecordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShlterQuestRecordController.swift; sourceTree = "<group>"; };
+		CBDAC8A7219752E2003053E9 /* QuestDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestDetailsViewController.swift; sourceTree = "<group>"; };
 		CBDEDA472195C0DA009F337A /* m-ios-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "m-ios-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBDEDA4A2195C0DA009F337A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBDEDA4C2195C0DA009F337A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -182,11 +182,11 @@
 			path = SearchQuests;
 			sourceTree = "<group>";
 		};
-		CBDAC89721970B30003053E9 /* QuestDetails */ = {
+		CBDAC8A5219752E2003053E9 /* QuestDetails */ = {
 			isa = PBXGroup;
 			children = (
-				CBDAC8A021971F86003053E9 /* ShlterQuestRecordController.swift */,
-				CBDAC89821970B7A003053E9 /* QuestDetailsViewController.swift */,
+				CBDAC8A6219752E2003053E9 /* ShlterQuestRecordController.swift */,
+				CBDAC8A7219752E2003053E9 /* QuestDetailsViewController.swift */,
 			);
 			path = QuestDetails;
 			sourceTree = "<group>";
@@ -212,7 +212,7 @@
 		CBDEDA492195C0DA009F337A /* m-ios-client */ = {
 			isa = PBXGroup;
 			children = (
-				CBDAC89721970B30003053E9 /* QuestDetails */,
+				CBDAC8A5219752E2003053E9 /* QuestDetails */,
 				CBD2BFF32196BF6B005006DD /* SearchQuests */,
 				CBD2BFE72196B5B7005006DD /* Resources */,
 				CBD2BFE62196B5A9005006DD /* FiltersScreen */,
@@ -363,10 +363,10 @@
 				CBDAC8952196EC4B003053E9 /* Quests.pb.swift in Sources */,
 				CBDAC89F2197190B003053E9 /* ShelterQuestRecord.grpc.swift in Sources */,
 				CBD2BFFB2196CA53005006DD /* Shelter.pb.swift in Sources */,
+				CBDAC8A9219752E2003053E9 /* QuestDetailsViewController.swift in Sources */,
 				CBD2BFD5219620DA005006DD /* FilterViewController.swift in Sources */,
 				CBD2BFDD21963E93005006DD /* Auth.pb.swift in Sources */,
 				CBD2BFC72195F7C0005006DD /* MapObject.pb.swift in Sources */,
-				CBDAC89921970B7A003053E9 /* QuestDetailsViewController.swift in Sources */,
 				CBD2BFF22196BD7C005006DD /* General.pb.swift in Sources */,
 				CBDAC8962196EC4B003053E9 /* Venue.pb.swift in Sources */,
 				CBD2BFE32196422E005006DD /* MapView.swift in Sources */,
@@ -374,7 +374,7 @@
 				CBDEDA4D2195C0DA009F337A /* MapViewController.swift in Sources */,
 				CBD2BFDF21963ED5005006DD /* AuthController.swift in Sources */,
 				CBD2BFC82195F7C0005006DD /* MapObject.grpc.swift in Sources */,
-				CBDAC8A121971F86003053E9 /* ShlterQuestRecordController.swift in Sources */,
+				CBDAC8A8219752E2003053E9 /* ShlterQuestRecordController.swift in Sources */,
 				CBD2BFF52196C0A9005006DD /* QuestsSearchViewController.swift in Sources */,
 				CBD2BFCD2195FB62005006DD /* MapController.swift in Sources */,
 				CBD2BFE121963F57005006DD /* ApiConfig.swift in Sources */,

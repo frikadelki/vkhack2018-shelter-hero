@@ -19,3 +19,11 @@
 "on leg" = "Пешком";
 "on public" = "Общ.\nтранспорт";
 "on home" = "Из дома";
+"status in progress" = "Выполняется";
+"status on review" = "Проверка";
+"status is checked" = "Одобрено";
+"status is rejecred" = "Отклонено";
+"status is closed" = "Завершено";
+"status is canceled" = "Отменено";
+"pick quest" = "Начать выполнение";
+"done quest" = "Закончить";

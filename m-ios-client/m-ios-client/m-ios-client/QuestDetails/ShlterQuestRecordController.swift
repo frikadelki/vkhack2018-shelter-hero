@@ -65,6 +65,7 @@ class ShlterQuestRecordController {
         shelter.iconName = "shelterIcon"
 
         var quest1 = Sh_Generated_ShelterQuest()
+        quest1.id = 1
         quest1.order.tags = ["tag1"]
         quest1.order.title = "Катать собак на автомибиле"
         quest1.order.description_p = "Необходимо катать собак на автомобиле с открытм окном. Собаки будут высовывать голову из окна и язык из рта против ветра. Собаки будут счастливы"
@@ -74,6 +75,7 @@ class ShlterQuestRecordController {
         quest1.steps.append(quest1_step1)
 
         var quest2 = Sh_Generated_ShelterQuest()
+        quest2.id = 2
         quest2.order.tags = ["tag2"]
         quest2.order.title = "Кидать говно в вальере"
         quest2.order.description_p = "Если ты устал на работе и хочешь покидать говно в вальере, то это преддложение для тебя. Лопату надо купить."
@@ -88,7 +90,7 @@ class ShlterQuestRecordController {
 
         var questRecord1 = Sh_Generated_ShelterQuestRecord()
         questRecord1.shelterQuest = quest1
-        questRecord1.status = .inProgress
+        questRecord1.status = .checked
 
         var questRecord2 = Sh_Generated_ShelterQuestRecord()
         questRecord2.shelterQuest = quest2
@@ -100,5 +102,55 @@ class ShlterQuestRecordController {
         fakeResponse.questsRecords.append(questRecord2)
 
         completion(fakeResponse.questsRecords)
+    }
+
+    func updateDemand(record: Sh_Generated_ShelterQuestRecord, demand: Sh_Generated_ShelterDemand, check: Bool, completion: @escaping (_ success: Bool) -> Void) {
+        var request = Sh_Generated_ShelterQuestUpdateDemandRequest()
+        request.shelterQuestRecordID = record.id
+        request.demandID = demand.id
+        request.check = check
+        request.token = AuthController.shared.token
+        let call = try? Sh_Generated_ShelterQuestRecordServiceServiceClient(address: ApiConfig().address, secure: false).updateDemand(request) { response, _ in
+            if AuthController.shared.fakeResponses {
+                Thread.sleep(forTimeInterval: 2)
+                DispatchQueue.main.async {
+                    completion(true)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    completion(response != nil)
+                }
+            }
+        }
+
+        if call == nil {
+            DispatchQueue.main.async {
+                completion(false)
+            }
+        }
+    }
+
+    func done(record: Sh_Generated_ShelterQuestRecord, completion: @escaping (_ record: Sh_Generated_ShelterQuestRecord?) -> Void) {
+        var request = Sh_Generated_ShelterQuestRequest()
+        request.id = record.id
+        request.token = AuthController.shared.token
+        let call = try? Sh_Generated_ShelterQuestRecordServiceServiceClient(address: ApiConfig().address, secure: false).done(request) { response, _ in
+            if AuthController.shared.fakeResponses {
+                Thread.sleep(forTimeInterval: 2)
+                DispatchQueue.main.async {
+                    completion(record)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    completion(response?.shelterQuestRecord)
+                }
+            }
+        }
+
+        if call == nil {
+            DispatchQueue.main.async {
+                completion(nil)
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ service ShelterQuestRecordService {
     rpc shelter(ShelterQuestRequest) returns (ShelterQuestResponse) {}
     rpc start(ShelterQuestStartRequest) returns (ShelterQuestResponse) {}
     rpc updateDemand(ShelterQuestUpdateDemandRequest) returns (ShelterQuestUpdateDemandResponse) {}
+    rpc done(ShelterQuestRequest) returns (ShelterQuestResponse) {}
 }
 
 message ShelterQuestListRequest {
