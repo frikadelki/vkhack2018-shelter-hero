@@ -9,3 +9,13 @@
 "map tab" = "Карта";
 "filter tab" = "Поиск";
 "on map" = "На карте";
+"duration limit" = "Задание займет:";
+"hours" = "ч.";
+"minutes" = "мин.";
+"distance limit" = "Задания находится от меня в:";
+"km" = "км.";
+"meters" = "м.";
+"on car" = "На машине";
+"on leg" = "Пешком";
+"on public" = "Общ.\nтранспорт";
+"on home" = "Из дома";

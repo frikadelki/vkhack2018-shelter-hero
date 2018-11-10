@@ -13,16 +13,14 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource {
     let tableView = UITableView()
     let activityIndicator = UIActivityIndicatorView()
 
-    private let orderTags: Set<String>
-    private let timeWindow: Sh_Generated_TimeWindow
+    private let request: Sh_Generated_SearchQuestsRequest
 
     private let questsSearchController = QuestsSearchController()
 
     private var questsResponse: Sh_Generated_SearchQuestsResponse?
 
-    init(orderTags: Set<String>, timeWindow: Sh_Generated_TimeWindow) {
-        self.orderTags = orderTags
-        self.timeWindow = timeWindow
+    init(request: Sh_Generated_SearchQuestsRequest) {
+        self.request = request
         super.init(nibName: nil, bundle: nil)
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("on map", comment: ""),
@@ -53,10 +51,6 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource {
         activityIndicator.snp.makeConstraints { maker in
             maker.center.equalTo(view)
         }
-
-        var request = Sh_Generated_SearchQuestsRequest()
-        request.orderTags = Array(orderTags)
-        request.params.availabilityWindow = timeWindow
 
         activityIndicator.startAnimating()
         questsSearchController.search(request: request) { result in
