@@ -31,15 +31,28 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var venueTagsCheked: Set<String> = Set()
     var taskTagsCheked: Set<String> = Set()
 
+    private let presetMapObjects: Sh_Generated_MapObjectResponse?
+
+    init(mapObjects: Sh_Generated_MapObjectResponse?) {
+        presetMapObjects = mapObjects
+        super.init(nibName: nil, bundle: nil)
+
+        if presetMapObjects == nil {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("filter", comment: ""),
+                                                                style: .plain,
+                                                                target: self,
+                                                                action: #selector(MapViewController.filterAction(sender:)))
+        }
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = ""
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("filter", comment: ""),
-                                                            style: .plain,
-                                                            target: self,
-                                                            action: #selector(MapViewController.filterAction(sender:)))
+        self.title = nil
 
         mapView = MapView(frame: view.bounds)
         mapView.showsUserLocation = true
@@ -48,10 +61,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
         mapView.cameraPositionToUser()
 
-        mapContoller.allObjects { result in
-            switch result {
-            case .success(let mapObjects): self.mapObjects = mapObjects
-            case .error(_): self.mapObjects = nil
+        if let presetMapObjects = presetMapObjects {
+            mapObjects = presetMapObjects
+        } else {
+            mapContoller.allObjects { result in
+                switch result {
+                case .success(let mapObjects): self.mapObjects = mapObjects
+                case .error(_): self.mapObjects = nil
+                }
             }
         }
     }
@@ -59,8 +76,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     @objc func filterAction(sender: Any) {
         let filterVC = FilterViewController(venueTags: Set(mapObjects?.venues.flatMap({ $0.tags }) ?? []),
                                             venueTagsCheked: venueTagsCheked,
-                                            taskTags: Set(mapObjects?.shelters.flatMap({ $0.availableTasks.flatMap({ $0.tags }) }) ?? []),
-                                            taskTagsCheked: taskTagsCheked)
+                                            taskTags: Set(mapObjects?.shelters.flatMap({ $0.availableOrders.flatMap({ $0.tags }) }) ?? []),
+                                            taskTagsCheked: taskTagsCheked,
+                                            style: .apply)
         filterVC.delegate = self
         navigationController?.pushViewController(filterVC, animated: true)
     }
@@ -83,13 +101,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             mapObjects.shelters = mapObjects.shelters
                 .map { shelter in
                     var mappedShelter = shelter
-                    mappedShelter.availableTasks = shelter.availableTasks.filter({ task in
+                    mappedShelter.availableOrders = shelter.availableOrders.filter({ task in
                         return !Set(task.tags).intersection(taskTagsCheked).isEmpty
                     })
                     return mappedShelter
                 }
                 .filter { shelter in
-                    return !shelter.availableTasks.isEmpty
+                    return !shelter.availableOrders.isEmpty
             }
         }
 

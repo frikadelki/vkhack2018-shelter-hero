@@ -31,32 +31,6 @@ struct Sh_Generated_MapObjectRequest {
   init() {}
 }
 
-struct Sh_Generated_MapObjectTask {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var tags: [String] = []
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
-struct Sh_Generated_MapObjectCoordinate {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var latitude: Double = 0
-
-  var longitude: Double = 0
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
 struct Sh_Generated_VenueMapObject {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -67,8 +41,8 @@ struct Sh_Generated_VenueMapObject {
     set {_uniqueStorage()._id = newValue}
   }
 
-  var coordinate: Sh_Generated_MapObjectCoordinate {
-    get {return _storage._coordinate ?? Sh_Generated_MapObjectCoordinate()}
+  var coordinate: Sh_Generated_GeoPoint {
+    get {return _storage._coordinate ?? Sh_Generated_GeoPoint()}
     set {_uniqueStorage()._coordinate = newValue}
   }
   /// Returns true if `coordinate` has been explicitly set.
@@ -98,28 +72,18 @@ struct Sh_Generated_ShelterMapObject {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var id: Int32 {
-    get {return _storage._id}
-    set {_uniqueStorage()._id = newValue}
+  var shelter: Sh_Generated_Shelter {
+    get {return _storage._shelter ?? Sh_Generated_Shelter()}
+    set {_uniqueStorage()._shelter = newValue}
   }
+  /// Returns true if `shelter` has been explicitly set.
+  var hasShelter: Bool {return _storage._shelter != nil}
+  /// Clears the value of `shelter`. Subsequent reads from it will return its default value.
+  mutating func clearShelter() {_uniqueStorage()._shelter = nil}
 
-  var coordinate: Sh_Generated_MapObjectCoordinate {
-    get {return _storage._coordinate ?? Sh_Generated_MapObjectCoordinate()}
-    set {_uniqueStorage()._coordinate = newValue}
-  }
-  /// Returns true if `coordinate` has been explicitly set.
-  var hasCoordinate: Bool {return _storage._coordinate != nil}
-  /// Clears the value of `coordinate`. Subsequent reads from it will return its default value.
-  mutating func clearCoordinate() {_uniqueStorage()._coordinate = nil}
-
-  var iconName: String {
-    get {return _storage._iconName}
-    set {_uniqueStorage()._iconName = newValue}
-  }
-
-  var availableTasks: [Sh_Generated_MapObjectTask] {
-    get {return _storage._availableTasks}
-    set {_uniqueStorage()._availableTasks = newValue}
+  var availableOrders: [Sh_Generated_Order] {
+    get {return _storage._availableOrders}
+    set {_uniqueStorage()._availableOrders = newValue}
   }
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -176,70 +140,6 @@ extension Sh_Generated_MapObjectRequest: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 }
 
-extension Sh_Generated_MapObjectTask: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".MapObjectTask"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "tags"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeRepeatedStringField(value: &self.tags)
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.tags.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.tags, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Sh_Generated_MapObjectTask, rhs: Sh_Generated_MapObjectTask) -> Bool {
-    if lhs.tags != rhs.tags {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Sh_Generated_MapObjectCoordinate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".MapObjectCoordinate"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "latitude"),
-    2: .same(proto: "longitude"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularDoubleField(value: &self.latitude)
-      case 2: try decoder.decodeSingularDoubleField(value: &self.longitude)
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.latitude != 0 {
-      try visitor.visitSingularDoubleField(value: self.latitude, fieldNumber: 1)
-    }
-    if self.longitude != 0 {
-      try visitor.visitSingularDoubleField(value: self.longitude, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Sh_Generated_MapObjectCoordinate, rhs: Sh_Generated_MapObjectCoordinate) -> Bool {
-    if lhs.latitude != rhs.latitude {return false}
-    if lhs.longitude != rhs.longitude {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
 extension Sh_Generated_VenueMapObject: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".VenueMapObject"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -251,7 +151,7 @@ extension Sh_Generated_VenueMapObject: SwiftProtobuf.Message, SwiftProtobuf._Mes
 
   fileprivate class _StorageClass {
     var _id: Int32 = 0
-    var _coordinate: Sh_Generated_MapObjectCoordinate? = nil
+    var _coordinate: Sh_Generated_GeoPoint? = nil
     var _iconName: String = String()
     var _tags: [String] = []
 
@@ -328,27 +228,21 @@ extension Sh_Generated_VenueMapObject: SwiftProtobuf.Message, SwiftProtobuf._Mes
 extension Sh_Generated_ShelterMapObject: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ShelterMapObject"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "coordinate"),
-    3: .same(proto: "iconName"),
-    4: .same(proto: "availableTasks"),
+    1: .same(proto: "shelter"),
+    2: .same(proto: "availableOrders"),
   ]
 
   fileprivate class _StorageClass {
-    var _id: Int32 = 0
-    var _coordinate: Sh_Generated_MapObjectCoordinate? = nil
-    var _iconName: String = String()
-    var _availableTasks: [Sh_Generated_MapObjectTask] = []
+    var _shelter: Sh_Generated_Shelter? = nil
+    var _availableOrders: [Sh_Generated_Order] = []
 
     static let defaultInstance = _StorageClass()
 
     private init() {}
 
     init(copying source: _StorageClass) {
-      _id = source._id
-      _coordinate = source._coordinate
-      _iconName = source._iconName
-      _availableTasks = source._availableTasks
+      _shelter = source._shelter
+      _availableOrders = source._availableOrders
     }
   }
 
@@ -364,10 +258,8 @@ extension Sh_Generated_ShelterMapObject: SwiftProtobuf.Message, SwiftProtobuf._M
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
-        case 1: try decoder.decodeSingularInt32Field(value: &_storage._id)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._coordinate)
-        case 3: try decoder.decodeSingularStringField(value: &_storage._iconName)
-        case 4: try decoder.decodeRepeatedMessageField(value: &_storage._availableTasks)
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._shelter)
+        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._availableOrders)
         default: break
         }
       }
@@ -376,17 +268,11 @@ extension Sh_Generated_ShelterMapObject: SwiftProtobuf.Message, SwiftProtobuf._M
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if _storage._id != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._id, fieldNumber: 1)
+      if let v = _storage._shelter {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
-      if let v = _storage._coordinate {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      }
-      if !_storage._iconName.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._iconName, fieldNumber: 3)
-      }
-      if !_storage._availableTasks.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._availableTasks, fieldNumber: 4)
+      if !_storage._availableOrders.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._availableOrders, fieldNumber: 2)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -397,10 +283,8 @@ extension Sh_Generated_ShelterMapObject: SwiftProtobuf.Message, SwiftProtobuf._M
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._id != rhs_storage._id {return false}
-        if _storage._coordinate != rhs_storage._coordinate {return false}
-        if _storage._iconName != rhs_storage._iconName {return false}
-        if _storage._availableTasks != rhs_storage._availableTasks {return false}
+        if _storage._shelter != rhs_storage._shelter {return false}
+        if _storage._availableOrders != rhs_storage._availableOrders {return false}
         return true
       }
       if !storagesAreEqual {return false}

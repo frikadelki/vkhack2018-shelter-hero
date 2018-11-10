@@ -6,17 +6,7 @@ option java_outer_classname = "RecommendationsDataProto";
 
 package sh.generated;
 
-message TimeWindow
-{
-    int32 from = 1;
-    int32 to = 2;
-}
-
-message GeoPoint
-{
-    double lat = 1;
-    double lon = 2;
-}
+import "General.proto";
 
 message Location
 {

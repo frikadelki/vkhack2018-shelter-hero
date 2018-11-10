@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package sh.generated;
+
+import "General.proto";
+
+message Shelter{
+    int32 id = 1;
+    GeoPoint coordinate = 2;
+    string iconName = 3;
+}
