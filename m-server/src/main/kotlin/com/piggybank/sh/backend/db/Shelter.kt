@@ -17,19 +17,6 @@ class ShelterEntity(id: EntityID<Int>) : IntEntity(id) {
     var iconName by SheltersTable.iconName
 
     var location by GeoPointDelegator(SheltersTable.locationLat, SheltersTable.locationLon)
-
-    /*private var locationLat by SheltersTable.locationLat
-    private var locationLon by SheltersTable.locationLon
-
-    var location: GeoPoint
-        get() = GeoPoint.newBuilder()
-                .setLat(SheltersTable.locationLat.lookup())
-                .setLon(SheltersTable.locationLon.lookup())
-                .build()
-        set(value) {
-            locationLat = value.lat
-            locationLon = value.lon
-        }*/
 }
 
 object SheltersOrdersTable : IntIdTable() {
@@ -50,14 +37,5 @@ class SheltersOrderEntity(id: EntityID<Int>) : IntEntity(id) {
     var description by SheltersOrdersTable.description
 
     var tags by StringListDelegator(SheltersOrdersTable.tags)
-
-    /*private val RAW_TAGS_DELIMETER = ','
-    private var rawTags by SheltersOrdersTable.tags
-
-    var tags : List<String>
-        get() = rawTags.split(RAW_TAGS_DELIMETER)
-        set(value) {
-            rawTags = value.joinToString(RAW_TAGS_DELIMETER.toString())
-        }*/
 }
 

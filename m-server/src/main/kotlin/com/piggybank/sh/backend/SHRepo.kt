@@ -23,13 +23,13 @@ class SHRepo(private val db: Database) {
         transaction(db) {
             ShelterEntity.new {
                 name = "Добрый Парень"
-                iconName = "paw"
-                location = geoPoint(10.0, 15.0)
+                iconName = "shelterIcon"
+                location = geoPoint(55.756683, 37.622341)
             }
             ShelterEntity.new {
                 name = "Душенька"
-                iconName = "kitties"
-                location = geoPoint(20.0, 25.0)
+                iconName = "shelterIcon"
+                location = geoPoint(55.776683, 37.618341)
             }
         }
     }
@@ -48,6 +48,7 @@ fun ShelterEntity.shelter(): Shelter {
     return Shelter.newBuilder()
             .setId(id.value)
             .setName(name)
+            .setIconName(iconName)
             .setCoordinate(location)
             .build()
 }
