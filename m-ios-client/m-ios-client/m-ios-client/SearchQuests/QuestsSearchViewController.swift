@@ -132,7 +132,7 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
             record.shelterQuest.id == questsResponse!.quests[indexPath.row].id
         })
         let detailsVC = QuestDetailsViewController(quest: questsResponse!.quests[indexPath.row],
-                                                   record: nil)
+                                                   record: record)
         navigationController?.pushViewController(detailsVC, animated: true)
 
         DispatchQueue.main.async {

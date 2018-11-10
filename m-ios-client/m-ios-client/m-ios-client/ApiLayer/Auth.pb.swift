@@ -40,8 +40,6 @@ struct Sh_Generated_AuthResponse {
 
   var token: String = String()
 
-  var haveProgressQuest: Bool = false
-
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -112,14 +110,12 @@ extension Sh_Generated_AuthResponse: SwiftProtobuf.Message, SwiftProtobuf._Messa
   static let protoMessageName: String = _protobuf_package + ".AuthResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "token"),
-    2: .same(proto: "haveProgressQuest"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
       case 1: try decoder.decodeSingularStringField(value: &self.token)
-      case 2: try decoder.decodeSingularBoolField(value: &self.haveProgressQuest)
       default: break
       }
     }
@@ -129,15 +125,11 @@ extension Sh_Generated_AuthResponse: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if !self.token.isEmpty {
       try visitor.visitSingularStringField(value: self.token, fieldNumber: 1)
     }
-    if self.haveProgressQuest != false {
-      try visitor.visitSingularBoolField(value: self.haveProgressQuest, fieldNumber: 2)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Sh_Generated_AuthResponse, rhs: Sh_Generated_AuthResponse) -> Bool {
     if lhs.token != rhs.token {return false}
-    if lhs.haveProgressQuest != rhs.haveProgressQuest {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -18,7 +18,6 @@ message AuthRequest {
 
 message AuthResponse {
     string token = 1;
-    bool haveProgressQuest = 2;
 }
 
 message LogoutRequest {

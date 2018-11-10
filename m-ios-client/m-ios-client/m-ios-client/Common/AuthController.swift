@@ -12,7 +12,6 @@ class AuthController {
     static let shared: AuthController = AuthController()
 
     private(set) var token: String = ""
-    private(set) var haveProgressQuest: Bool = false
 
     let fakeResponses: Bool = true
 
@@ -23,12 +22,10 @@ class AuthController {
         do {
             let _ = try Sh_Generated_AuthServiceServiceClient(address: ApiConfig().address, secure: false).register(request) { response, _ in
                 if self.fakeResponses {
-                    self.haveProgressQuest = false
                     self.token = "fake_token"
                     completion(true)
                 } else if let response = response {
                     self.token = response.token
-                    self.haveProgressQuest = response.haveProgressQuest
                     completion(true)
                 } else {
                     completion(false)
@@ -47,11 +44,9 @@ class AuthController {
         do {
             let _ = try Sh_Generated_AuthServiceServiceClient(address: ApiConfig().address, secure: false).login(request) { response, _ in
                 if self.fakeResponses {
-                    self.haveProgressQuest = false
                     self.token = "fake_token"
                     completion(true)
                 } else if let response = response {
-                    self.haveProgressQuest = response.haveProgressQuest
                     self.token = response.token
                     completion(true)
                 } else {
