@@ -93,9 +93,9 @@ class ShlterQuestRecordController {
         var questRecord2 = Sh_Generated_ShelterQuestRecord()
         questRecord2.shelterQuest = quest2
         questRecord2.status = .inProgress
-        questRecord2.doneDemands = [123]
+        questRecord2.doneDemandsIds = [123]
 
-        var fakeResponse = Sh_Generated_ShelterQuestListReponse()
+        var fakeResponse = Sh_Generated_ShelterQuestListResponse()
         fakeResponse.questsRecords.append(questRecord1)
         fakeResponse.questsRecords.append(questRecord2)
 

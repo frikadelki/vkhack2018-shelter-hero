@@ -87,7 +87,7 @@ struct Sh_Generated_ShelterQuestListRequest {
   init() {}
 }
 
-struct Sh_Generated_ShelterQuestListReponse {
+struct Sh_Generated_ShelterQuestListResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -203,9 +203,9 @@ struct Sh_Generated_ShelterQuestRecord {
     set {_uniqueStorage()._startTime = newValue}
   }
 
-  var doneDemands: [Int32] {
-    get {return _storage._doneDemands}
-    set {_uniqueStorage()._doneDemands = newValue}
+  var doneDemandsIds: [Int32] {
+    get {return _storage._doneDemandsIds}
+    set {_uniqueStorage()._doneDemandsIds = newValue}
   }
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -259,8 +259,8 @@ extension Sh_Generated_ShelterQuestListRequest: SwiftProtobuf.Message, SwiftProt
   }
 }
 
-extension Sh_Generated_ShelterQuestListReponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ShelterQuestListReponse"
+extension Sh_Generated_ShelterQuestListResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ShelterQuestListResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "questsRecords"),
   ]
@@ -281,7 +281,7 @@ extension Sh_Generated_ShelterQuestListReponse: SwiftProtobuf.Message, SwiftProt
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Sh_Generated_ShelterQuestListReponse, rhs: Sh_Generated_ShelterQuestListReponse) -> Bool {
+  static func ==(lhs: Sh_Generated_ShelterQuestListResponse, rhs: Sh_Generated_ShelterQuestListResponse) -> Bool {
     if lhs.questsRecords != rhs.questsRecords {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -491,7 +491,7 @@ extension Sh_Generated_ShelterQuestRecord: SwiftProtobuf.Message, SwiftProtobuf.
     2: .same(proto: "shelterQuest"),
     3: .same(proto: "status"),
     4: .same(proto: "startTime"),
-    5: .same(proto: "doneDemands"),
+    5: .same(proto: "doneDemandsIds"),
   ]
 
   fileprivate class _StorageClass {
@@ -499,7 +499,7 @@ extension Sh_Generated_ShelterQuestRecord: SwiftProtobuf.Message, SwiftProtobuf.
     var _shelterQuest: Sh_Generated_ShelterQuest? = nil
     var _status: Sh_Generated_ShelterQuestRecordStatus = .inProgress
     var _startTime: Int32 = 0
-    var _doneDemands: [Int32] = []
+    var _doneDemandsIds: [Int32] = []
 
     static let defaultInstance = _StorageClass()
 
@@ -510,7 +510,7 @@ extension Sh_Generated_ShelterQuestRecord: SwiftProtobuf.Message, SwiftProtobuf.
       _shelterQuest = source._shelterQuest
       _status = source._status
       _startTime = source._startTime
-      _doneDemands = source._doneDemands
+      _doneDemandsIds = source._doneDemandsIds
     }
   }
 
@@ -530,7 +530,7 @@ extension Sh_Generated_ShelterQuestRecord: SwiftProtobuf.Message, SwiftProtobuf.
         case 2: try decoder.decodeSingularMessageField(value: &_storage._shelterQuest)
         case 3: try decoder.decodeSingularEnumField(value: &_storage._status)
         case 4: try decoder.decodeSingularInt32Field(value: &_storage._startTime)
-        case 5: try decoder.decodeRepeatedInt32Field(value: &_storage._doneDemands)
+        case 5: try decoder.decodeRepeatedInt32Field(value: &_storage._doneDemandsIds)
         default: break
         }
       }
@@ -551,8 +551,8 @@ extension Sh_Generated_ShelterQuestRecord: SwiftProtobuf.Message, SwiftProtobuf.
       if _storage._startTime != 0 {
         try visitor.visitSingularInt32Field(value: _storage._startTime, fieldNumber: 4)
       }
-      if !_storage._doneDemands.isEmpty {
-        try visitor.visitPackedInt32Field(value: _storage._doneDemands, fieldNumber: 5)
+      if !_storage._doneDemandsIds.isEmpty {
+        try visitor.visitPackedInt32Field(value: _storage._doneDemandsIds, fieldNumber: 5)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -567,7 +567,7 @@ extension Sh_Generated_ShelterQuestRecord: SwiftProtobuf.Message, SwiftProtobuf.
         if _storage._shelterQuest != rhs_storage._shelterQuest {return false}
         if _storage._status != rhs_storage._status {return false}
         if _storage._startTime != rhs_storage._startTime {return false}
-        if _storage._doneDemands != rhs_storage._doneDemands {return false}
+        if _storage._doneDemandsIds != rhs_storage._doneDemandsIds {return false}
         return true
       }
       if !storagesAreEqual {return false}
