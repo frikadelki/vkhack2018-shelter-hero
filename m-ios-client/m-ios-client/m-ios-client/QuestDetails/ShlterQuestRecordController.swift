@@ -14,7 +14,7 @@ class ShlterQuestRecordController {
         var request = Sh_Generated_ShelterQuestStartRequest()
         request.shelterQuest = shelterQuest
         request.token = AuthController.shared.token
-        let call = try? Sh_Generated_ShelterQuestRecordServiceServiceClient(address: ApiConfig().address).start(request) { response, _ in
+        let call = try? Sh_Generated_ShelterQuestRecordServiceServiceClient(address: ApiConfig().address, secure: false).start(request) { response, _ in
             DispatchQueue.main.async {
                 if AuthController.shared.fakeResponses {
                     self.fakeStartReponse(shelterQuest: shelterQuest, completion: completion)
@@ -41,7 +41,7 @@ class ShlterQuestRecordController {
     func list(completion: @escaping (_ records: [Sh_Generated_ShelterQuestRecord]?) -> Void) {
         var request = Sh_Generated_ShelterQuestListRequest()
         request.token = AuthController.shared.token
-        let call = try? Sh_Generated_ShelterQuestRecordServiceServiceClient(address: ApiConfig().address).list(request) { response, _ in
+        let call = try? Sh_Generated_ShelterQuestRecordServiceServiceClient(address: ApiConfig().address, secure: false).list(request) { response, _ in
             DispatchQueue.main.async {
                 if AuthController.shared.fakeResponses {
                     self.fakeListReponse(completion: completion)
