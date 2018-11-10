@@ -51,7 +51,7 @@ class SHRepo(private val db: Database) {
 
                 ShelterEntity.new {
                     name = splitted[0].trim()
-                    iconName = "shelterIcon"
+                    iconName = "shelter"
                     location = geoPoint(splitted[1].trim().toDouble(), splitted[2].trim().toDouble())
                 }
             }
