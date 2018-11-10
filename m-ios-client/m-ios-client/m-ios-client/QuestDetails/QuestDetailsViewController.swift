@@ -93,7 +93,7 @@ class QuestDetailsViewController: UIViewController
     }
 
     let quest: Sh_Generated_ShelterQuest
-    let record: Sh_Generated_ShelterQuestRecord?
+    var record: Sh_Generated_ShelterQuestRecord?
     init(quest: Sh_Generated_ShelterQuest, record: Sh_Generated_ShelterQuestRecord?) {
         self.quest = quest
         self.record = record
@@ -106,6 +106,8 @@ class QuestDetailsViewController: UIViewController
     private var steps: UIStackView!
     private var bottomButtonContainer: UIStackView!
     private let activityIndicator = UIActivityIndicatorView()
+    private var titleLabel: UILabel!
+    private var descriptionLabel: UILabel!
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -122,34 +124,18 @@ class QuestDetailsViewController: UIViewController
         contentScrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(contentScrollView)
 
-        let title = UILabel()
-        title.numberOfLines = 0
-        title.translatesAutoresizingMaskIntoConstraints = false
-        title.text = quest.order.title
-        contentScrollView.addSubview(title)
+        titleLabel = UILabel()
+        titleLabel.numberOfLines = 0
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentScrollView.addSubview(titleLabel)
 
-        let description = UILabel()
-        description.numberOfLines = 0
-        description.translatesAutoresizingMaskIntoConstraints = false
-        description.text = quest.order.description_p
-        contentScrollView.addSubview(description)
+        descriptionLabel = UILabel()
+        descriptionLabel.numberOfLines = 0
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentScrollView.addSubview(descriptionLabel)
 
         steps = UIStackView(arrangedSubviews: [])
         steps.axis = .vertical
-
-        quest.steps.forEach { step in
-            let stepView = QuestStepView()
-            stepView.show(step: step)
-            if let record = record {
-                stepView.showStatus(checked: record.doneDemandsIds.contains(step.demand.id))
-                stepView.changedCheckedHandler = { [weak self, weak stepView] check in
-                    guard let stepView = stepView else { return }
-                    self?.updateDemand(demand: step.demand, check: check, stepView: stepView)
-                }
-            }
-            stepView.translatesAutoresizingMaskIntoConstraints = false
-            steps.addArrangedSubview(stepView)
-        }
 
         contentScrollView.addSubview(steps)
 
@@ -157,21 +143,13 @@ class QuestDetailsViewController: UIViewController
         bottomButtonContainer.translatesAutoresizingMaskIntoConstraints = false
         contentScrollView.addSubview(bottomButtonContainer)
 
-        if record == nil {
-            let pickButton = UIButton()
-            pickButton.setTitle(NSLocalizedString("pick quest", comment: ""), for: .normal)
-            pickButton.setTitleColor(.black, for: .normal)
-            pickButton.translatesAutoresizingMaskIntoConstraints = false
-            pickButton.addTarget(self, action: #selector(QuestDetailsViewController.startQuest(sender:)), for: .touchUpInside)
-
-            bottomButtonContainer.addArrangedSubview(pickButton)
-        }
-
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.activityIndicatorViewStyle = .gray
         view.addSubview(activityIndicator)
 
-        setupConstraints(title: title, description: description)
+        updateUI()
+
+        setupConstraints()
     }
 
     func startUpdating() {
@@ -194,13 +172,52 @@ class QuestDetailsViewController: UIViewController
             if !result {
                 stepView.uiSwitch.isOn = !stepView.uiSwitch.isOn
             }
-            self.showOnReviewButtonIfNeeded()
+            if stepView.uiSwitch.isOn && !self.record!.doneDemandsIds.contains(demand.id) {
+                self.record!.doneDemandsIds.append(demand.id)
+            }
+            else if stepView.uiSwitch.isOn == false {
+                self.record!.doneDemandsIds = self.record!.doneDemandsIds.filter({ id in
+                    id != demand.id
+                })
+            }
+
+            self.updateUIIfNeeded()
         }
     }
 
-    func showOnReviewButtonIfNeeded() {
+    func updateUIIfNeeded() {
         let activityOrCheckOffViews = steps.arrangedSubviews.filter { view in
             return (view as? QuestStepView)?.isActivity == true || (view as? QuestStepView)?.uiSwitch.isOn == false
+        }
+
+        if activityOrCheckOffViews.count == 0 {
+            updateUI()
+        }
+    }
+
+    func updateUI() {
+        titleLabel.text = quest.order.title
+        descriptionLabel.text = quest.order.description_p
+
+        steps.arrangedSubviews.forEach { subview in
+            steps.removeArrangedSubview(subview)
+            subview.removeFromSuperview()
+        }
+
+        steps.isUserInteractionEnabled = true
+        steps.alpha = 1.0
+        quest.steps.forEach { step in
+            let stepView = QuestStepView()
+            stepView.show(step: step)
+            if let record = record {
+                stepView.showStatus(checked: record.doneDemandsIds.contains(step.demand.id))
+                stepView.changedCheckedHandler = { [weak self, weak stepView] check in
+                    guard let stepView = stepView else { return }
+                    self?.updateDemand(demand: step.demand, check: check, stepView: stepView)
+                }
+            }
+            stepView.translatesAutoresizingMaskIntoConstraints = false
+            steps.addArrangedSubview(stepView)
         }
 
         if let subview = bottomButtonContainer.arrangedSubviews.first {
@@ -208,15 +225,29 @@ class QuestDetailsViewController: UIViewController
             subview.removeFromSuperview()
         }
 
-        if activityOrCheckOffViews.count == 0 {
-
+        if record == nil {
             let pickButton = UIButton()
-            pickButton.setTitle(NSLocalizedString("done quest", comment: ""), for: .normal)
+            pickButton.setTitle(NSLocalizedString("pick quest", comment: ""), for: .normal)
             pickButton.setTitleColor(.black, for: .normal)
             pickButton.translatesAutoresizingMaskIntoConstraints = false
-            pickButton.addTarget(self, action: #selector(QuestDetailsViewController.doneQuest(sender:)), for: .touchUpInside)
+            pickButton.addTarget(self, action: #selector(QuestDetailsViewController.startQuest(sender:)), for: .touchUpInside)
 
             bottomButtonContainer.addArrangedSubview(pickButton)
+        }
+
+        if let record = record, record.doneDemandsIds.count == record.shelterQuest.steps.count {
+            steps.isUserInteractionEnabled = false
+            steps.alpha = 0.5
+
+            if record.status == .inProgress {
+                let pickButton = UIButton()
+                pickButton.setTitle(NSLocalizedString("done quest", comment: ""), for: .normal)
+                pickButton.setTitleColor(.black, for: .normal)
+                pickButton.translatesAutoresizingMaskIntoConstraints = false
+                pickButton.addTarget(self, action: #selector(QuestDetailsViewController.doneQuest(sender:)), for: .touchUpInside)
+
+                bottomButtonContainer.addArrangedSubview(pickButton)
+            }
         }
     }
 }
@@ -238,10 +269,8 @@ extension QuestDetailsViewController
         startUpdating()
         recordController.done(record: record) { record in
             if record != nil {
-                if let subview = self.bottomButtonContainer.arrangedSubviews.first {
-                    self.bottomButtonContainer.removeArrangedSubview(subview)
-                    subview.removeFromSuperview()
-                }
+                self.record = record
+                self.updateUI()
             }
             self.stopUpdating()
         }
@@ -250,7 +279,7 @@ extension QuestDetailsViewController
 
 extension QuestDetailsViewController
 {
-    func setupConstraints(title: UILabel, description: UILabel)
+    func setupConstraints()
     {
         scrollView.snp.makeConstraints { maker in
             maker.edges.equalTo(view)
@@ -260,20 +289,20 @@ extension QuestDetailsViewController
             maker.edges.width.equalTo(scrollView)
         }
 
-        title.snp.makeConstraints { maker in
+        titleLabel.snp.makeConstraints { maker in
             maker.top.equalTo(contentScrollView)
             maker.leading.equalTo(contentScrollView)
             maker.trailing.equalTo(contentScrollView)
         }
 
-        description.snp.makeConstraints { maker in
-            maker.top.equalTo(title.snp.bottom)
+        descriptionLabel.snp.makeConstraints { maker in
+            maker.top.equalTo(titleLabel.snp.bottom)
             maker.leading.equalTo(contentScrollView)
             maker.trailing.equalTo(contentScrollView)
         }
 
         steps.snp.makeConstraints { maker in
-            maker.top.equalTo(description.snp.bottom)
+            maker.top.equalTo(descriptionLabel.snp.bottom)
             maker.leading.equalTo(contentScrollView)
             maker.trailing.equalTo(contentScrollView)
         }
