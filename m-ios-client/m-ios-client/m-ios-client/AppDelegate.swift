@@ -20,8 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
 
         let mapVC = MapViewController()
-        mapVC.tabBarItem = UITabBarItem(title: "Map", image: nil, selectedImage: nil)
-        tabBarController.viewControllers = [mapVC]
+        let mapNC = UINavigationController(rootViewController: mapVC)
+        mapNC.tabBarItem = UITabBarItem(title: "Map", image: nil, selectedImage: nil)
+        tabBarController.viewControllers = [mapNC]
 
         return true
     }

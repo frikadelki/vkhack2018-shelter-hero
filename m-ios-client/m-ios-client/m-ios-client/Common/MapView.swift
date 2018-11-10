@@ -1,14 +1,13 @@
 //
-//  ViewController.swift
+//  MapView.swift
 //  m-ios-client
 //
-//  Created by Denis Morozov on 09.11.2018.
+//  Created by Denis Morozov on 10.11.2018.
 //  Copyright © 2018 Denis Morozov. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import MapKit
-import SnapKit
 
 class ShelterAnnotation: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
@@ -72,18 +71,16 @@ class VenueAnnotationView: MKAnnotationView {
     }
 }
 
-class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+class MapView: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
 
-    var mapView: MKMapView!
+    let mkMap = MKMapView()
 
     var locationManager = CLLocationManager()
     var needMoveCameraToUser = false
 
-    let mapContoller = MapController()
-
     var mapObjects: Sh_Generated_MapObjectResponse? {
         didSet {
-            mapView.removeAnnotations(mapView.annotations)
+            mkMap.removeAnnotations(mkMap.annotations)
 
             if let mapObjects = mapObjects {
 
@@ -105,19 +102,22 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                     annotations.append(annotation)
                 })
 
-                mapView.addAnnotations(annotations)
+                mkMap.addAnnotations(annotations)
             }
         }
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
-        mapView = MKMapView(frame: view.bounds)
-        mapView.showsUserLocation = true
-        mapView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        mapView.delegate = self
-        view.addSubview(mapView)
+        mkMap.translatesAutoresizingMaskIntoConstraints = false
+        mkMap.delegate = self
+        mkMap.showsUserLocation = true
+        addSubview(mkMap)
+
+        mkMap.snp.makeConstraints { maker in
+            maker.edges.equalTo(self)
+        }
 
         let me = UILabel(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         me.backgroundColor = .white
@@ -125,19 +125,31 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         me.isUserInteractionEnabled = true
         me.textAlignment = .center
         me.text = "me"
-        view.addSubview(me)
+        addSubview(me)
         me.snp.makeConstraints { maker in
-            maker.trailing.equalTo(view).offset(-16)
-            maker.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            maker.trailing.equalTo(self).offset(-16)
+            maker.bottom.equalTo(self.safeAreaLayoutGuide).offset(-20)
             maker.width.equalTo(44)
             maker.height.equalTo(44)
         }
 
-        let tap = UITapGestureRecognizer(target: self, action: #selector(MapViewController.myLocation(sender:)))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(MapView.myLocation(sender:)))
         me.addGestureRecognizer(tap)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
+    @objc private func myLocation(sender: Any?) {
+        mkMap.setRegion(.init(center: mkMap.userLocation.coordinate,
+                                span: .init(latitudeDelta: 0.05, longitudeDelta: 0.05)),
+                          animated: true)
+    }
+
+    func cameraPositionToUser() {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
-            if (!mapView.userLocation.isUpdating) {
+            if (!mkMap.userLocation.isUpdating) {
                 myLocation(sender: nil)
             } else {
                 needMoveCameraToUser = true
@@ -146,19 +158,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
             locationManager.delegate = self
             locationManager.requestWhenInUseAuthorization()
         }
-
-        mapContoller.allObjects { result in
-            switch result {
-            case .success(let mapObjects): self.mapObjects = mapObjects
-            case .error(_): self.mapObjects = nil
-            }
-        }
-    }
-
-    @objc func myLocation(sender: Any?) {
-        mapView.setRegion(.init(center: mapView.userLocation.coordinate,
-                                span: .init(latitudeDelta: 0.05, longitudeDelta: 0.05)),
-                          animated: true)
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
