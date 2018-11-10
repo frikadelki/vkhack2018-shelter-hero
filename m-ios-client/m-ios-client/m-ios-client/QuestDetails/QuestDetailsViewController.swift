@@ -108,6 +108,7 @@ class QuestDetailsViewController: UIViewController
     private let activityIndicator = UIActivityIndicatorView()
     private var titleLabel: UILabel!
     private var descriptionLabel: UILabel!
+    private let refreshControl = UIRefreshControl()
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -118,8 +119,13 @@ class QuestDetailsViewController: UIViewController
 
         view.backgroundColor = .white
 
+        scrollView.refreshControl = refreshControl
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
+
+        if record != nil {
+            refreshControl.addTarget(self, action: #selector(refreshWeatherData(_:)), for: .valueChanged)
+        }
 
         contentScrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(contentScrollView)
@@ -273,6 +279,17 @@ extension QuestDetailsViewController
                 self.updateUI()
             }
             self.stopUpdating()
+        }
+    }
+
+    @objc private func refreshWeatherData(_ sender: Any) {
+        self.scrollView.isUserInteractionEnabled = false
+        recordController.questRecord(shelterQuest: quest) { record in
+            if let record = record {
+                self.record = record
+            }
+            self.refreshControl.endRefreshing()
+            self.scrollView.isUserInteractionEnabled = true
         }
     }
 }

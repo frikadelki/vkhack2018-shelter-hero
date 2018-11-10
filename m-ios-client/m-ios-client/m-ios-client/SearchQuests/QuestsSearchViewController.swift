@@ -15,7 +15,7 @@ class QuestViewCell : UITableViewCell {
     let questTitle = UILabel()
     let questStatus = UILabel()
 
-    var statusWidth: Constraint!
+    private var statusWidth: Constraint!
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -52,8 +52,8 @@ class QuestViewCell : UITableViewCell {
 }
 
 class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    let tableView = UITableView()
-    let activityIndicator = UIActivityIndicatorView()
+    private let tableView = UITableView()
+    private let activityIndicator = UIActivityIndicatorView()
 
     private let request: Sh_Generated_SearchQuestsRequest?
     private let questsSearchController: QuestsSearchController?
@@ -62,6 +62,8 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
 
     private var questsResponse: Sh_Generated_SearchQuestsResponse?
     private var records: [Sh_Generated_ShelterQuestRecord]?
+
+    private let refreshControl = UIRefreshControl()
 
     init(request: Sh_Generated_SearchQuestsRequest) {
         self.request = request
@@ -91,11 +93,14 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
 
         view.backgroundColor = .white
 
+        tableView.refreshControl = refreshControl
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView()
         view.addSubview(tableView)
+
+        refreshControl.addTarget(self, action: #selector(refreshWeatherData(_:)), for: .valueChanged)
 
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.activityIndicatorViewStyle = .gray
@@ -114,11 +119,19 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        reloadData(displayActivity: true)
+    }
+
+    func reloadData(displayActivity: Bool) {
         tableView.isUserInteractionEnabled = false
-        tableView.alpha = 0.5
-        activityIndicator.startAnimating()
+
+        if displayActivity {
+            tableView.alpha = 0.5
+            activityIndicator.startAnimating()
+        }
 
         let completion = {
+            self.refreshControl.endRefreshing()
             self.tableView.reloadData()
             self.activityIndicator.stopAnimating()
             self.tableView.isUserInteractionEnabled = true
@@ -209,5 +222,9 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
         return records?.first(where: { record in
             record.shelterQuest.id == questsResponse!.quests[index].id
         })
+    }
+
+    @objc private func refreshWeatherData(_ sender: Any) {
+        reloadData(displayActivity: false)
     }
 }

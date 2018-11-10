@@ -164,4 +164,29 @@ class ShlterQuestRecordController {
             }
         }
     }
+
+    func questRecord(shelterQuest: Sh_Generated_ShelterQuest, completion: @escaping (_ record: Sh_Generated_ShelterQuestRecord?) -> Void) {
+        var request = Sh_Generated_ShelterQuestRequest()
+        request.id = shelterQuest.id
+        request.token = AuthController.shared.token
+        let call = try? Sh_Generated_ShelterQuestRecordServiceServiceClient(address: ApiConfig().address, secure: false).shelter(request) { response, _ in
+
+            if AuthController.shared.fakeResponses {
+                Thread.sleep(forTimeInterval: 1)
+                DispatchQueue.main.async {
+                    self.fakeStartReponse(shelterQuest: shelterQuest, completion: completion)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    completion(response?.shelterQuestRecord)
+                }
+            }
+        }
+
+        if call == nil {
+            DispatchQueue.main.async {
+                completion(nil)
+            }
+        }
+    }
 }
