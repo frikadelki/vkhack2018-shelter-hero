@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <algorithm>
+#include <iostream>
 
 namespace sh
 {
@@ -50,7 +51,7 @@ namespace sh
 
         void fixTime(Time& time, const Time timeStart, const Time limit)
         {
-            assert(lessEqual(time, timeStart));
+            assert(lessEqual(timeStart,time));
 
             if (greater(time - timeStart, limit))
             {
@@ -119,7 +120,9 @@ namespace sh
                     start = max(start, toEvent.timewindow().from());
 
                     Time finish = start + toEvent.duration();
-                    Dist dist = calcDist(fromEvent.location().geopoint(), toEvent.location().geopoint(), searchParams.transport());
+
+                    Dist dist = fromState.dist
+                        + calcDist(fromEvent.location().geopoint(), toEvent.location().geopoint(), searchParams.transport());
 
                     fixTime(start, toEvent.timewindow());
                     fixTime(finish, toEvent.timewindow());
@@ -160,8 +163,9 @@ namespace sh
 
                 Time start = fromState.finish
                     + calcTime(fromEvent.location().geopoint(), searchParams.finish(), searchParams.transport());
-                Time finish = toState.start;
-                Dist dist = calcDist(fromEvent.location().geopoint(), searchParams.finish(), searchParams.transport());
+                Time finish = start;
+                Dist dist = fromState.dist
+                    + calcDist(fromEvent.location().geopoint(), searchParams.finish(), searchParams.transport());
 
                 fixTime(start, searchParams.availabilitywindow().from(), searchParams.timelimit());
                 fixTime(finish, searchParams.availabilitywindow().from(), searchParams.timelimit());
@@ -208,7 +212,7 @@ namespace sh
         }
 
         Stats stats;
-        stats.set_timespent(lastState.finish);
+        stats.set_timespent(lastState.finish - searchParams.availabilitywindow().from());
         stats.set_distancetraveled(lastState.dist);
 
         Trip trip;

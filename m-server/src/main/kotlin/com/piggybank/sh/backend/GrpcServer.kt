@@ -34,7 +34,13 @@ class GrpcServer(private val app: SHApp) {
 }
 
 class MapObjectServiceImpl(private val app: SHApp) : MapObjectServiceGrpc.MapObjectServiceImplBase() {
-    override fun allObjects(request: MapObjectRequest?, responseObserver: StreamObserver<MapObjectResponse>?) {
-        super.allObjects(request, responseObserver)
+    override fun allObjects(request: MapObjectRequest, responseObserver: StreamObserver<MapObjectResponse>) {
+        val response = MapObjectResponse.newBuilder()
+                .addAllShelters(app.shelterMapObjects())
+                .addAllVenues(emptyList())
+                .build()
+
+        responseObserver.onNext(response)
+        responseObserver.onCompleted()
     }
 }

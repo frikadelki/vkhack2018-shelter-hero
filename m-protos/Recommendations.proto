@@ -37,10 +37,8 @@ message Order
 
 message Task
 {
-    int32 id = 1;
-
-    SearchParams params = 2;
-    repeated Order orders = 3;
+    SearchParams params = 1;
+    repeated Order orders = 2;
 }
 
 message Action
