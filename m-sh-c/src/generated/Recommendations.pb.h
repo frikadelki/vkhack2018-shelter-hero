@@ -29,8 +29,8 @@
 #include <google/protobuf/message.h>
 #include <google/protobuf/repeated_field.h>  // IWYU pragma: export
 #include <google/protobuf/extension_set.h>  // IWYU pragma: export
-#include <google/protobuf/generated_enum_reflection.h>
 #include <google/protobuf/unknown_field_set.h>
+#include "General.pb.h"
 // @@protoc_insertion_point(includes)
 #define PROTOBUF_INTERNAL_EXPORT_protobuf_Recommendations_2eproto 
 
@@ -39,7 +39,7 @@ namespace protobuf_Recommendations_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[11];
+  static const ::google::protobuf::internal::ParseTable schema[9];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -57,9 +57,6 @@ extern DemandDefaultTypeInternal _Demand_default_instance_;
 class Event;
 class EventDefaultTypeInternal;
 extern EventDefaultTypeInternal _Event_default_instance_;
-class GeoPoint;
-class GeoPointDefaultTypeInternal;
-extern GeoPointDefaultTypeInternal _GeoPoint_default_instance_;
 class Location;
 class LocationDefaultTypeInternal;
 extern LocationDefaultTypeInternal _Location_default_instance_;
@@ -69,15 +66,12 @@ extern OrderDefaultTypeInternal _Order_default_instance_;
 class Recommendations;
 class RecommendationsDefaultTypeInternal;
 extern RecommendationsDefaultTypeInternal _Recommendations_default_instance_;
-class SearchParams;
-class SearchParamsDefaultTypeInternal;
-extern SearchParamsDefaultTypeInternal _SearchParams_default_instance_;
+class Stats;
+class StatsDefaultTypeInternal;
+extern StatsDefaultTypeInternal _Stats_default_instance_;
 class Task;
 class TaskDefaultTypeInternal;
 extern TaskDefaultTypeInternal _Task_default_instance_;
-class TimeWindow;
-class TimeWindowDefaultTypeInternal;
-extern TimeWindowDefaultTypeInternal _TimeWindow_default_instance_;
 class Trip;
 class TripDefaultTypeInternal;
 extern TripDefaultTypeInternal _Trip_default_instance_;
@@ -88,262 +82,18 @@ namespace protobuf {
 template<> ::sh::generated::Action* Arena::CreateMaybeMessage<::sh::generated::Action>(Arena*);
 template<> ::sh::generated::Demand* Arena::CreateMaybeMessage<::sh::generated::Demand>(Arena*);
 template<> ::sh::generated::Event* Arena::CreateMaybeMessage<::sh::generated::Event>(Arena*);
-template<> ::sh::generated::GeoPoint* Arena::CreateMaybeMessage<::sh::generated::GeoPoint>(Arena*);
 template<> ::sh::generated::Location* Arena::CreateMaybeMessage<::sh::generated::Location>(Arena*);
 template<> ::sh::generated::Order* Arena::CreateMaybeMessage<::sh::generated::Order>(Arena*);
 template<> ::sh::generated::Recommendations* Arena::CreateMaybeMessage<::sh::generated::Recommendations>(Arena*);
-template<> ::sh::generated::SearchParams* Arena::CreateMaybeMessage<::sh::generated::SearchParams>(Arena*);
+template<> ::sh::generated::Stats* Arena::CreateMaybeMessage<::sh::generated::Stats>(Arena*);
 template<> ::sh::generated::Task* Arena::CreateMaybeMessage<::sh::generated::Task>(Arena*);
-template<> ::sh::generated::TimeWindow* Arena::CreateMaybeMessage<::sh::generated::TimeWindow>(Arena*);
 template<> ::sh::generated::Trip* Arena::CreateMaybeMessage<::sh::generated::Trip>(Arena*);
 }  // namespace protobuf
 }  // namespace google
 namespace sh {
 namespace generated {
 
-enum Transport {
-  PEDESTRIAN = 0,
-  CAR = 1,
-  PUBLIC_TRANSPORT = 2,
-  Transport_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
-  Transport_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
-};
-bool Transport_IsValid(int value);
-const Transport Transport_MIN = PEDESTRIAN;
-const Transport Transport_MAX = PUBLIC_TRANSPORT;
-const int Transport_ARRAYSIZE = Transport_MAX + 1;
-
-const ::google::protobuf::EnumDescriptor* Transport_descriptor();
-inline const ::std::string& Transport_Name(Transport value) {
-  return ::google::protobuf::internal::NameOfEnum(
-    Transport_descriptor(), value);
-}
-inline bool Transport_Parse(
-    const ::std::string& name, Transport* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<Transport>(
-    Transport_descriptor(), name, value);
-}
 // ===================================================================
-
-class TimeWindow : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:sh.generated.TimeWindow) */ {
- public:
-  TimeWindow();
-  virtual ~TimeWindow();
-
-  TimeWindow(const TimeWindow& from);
-
-  inline TimeWindow& operator=(const TimeWindow& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  #if LANG_CXX11
-  TimeWindow(TimeWindow&& from) noexcept
-    : TimeWindow() {
-    *this = ::std::move(from);
-  }
-
-  inline TimeWindow& operator=(TimeWindow&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-  #endif
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const TimeWindow& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const TimeWindow* internal_default_instance() {
-    return reinterpret_cast<const TimeWindow*>(
-               &_TimeWindow_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    0;
-
-  void Swap(TimeWindow* other);
-  friend void swap(TimeWindow& a, TimeWindow& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline TimeWindow* New() const final {
-    return CreateMaybeMessage<TimeWindow>(NULL);
-  }
-
-  TimeWindow* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<TimeWindow>(arena);
-  }
-  void CopyFrom(const ::google::protobuf::Message& from) final;
-  void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const TimeWindow& from);
-  void MergeFrom(const TimeWindow& from);
-  void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) final;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const final;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(TimeWindow* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // int32 from = 1;
-  void clear_from();
-  static const int kFromFieldNumber = 1;
-  ::google::protobuf::int32 from() const;
-  void set_from(::google::protobuf::int32 value);
-
-  // int32 to = 2;
-  void clear_to();
-  static const int kToFieldNumber = 2;
-  ::google::protobuf::int32 to() const;
-  void set_to(::google::protobuf::int32 value);
-
-  // @@protoc_insertion_point(class_scope:sh.generated.TimeWindow)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::int32 from_;
-  ::google::protobuf::int32 to_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  friend struct ::protobuf_Recommendations_2eproto::TableStruct;
-};
-// -------------------------------------------------------------------
-
-class GeoPoint : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:sh.generated.GeoPoint) */ {
- public:
-  GeoPoint();
-  virtual ~GeoPoint();
-
-  GeoPoint(const GeoPoint& from);
-
-  inline GeoPoint& operator=(const GeoPoint& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  #if LANG_CXX11
-  GeoPoint(GeoPoint&& from) noexcept
-    : GeoPoint() {
-    *this = ::std::move(from);
-  }
-
-  inline GeoPoint& operator=(GeoPoint&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-  #endif
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const GeoPoint& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const GeoPoint* internal_default_instance() {
-    return reinterpret_cast<const GeoPoint*>(
-               &_GeoPoint_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    1;
-
-  void Swap(GeoPoint* other);
-  friend void swap(GeoPoint& a, GeoPoint& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline GeoPoint* New() const final {
-    return CreateMaybeMessage<GeoPoint>(NULL);
-  }
-
-  GeoPoint* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<GeoPoint>(arena);
-  }
-  void CopyFrom(const ::google::protobuf::Message& from) final;
-  void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const GeoPoint& from);
-  void MergeFrom(const GeoPoint& from);
-  void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) final;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const final;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(GeoPoint* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // double lat = 1;
-  void clear_lat();
-  static const int kLatFieldNumber = 1;
-  double lat() const;
-  void set_lat(double value);
-
-  // double lon = 2;
-  void clear_lon();
-  static const int kLonFieldNumber = 2;
-  double lon() const;
-  void set_lon(double value);
-
-  // @@protoc_insertion_point(class_scope:sh.generated.GeoPoint)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  double lat_;
-  double lon_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  friend struct ::protobuf_Recommendations_2eproto::TableStruct;
-};
-// -------------------------------------------------------------------
 
 class Location : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:sh.generated.Location) */ {
  public:
@@ -380,7 +130,7 @@ class Location : public ::google::protobuf::Message /* @@protoc_insertion_point(
                &_Location_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    0;
 
   void Swap(Location* other);
   friend void swap(Location& a, Location& b) {
@@ -496,7 +246,7 @@ class Event : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
                &_Event_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    1;
 
   void Swap(Event* other);
   friend void swap(Event& a, Event& b) {
@@ -632,7 +382,7 @@ class Demand : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
                &_Demand_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    4;
+    2;
 
   void Swap(Demand* other);
   friend void swap(Demand& a, Demand& b) {
@@ -741,7 +491,7 @@ class Order : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
                &_Order_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    3;
 
   void Swap(Order* other);
   friend void swap(Order& a, Order& b) {
@@ -822,162 +572,6 @@ class Order : public ::google::protobuf::Message /* @@protoc_insertion_point(cla
 };
 // -------------------------------------------------------------------
 
-class SearchParams : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:sh.generated.SearchParams) */ {
- public:
-  SearchParams();
-  virtual ~SearchParams();
-
-  SearchParams(const SearchParams& from);
-
-  inline SearchParams& operator=(const SearchParams& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  #if LANG_CXX11
-  SearchParams(SearchParams&& from) noexcept
-    : SearchParams() {
-    *this = ::std::move(from);
-  }
-
-  inline SearchParams& operator=(SearchParams&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-  #endif
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const SearchParams& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const SearchParams* internal_default_instance() {
-    return reinterpret_cast<const SearchParams*>(
-               &_SearchParams_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    6;
-
-  void Swap(SearchParams* other);
-  friend void swap(SearchParams& a, SearchParams& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline SearchParams* New() const final {
-    return CreateMaybeMessage<SearchParams>(NULL);
-  }
-
-  SearchParams* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<SearchParams>(arena);
-  }
-  void CopyFrom(const ::google::protobuf::Message& from) final;
-  void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const SearchParams& from);
-  void MergeFrom(const SearchParams& from);
-  void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) final;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const final;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(SearchParams* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // .sh.generated.GeoPoint start = 2;
-  bool has_start() const;
-  void clear_start();
-  static const int kStartFieldNumber = 2;
-  private:
-  const ::sh::generated::GeoPoint& _internal_start() const;
-  public:
-  const ::sh::generated::GeoPoint& start() const;
-  ::sh::generated::GeoPoint* release_start();
-  ::sh::generated::GeoPoint* mutable_start();
-  void set_allocated_start(::sh::generated::GeoPoint* start);
-
-  // .sh.generated.GeoPoint finish = 3;
-  bool has_finish() const;
-  void clear_finish();
-  static const int kFinishFieldNumber = 3;
-  private:
-  const ::sh::generated::GeoPoint& _internal_finish() const;
-  public:
-  const ::sh::generated::GeoPoint& finish() const;
-  ::sh::generated::GeoPoint* release_finish();
-  ::sh::generated::GeoPoint* mutable_finish();
-  void set_allocated_finish(::sh::generated::GeoPoint* finish);
-
-  // .sh.generated.TimeWindow availabilityWindow = 5;
-  bool has_availabilitywindow() const;
-  void clear_availabilitywindow();
-  static const int kAvailabilityWindowFieldNumber = 5;
-  private:
-  const ::sh::generated::TimeWindow& _internal_availabilitywindow() const;
-  public:
-  const ::sh::generated::TimeWindow& availabilitywindow() const;
-  ::sh::generated::TimeWindow* release_availabilitywindow();
-  ::sh::generated::TimeWindow* mutable_availabilitywindow();
-  void set_allocated_availabilitywindow(::sh::generated::TimeWindow* availabilitywindow);
-
-  // int32 id = 1;
-  void clear_id();
-  static const int kIdFieldNumber = 1;
-  ::google::protobuf::int32 id() const;
-  void set_id(::google::protobuf::int32 value);
-
-  // .sh.generated.Transport transport = 4;
-  void clear_transport();
-  static const int kTransportFieldNumber = 4;
-  ::sh::generated::Transport transport() const;
-  void set_transport(::sh::generated::Transport value);
-
-  // int32 distanceLimit = 6;
-  void clear_distancelimit();
-  static const int kDistanceLimitFieldNumber = 6;
-  ::google::protobuf::int32 distancelimit() const;
-  void set_distancelimit(::google::protobuf::int32 value);
-
-  // @@protoc_insertion_point(class_scope:sh.generated.SearchParams)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::sh::generated::GeoPoint* start_;
-  ::sh::generated::GeoPoint* finish_;
-  ::sh::generated::TimeWindow* availabilitywindow_;
-  ::google::protobuf::int32 id_;
-  int transport_;
-  ::google::protobuf::int32 distancelimit_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  friend struct ::protobuf_Recommendations_2eproto::TableStruct;
-};
-// -------------------------------------------------------------------
-
 class Task : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:sh.generated.Task) */ {
  public:
   Task();
@@ -1013,7 +607,7 @@ class Task : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
                &_Task_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    4;
 
   void Swap(Task* other);
   friend void swap(Task& a, Task& b) {
@@ -1142,7 +736,7 @@ class Action : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
                &_Action_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    5;
 
   void Swap(Action* other);
   friend void swap(Action& a, Action& b) {
@@ -1206,12 +800,136 @@ class Action : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   ::google::protobuf::int32 timestart() const;
   void set_timestart(::google::protobuf::int32 value);
 
+  // int32 timeFinish = 3;
+  void clear_timefinish();
+  static const int kTimeFinishFieldNumber = 3;
+  ::google::protobuf::int32 timefinish() const;
+  void set_timefinish(::google::protobuf::int32 value);
+
+  // int32 distanceTraveled = 4;
+  void clear_distancetraveled();
+  static const int kDistanceTraveledFieldNumber = 4;
+  ::google::protobuf::int32 distancetraveled() const;
+  void set_distancetraveled(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:sh.generated.Action)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::int32 eventid_;
   ::google::protobuf::int32 timestart_;
+  ::google::protobuf::int32 timefinish_;
+  ::google::protobuf::int32 distancetraveled_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_Recommendations_2eproto::TableStruct;
+};
+// -------------------------------------------------------------------
+
+class Stats : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:sh.generated.Stats) */ {
+ public:
+  Stats();
+  virtual ~Stats();
+
+  Stats(const Stats& from);
+
+  inline Stats& operator=(const Stats& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  Stats(Stats&& from) noexcept
+    : Stats() {
+    *this = ::std::move(from);
+  }
+
+  inline Stats& operator=(Stats&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Stats& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Stats* internal_default_instance() {
+    return reinterpret_cast<const Stats*>(
+               &_Stats_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    6;
+
+  void Swap(Stats* other);
+  friend void swap(Stats& a, Stats& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Stats* New() const final {
+    return CreateMaybeMessage<Stats>(NULL);
+  }
+
+  Stats* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<Stats>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const Stats& from);
+  void MergeFrom(const Stats& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Stats* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // int32 timeSpent = 1;
+  void clear_timespent();
+  static const int kTimeSpentFieldNumber = 1;
+  ::google::protobuf::int32 timespent() const;
+  void set_timespent(::google::protobuf::int32 value);
+
+  // int32 distanceTraveled = 2;
+  void clear_distancetraveled();
+  static const int kDistanceTraveledFieldNumber = 2;
+  ::google::protobuf::int32 distancetraveled() const;
+  void set_distancetraveled(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:sh.generated.Stats)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::int32 timespent_;
+  ::google::protobuf::int32 distancetraveled_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_Recommendations_2eproto::TableStruct;
 };
@@ -1252,7 +970,7 @@ class Trip : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
                &_Trip_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    9;
+    7;
 
   void Swap(Trip* other);
   friend void swap(Trip& a, Trip& b) {
@@ -1304,10 +1022,10 @@ class Trip : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
 
   // accessors -------------------------------------------------------
 
-  // repeated .sh.generated.Action actions = 2;
+  // repeated .sh.generated.Action actions = 4;
   int actions_size() const;
   void clear_actions();
-  static const int kActionsFieldNumber = 2;
+  static const int kActionsFieldNumber = 4;
   ::sh::generated::Action* mutable_actions(int index);
   ::google::protobuf::RepeatedPtrField< ::sh::generated::Action >*
       mutable_actions();
@@ -1315,6 +1033,42 @@ class Trip : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
   ::sh::generated::Action* add_actions();
   const ::google::protobuf::RepeatedPtrField< ::sh::generated::Action >&
       actions() const;
+
+  // .sh.generated.GeoPoint start = 2;
+  bool has_start() const;
+  void clear_start();
+  static const int kStartFieldNumber = 2;
+  private:
+  const ::sh::generated::GeoPoint& _internal_start() const;
+  public:
+  const ::sh::generated::GeoPoint& start() const;
+  ::sh::generated::GeoPoint* release_start();
+  ::sh::generated::GeoPoint* mutable_start();
+  void set_allocated_start(::sh::generated::GeoPoint* start);
+
+  // .sh.generated.GeoPoint finish = 3;
+  bool has_finish() const;
+  void clear_finish();
+  static const int kFinishFieldNumber = 3;
+  private:
+  const ::sh::generated::GeoPoint& _internal_finish() const;
+  public:
+  const ::sh::generated::GeoPoint& finish() const;
+  ::sh::generated::GeoPoint* release_finish();
+  ::sh::generated::GeoPoint* mutable_finish();
+  void set_allocated_finish(::sh::generated::GeoPoint* finish);
+
+  // .sh.generated.Stats stats = 5;
+  bool has_stats() const;
+  void clear_stats();
+  static const int kStatsFieldNumber = 5;
+  private:
+  const ::sh::generated::Stats& _internal_stats() const;
+  public:
+  const ::sh::generated::Stats& stats() const;
+  ::sh::generated::Stats* release_stats();
+  ::sh::generated::Stats* mutable_stats();
+  void set_allocated_stats(::sh::generated::Stats* stats);
 
   // int32 orderId = 1;
   void clear_orderid();
@@ -1327,6 +1081,9 @@ class Trip : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::RepeatedPtrField< ::sh::generated::Action > actions_;
+  ::sh::generated::GeoPoint* start_;
+  ::sh::generated::GeoPoint* finish_;
+  ::sh::generated::Stats* stats_;
   ::google::protobuf::int32 orderid_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_Recommendations_2eproto::TableStruct;
@@ -1368,7 +1125,7 @@ class Recommendations : public ::google::protobuf::Message /* @@protoc_insertion
                &_Recommendations_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    10;
+    8;
 
   void Swap(Recommendations* other);
   friend void swap(Recommendations& a, Recommendations& b) {
@@ -1449,70 +1206,6 @@ class Recommendations : public ::google::protobuf::Message /* @@protoc_insertion
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// TimeWindow
-
-// int32 from = 1;
-inline void TimeWindow::clear_from() {
-  from_ = 0;
-}
-inline ::google::protobuf::int32 TimeWindow::from() const {
-  // @@protoc_insertion_point(field_get:sh.generated.TimeWindow.from)
-  return from_;
-}
-inline void TimeWindow::set_from(::google::protobuf::int32 value) {
-  
-  from_ = value;
-  // @@protoc_insertion_point(field_set:sh.generated.TimeWindow.from)
-}
-
-// int32 to = 2;
-inline void TimeWindow::clear_to() {
-  to_ = 0;
-}
-inline ::google::protobuf::int32 TimeWindow::to() const {
-  // @@protoc_insertion_point(field_get:sh.generated.TimeWindow.to)
-  return to_;
-}
-inline void TimeWindow::set_to(::google::protobuf::int32 value) {
-  
-  to_ = value;
-  // @@protoc_insertion_point(field_set:sh.generated.TimeWindow.to)
-}
-
-// -------------------------------------------------------------------
-
-// GeoPoint
-
-// double lat = 1;
-inline void GeoPoint::clear_lat() {
-  lat_ = 0;
-}
-inline double GeoPoint::lat() const {
-  // @@protoc_insertion_point(field_get:sh.generated.GeoPoint.lat)
-  return lat_;
-}
-inline void GeoPoint::set_lat(double value) {
-  
-  lat_ = value;
-  // @@protoc_insertion_point(field_set:sh.generated.GeoPoint.lat)
-}
-
-// double lon = 2;
-inline void GeoPoint::clear_lon() {
-  lon_ = 0;
-}
-inline double GeoPoint::lon() const {
-  // @@protoc_insertion_point(field_get:sh.generated.GeoPoint.lon)
-  return lon_;
-}
-inline void GeoPoint::set_lon(double value) {
-  
-  lon_ = value;
-  // @@protoc_insertion_point(field_set:sh.generated.GeoPoint.lon)
-}
-
-// -------------------------------------------------------------------
-
 // Location
 
 // int32 id = 1;
@@ -1532,12 +1225,6 @@ inline void Location::set_id(::google::protobuf::int32 value) {
 // .sh.generated.GeoPoint geoPoint = 2;
 inline bool Location::has_geopoint() const {
   return this != internal_default_instance() && geopoint_ != NULL;
-}
-inline void Location::clear_geopoint() {
-  if (GetArenaNoVirtual() == NULL && geopoint_ != NULL) {
-    delete geopoint_;
-  }
-  geopoint_ = NULL;
 }
 inline const ::sh::generated::GeoPoint& Location::_internal_geopoint() const {
   return *geopoint_;
@@ -1567,7 +1254,7 @@ inline ::sh::generated::GeoPoint* Location::mutable_geopoint() {
 inline void Location::set_allocated_geopoint(::sh::generated::GeoPoint* geopoint) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == NULL) {
-    delete geopoint_;
+    delete reinterpret_cast< ::google::protobuf::MessageLite*>(geopoint_);
   }
   if (geopoint) {
     ::google::protobuf::Arena* submessage_arena = NULL;
@@ -1659,12 +1346,6 @@ inline void Event::set_allocated_location(::sh::generated::Location* location) {
 inline bool Event::has_timewindow() const {
   return this != internal_default_instance() && timewindow_ != NULL;
 }
-inline void Event::clear_timewindow() {
-  if (GetArenaNoVirtual() == NULL && timewindow_ != NULL) {
-    delete timewindow_;
-  }
-  timewindow_ = NULL;
-}
 inline const ::sh::generated::TimeWindow& Event::_internal_timewindow() const {
   return *timewindow_;
 }
@@ -1693,7 +1374,7 @@ inline ::sh::generated::TimeWindow* Event::mutable_timewindow() {
 inline void Event::set_allocated_timewindow(::sh::generated::TimeWindow* timewindow) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == NULL) {
-    delete timewindow_;
+    delete reinterpret_cast< ::google::protobuf::MessageLite*>(timewindow_);
   }
   if (timewindow) {
     ::google::protobuf::Arena* submessage_arena = NULL;
@@ -1807,214 +1488,6 @@ Order::demands() const {
 
 // -------------------------------------------------------------------
 
-// SearchParams
-
-// int32 id = 1;
-inline void SearchParams::clear_id() {
-  id_ = 0;
-}
-inline ::google::protobuf::int32 SearchParams::id() const {
-  // @@protoc_insertion_point(field_get:sh.generated.SearchParams.id)
-  return id_;
-}
-inline void SearchParams::set_id(::google::protobuf::int32 value) {
-  
-  id_ = value;
-  // @@protoc_insertion_point(field_set:sh.generated.SearchParams.id)
-}
-
-// .sh.generated.GeoPoint start = 2;
-inline bool SearchParams::has_start() const {
-  return this != internal_default_instance() && start_ != NULL;
-}
-inline void SearchParams::clear_start() {
-  if (GetArenaNoVirtual() == NULL && start_ != NULL) {
-    delete start_;
-  }
-  start_ = NULL;
-}
-inline const ::sh::generated::GeoPoint& SearchParams::_internal_start() const {
-  return *start_;
-}
-inline const ::sh::generated::GeoPoint& SearchParams::start() const {
-  const ::sh::generated::GeoPoint* p = start_;
-  // @@protoc_insertion_point(field_get:sh.generated.SearchParams.start)
-  return p != NULL ? *p : *reinterpret_cast<const ::sh::generated::GeoPoint*>(
-      &::sh::generated::_GeoPoint_default_instance_);
-}
-inline ::sh::generated::GeoPoint* SearchParams::release_start() {
-  // @@protoc_insertion_point(field_release:sh.generated.SearchParams.start)
-  
-  ::sh::generated::GeoPoint* temp = start_;
-  start_ = NULL;
-  return temp;
-}
-inline ::sh::generated::GeoPoint* SearchParams::mutable_start() {
-  
-  if (start_ == NULL) {
-    auto* p = CreateMaybeMessage<::sh::generated::GeoPoint>(GetArenaNoVirtual());
-    start_ = p;
-  }
-  // @@protoc_insertion_point(field_mutable:sh.generated.SearchParams.start)
-  return start_;
-}
-inline void SearchParams::set_allocated_start(::sh::generated::GeoPoint* start) {
-  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == NULL) {
-    delete start_;
-  }
-  if (start) {
-    ::google::protobuf::Arena* submessage_arena = NULL;
-    if (message_arena != submessage_arena) {
-      start = ::google::protobuf::internal::GetOwnedMessage(
-          message_arena, start, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  start_ = start;
-  // @@protoc_insertion_point(field_set_allocated:sh.generated.SearchParams.start)
-}
-
-// .sh.generated.GeoPoint finish = 3;
-inline bool SearchParams::has_finish() const {
-  return this != internal_default_instance() && finish_ != NULL;
-}
-inline void SearchParams::clear_finish() {
-  if (GetArenaNoVirtual() == NULL && finish_ != NULL) {
-    delete finish_;
-  }
-  finish_ = NULL;
-}
-inline const ::sh::generated::GeoPoint& SearchParams::_internal_finish() const {
-  return *finish_;
-}
-inline const ::sh::generated::GeoPoint& SearchParams::finish() const {
-  const ::sh::generated::GeoPoint* p = finish_;
-  // @@protoc_insertion_point(field_get:sh.generated.SearchParams.finish)
-  return p != NULL ? *p : *reinterpret_cast<const ::sh::generated::GeoPoint*>(
-      &::sh::generated::_GeoPoint_default_instance_);
-}
-inline ::sh::generated::GeoPoint* SearchParams::release_finish() {
-  // @@protoc_insertion_point(field_release:sh.generated.SearchParams.finish)
-  
-  ::sh::generated::GeoPoint* temp = finish_;
-  finish_ = NULL;
-  return temp;
-}
-inline ::sh::generated::GeoPoint* SearchParams::mutable_finish() {
-  
-  if (finish_ == NULL) {
-    auto* p = CreateMaybeMessage<::sh::generated::GeoPoint>(GetArenaNoVirtual());
-    finish_ = p;
-  }
-  // @@protoc_insertion_point(field_mutable:sh.generated.SearchParams.finish)
-  return finish_;
-}
-inline void SearchParams::set_allocated_finish(::sh::generated::GeoPoint* finish) {
-  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == NULL) {
-    delete finish_;
-  }
-  if (finish) {
-    ::google::protobuf::Arena* submessage_arena = NULL;
-    if (message_arena != submessage_arena) {
-      finish = ::google::protobuf::internal::GetOwnedMessage(
-          message_arena, finish, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  finish_ = finish;
-  // @@protoc_insertion_point(field_set_allocated:sh.generated.SearchParams.finish)
-}
-
-// .sh.generated.Transport transport = 4;
-inline void SearchParams::clear_transport() {
-  transport_ = 0;
-}
-inline ::sh::generated::Transport SearchParams::transport() const {
-  // @@protoc_insertion_point(field_get:sh.generated.SearchParams.transport)
-  return static_cast< ::sh::generated::Transport >(transport_);
-}
-inline void SearchParams::set_transport(::sh::generated::Transport value) {
-  
-  transport_ = value;
-  // @@protoc_insertion_point(field_set:sh.generated.SearchParams.transport)
-}
-
-// .sh.generated.TimeWindow availabilityWindow = 5;
-inline bool SearchParams::has_availabilitywindow() const {
-  return this != internal_default_instance() && availabilitywindow_ != NULL;
-}
-inline void SearchParams::clear_availabilitywindow() {
-  if (GetArenaNoVirtual() == NULL && availabilitywindow_ != NULL) {
-    delete availabilitywindow_;
-  }
-  availabilitywindow_ = NULL;
-}
-inline const ::sh::generated::TimeWindow& SearchParams::_internal_availabilitywindow() const {
-  return *availabilitywindow_;
-}
-inline const ::sh::generated::TimeWindow& SearchParams::availabilitywindow() const {
-  const ::sh::generated::TimeWindow* p = availabilitywindow_;
-  // @@protoc_insertion_point(field_get:sh.generated.SearchParams.availabilityWindow)
-  return p != NULL ? *p : *reinterpret_cast<const ::sh::generated::TimeWindow*>(
-      &::sh::generated::_TimeWindow_default_instance_);
-}
-inline ::sh::generated::TimeWindow* SearchParams::release_availabilitywindow() {
-  // @@protoc_insertion_point(field_release:sh.generated.SearchParams.availabilityWindow)
-  
-  ::sh::generated::TimeWindow* temp = availabilitywindow_;
-  availabilitywindow_ = NULL;
-  return temp;
-}
-inline ::sh::generated::TimeWindow* SearchParams::mutable_availabilitywindow() {
-  
-  if (availabilitywindow_ == NULL) {
-    auto* p = CreateMaybeMessage<::sh::generated::TimeWindow>(GetArenaNoVirtual());
-    availabilitywindow_ = p;
-  }
-  // @@protoc_insertion_point(field_mutable:sh.generated.SearchParams.availabilityWindow)
-  return availabilitywindow_;
-}
-inline void SearchParams::set_allocated_availabilitywindow(::sh::generated::TimeWindow* availabilitywindow) {
-  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
-  if (message_arena == NULL) {
-    delete availabilitywindow_;
-  }
-  if (availabilitywindow) {
-    ::google::protobuf::Arena* submessage_arena = NULL;
-    if (message_arena != submessage_arena) {
-      availabilitywindow = ::google::protobuf::internal::GetOwnedMessage(
-          message_arena, availabilitywindow, submessage_arena);
-    }
-    
-  } else {
-    
-  }
-  availabilitywindow_ = availabilitywindow;
-  // @@protoc_insertion_point(field_set_allocated:sh.generated.SearchParams.availabilityWindow)
-}
-
-// int32 distanceLimit = 6;
-inline void SearchParams::clear_distancelimit() {
-  distancelimit_ = 0;
-}
-inline ::google::protobuf::int32 SearchParams::distancelimit() const {
-  // @@protoc_insertion_point(field_get:sh.generated.SearchParams.distanceLimit)
-  return distancelimit_;
-}
-inline void SearchParams::set_distancelimit(::google::protobuf::int32 value) {
-  
-  distancelimit_ = value;
-  // @@protoc_insertion_point(field_set:sh.generated.SearchParams.distanceLimit)
-}
-
-// -------------------------------------------------------------------
-
 // Task
 
 // int32 id = 1;
@@ -2034,12 +1507,6 @@ inline void Task::set_id(::google::protobuf::int32 value) {
 // .sh.generated.SearchParams params = 2;
 inline bool Task::has_params() const {
   return this != internal_default_instance() && params_ != NULL;
-}
-inline void Task::clear_params() {
-  if (GetArenaNoVirtual() == NULL && params_ != NULL) {
-    delete params_;
-  }
-  params_ = NULL;
 }
 inline const ::sh::generated::SearchParams& Task::_internal_params() const {
   return *params_;
@@ -2069,7 +1536,7 @@ inline ::sh::generated::SearchParams* Task::mutable_params() {
 inline void Task::set_allocated_params(::sh::generated::SearchParams* params) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == NULL) {
-    delete params_;
+    delete reinterpret_cast< ::google::protobuf::MessageLite*>(params_);
   }
   if (params) {
     ::google::protobuf::Arena* submessage_arena = NULL;
@@ -2147,6 +1614,66 @@ inline void Action::set_timestart(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:sh.generated.Action.timeStart)
 }
 
+// int32 timeFinish = 3;
+inline void Action::clear_timefinish() {
+  timefinish_ = 0;
+}
+inline ::google::protobuf::int32 Action::timefinish() const {
+  // @@protoc_insertion_point(field_get:sh.generated.Action.timeFinish)
+  return timefinish_;
+}
+inline void Action::set_timefinish(::google::protobuf::int32 value) {
+  
+  timefinish_ = value;
+  // @@protoc_insertion_point(field_set:sh.generated.Action.timeFinish)
+}
+
+// int32 distanceTraveled = 4;
+inline void Action::clear_distancetraveled() {
+  distancetraveled_ = 0;
+}
+inline ::google::protobuf::int32 Action::distancetraveled() const {
+  // @@protoc_insertion_point(field_get:sh.generated.Action.distanceTraveled)
+  return distancetraveled_;
+}
+inline void Action::set_distancetraveled(::google::protobuf::int32 value) {
+  
+  distancetraveled_ = value;
+  // @@protoc_insertion_point(field_set:sh.generated.Action.distanceTraveled)
+}
+
+// -------------------------------------------------------------------
+
+// Stats
+
+// int32 timeSpent = 1;
+inline void Stats::clear_timespent() {
+  timespent_ = 0;
+}
+inline ::google::protobuf::int32 Stats::timespent() const {
+  // @@protoc_insertion_point(field_get:sh.generated.Stats.timeSpent)
+  return timespent_;
+}
+inline void Stats::set_timespent(::google::protobuf::int32 value) {
+  
+  timespent_ = value;
+  // @@protoc_insertion_point(field_set:sh.generated.Stats.timeSpent)
+}
+
+// int32 distanceTraveled = 2;
+inline void Stats::clear_distancetraveled() {
+  distancetraveled_ = 0;
+}
+inline ::google::protobuf::int32 Stats::distancetraveled() const {
+  // @@protoc_insertion_point(field_get:sh.generated.Stats.distanceTraveled)
+  return distancetraveled_;
+}
+inline void Stats::set_distancetraveled(::google::protobuf::int32 value) {
+  
+  distancetraveled_ = value;
+  // @@protoc_insertion_point(field_set:sh.generated.Stats.distanceTraveled)
+}
+
 // -------------------------------------------------------------------
 
 // Trip
@@ -2165,7 +1692,103 @@ inline void Trip::set_orderid(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:sh.generated.Trip.orderId)
 }
 
-// repeated .sh.generated.Action actions = 2;
+// .sh.generated.GeoPoint start = 2;
+inline bool Trip::has_start() const {
+  return this != internal_default_instance() && start_ != NULL;
+}
+inline const ::sh::generated::GeoPoint& Trip::_internal_start() const {
+  return *start_;
+}
+inline const ::sh::generated::GeoPoint& Trip::start() const {
+  const ::sh::generated::GeoPoint* p = start_;
+  // @@protoc_insertion_point(field_get:sh.generated.Trip.start)
+  return p != NULL ? *p : *reinterpret_cast<const ::sh::generated::GeoPoint*>(
+      &::sh::generated::_GeoPoint_default_instance_);
+}
+inline ::sh::generated::GeoPoint* Trip::release_start() {
+  // @@protoc_insertion_point(field_release:sh.generated.Trip.start)
+  
+  ::sh::generated::GeoPoint* temp = start_;
+  start_ = NULL;
+  return temp;
+}
+inline ::sh::generated::GeoPoint* Trip::mutable_start() {
+  
+  if (start_ == NULL) {
+    auto* p = CreateMaybeMessage<::sh::generated::GeoPoint>(GetArenaNoVirtual());
+    start_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:sh.generated.Trip.start)
+  return start_;
+}
+inline void Trip::set_allocated_start(::sh::generated::GeoPoint* start) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete reinterpret_cast< ::google::protobuf::MessageLite*>(start_);
+  }
+  if (start) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      start = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, start, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  start_ = start;
+  // @@protoc_insertion_point(field_set_allocated:sh.generated.Trip.start)
+}
+
+// .sh.generated.GeoPoint finish = 3;
+inline bool Trip::has_finish() const {
+  return this != internal_default_instance() && finish_ != NULL;
+}
+inline const ::sh::generated::GeoPoint& Trip::_internal_finish() const {
+  return *finish_;
+}
+inline const ::sh::generated::GeoPoint& Trip::finish() const {
+  const ::sh::generated::GeoPoint* p = finish_;
+  // @@protoc_insertion_point(field_get:sh.generated.Trip.finish)
+  return p != NULL ? *p : *reinterpret_cast<const ::sh::generated::GeoPoint*>(
+      &::sh::generated::_GeoPoint_default_instance_);
+}
+inline ::sh::generated::GeoPoint* Trip::release_finish() {
+  // @@protoc_insertion_point(field_release:sh.generated.Trip.finish)
+  
+  ::sh::generated::GeoPoint* temp = finish_;
+  finish_ = NULL;
+  return temp;
+}
+inline ::sh::generated::GeoPoint* Trip::mutable_finish() {
+  
+  if (finish_ == NULL) {
+    auto* p = CreateMaybeMessage<::sh::generated::GeoPoint>(GetArenaNoVirtual());
+    finish_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:sh.generated.Trip.finish)
+  return finish_;
+}
+inline void Trip::set_allocated_finish(::sh::generated::GeoPoint* finish) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete reinterpret_cast< ::google::protobuf::MessageLite*>(finish_);
+  }
+  if (finish) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      finish = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, finish, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  finish_ = finish;
+  // @@protoc_insertion_point(field_set_allocated:sh.generated.Trip.finish)
+}
+
+// repeated .sh.generated.Action actions = 4;
 inline int Trip::actions_size() const {
   return actions_.size();
 }
@@ -2193,6 +1816,60 @@ inline const ::google::protobuf::RepeatedPtrField< ::sh::generated::Action >&
 Trip::actions() const {
   // @@protoc_insertion_point(field_list:sh.generated.Trip.actions)
   return actions_;
+}
+
+// .sh.generated.Stats stats = 5;
+inline bool Trip::has_stats() const {
+  return this != internal_default_instance() && stats_ != NULL;
+}
+inline void Trip::clear_stats() {
+  if (GetArenaNoVirtual() == NULL && stats_ != NULL) {
+    delete stats_;
+  }
+  stats_ = NULL;
+}
+inline const ::sh::generated::Stats& Trip::_internal_stats() const {
+  return *stats_;
+}
+inline const ::sh::generated::Stats& Trip::stats() const {
+  const ::sh::generated::Stats* p = stats_;
+  // @@protoc_insertion_point(field_get:sh.generated.Trip.stats)
+  return p != NULL ? *p : *reinterpret_cast<const ::sh::generated::Stats*>(
+      &::sh::generated::_Stats_default_instance_);
+}
+inline ::sh::generated::Stats* Trip::release_stats() {
+  // @@protoc_insertion_point(field_release:sh.generated.Trip.stats)
+  
+  ::sh::generated::Stats* temp = stats_;
+  stats_ = NULL;
+  return temp;
+}
+inline ::sh::generated::Stats* Trip::mutable_stats() {
+  
+  if (stats_ == NULL) {
+    auto* p = CreateMaybeMessage<::sh::generated::Stats>(GetArenaNoVirtual());
+    stats_ = p;
+  }
+  // @@protoc_insertion_point(field_mutable:sh.generated.Trip.stats)
+  return stats_;
+}
+inline void Trip::set_allocated_stats(::sh::generated::Stats* stats) {
+  ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
+  if (message_arena == NULL) {
+    delete stats_;
+  }
+  if (stats) {
+    ::google::protobuf::Arena* submessage_arena = NULL;
+    if (message_arena != submessage_arena) {
+      stats = ::google::protobuf::internal::GetOwnedMessage(
+          message_arena, stats, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  stats_ = stats;
+  // @@protoc_insertion_point(field_set_allocated:sh.generated.Trip.stats)
 }
 
 // -------------------------------------------------------------------
@@ -2248,27 +1925,11 @@ Recommendations::recommendations() const {
 
 // -------------------------------------------------------------------
 
-// -------------------------------------------------------------------
-
-// -------------------------------------------------------------------
-
 
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace generated
 }  // namespace sh
-
-namespace google {
-namespace protobuf {
-
-template <> struct is_proto_enum< ::sh::generated::Transport> : ::std::true_type {};
-template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::sh::generated::Transport>() {
-  return ::sh::generated::Transport_descriptor();
-}
-
-}  // namespace protobuf
-}  // namespace google
 
 // @@protoc_insertion_point(global_scope)
 

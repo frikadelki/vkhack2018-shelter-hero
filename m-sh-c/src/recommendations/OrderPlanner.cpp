@@ -5,6 +5,7 @@
 #include "Numeric.h"
 
 #include <vector>
+#include <algorithm>
 
 namespace sh
 {
@@ -16,8 +17,16 @@ namespace sh
                 : start(TIME_INF)
                 , finish(TIME_INF)
                 , dist(TIME_INF)
+                , prevDpState(std::nullopt)
                 , prevEvent(std::nullopt)
             {
+            }
+
+            bool valid() const
+            {
+                return (TIME_INF != start)
+                    && (TIME_INF != finish)
+                    && (DIST_INF != dist);
             }
 
             Time start;
@@ -25,6 +34,7 @@ namespace sh
 
             Dist dist;
 
+            OptRef<const DpState> prevDpState;
             OptRef<const Event> prevEvent;
         };
 
@@ -76,9 +86,8 @@ namespace sh
                 fixTime(state.start, event.timewindow());
                 fixTime(state.finish, event.timewindow());
 
-                // TODO
-                //fixTime(state.start, searchParams.availabilitywindow().from(), searchParams.timelimit());
-                //fixTime(state.finish, searchParams.availabilitywindow().from(), searchParams.timelimit());
+                fixTime(state.start, searchParams.availabilitywindow().from(), searchParams.timelimit());
+                fixTime(state.finish, searchParams.availabilitywindow().from(), searchParams.timelimit());
                 fixDist(state.dist, searchParams.distancelimit());
             }
         }
@@ -115,9 +124,8 @@ namespace sh
                     fixTime(start, toEvent.timewindow());
                     fixTime(finish, toEvent.timewindow());
 
-                    // TODO
-                    //fixTime(state.start, searchParams.availabilitywindow().from(), searchParams.timelimit());
-                    //fixTime(state.finish, searchParams.availabilitywindow().from(), searchParams.timelimit());
+                    fixTime(start, searchParams.availabilitywindow().from(), searchParams.timelimit());
+                    fixTime(finish, searchParams.availabilitywindow().from(), searchParams.timelimit());
                     fixDist(dist, searchParams.distancelimit());
 
                     // TODO Use better comparator
@@ -126,6 +134,7 @@ namespace sh
                         toState.start = start;
                         toState.finish = finish;
                         toState.dist = dist;
+                        toState.prevDpState = fromState;
                         toState.prevEvent = fromEvent;
                     }
                 }
@@ -149,15 +158,24 @@ namespace sh
                 const Event& fromEvent = fromDemand.events(from);
                 const DpState& fromState = fromStates[from];
 
-                toState.start = fromState.finish
+                Time start = fromState.finish
                     + calcTime(fromEvent.location().geopoint(), searchParams.finish(), searchParams.transport());
-                toState.finish = toState.start;
-                toState.dist = calcDist(fromEvent.location().geopoint(), searchParams.finish(), searchParams.transport());
+                Time finish = toState.start;
+                Dist dist = calcDist(fromEvent.location().geopoint(), searchParams.finish(), searchParams.transport());
 
-                // TODO
-                //fixTime(toState.start, searchParams.availabilitywindow().from(), searchParams.timelimit());
-                //fixTime(toState.finish, searchParams.availabilitywindow().from(), searchParams.timelimit());
-                fixDist(toState.dist, searchParams.distancelimit());
+                fixTime(start, searchParams.availabilitywindow().from(), searchParams.timelimit());
+                fixTime(finish, searchParams.availabilitywindow().from(), searchParams.timelimit());
+                fixDist(dist, searchParams.distancelimit());
+
+                // TODO Use better comparator
+                if (less(finish, toState.finish))
+                {
+                    toState.start = start;
+                    toState.finish = finish;
+                    toState.dist = dist;
+                    toState.prevDpState = fromState;
+                    toState.prevEvent = fromEvent;
+                }
             }
         }
     }
@@ -183,6 +201,46 @@ namespace sh
 
         relaxLastLayer(searchParams, order.demands(demandsNumber - 1), demandsDpStates[demandsNumber - 1], demandsDpStates[demandsNumber]);
 
-        return Trip{};
+        const DpState lastState = demandsDpStates[demandsNumber][0];
+        if (not lastState.valid())
+        {
+            return std::nullopt;
+        }
+
+        Stats stats;
+        stats.set_timespent(lastState.finish);
+        stats.set_distancetraveled(lastState.dist);
+
+        Trip trip;
+
+        trip.set_orderid(order.id());
+        trip.mutable_start()->CopyFrom(searchParams.start());
+        trip.mutable_finish()->CopyFrom(searchParams.finish());
+        trip.mutable_stats()->CopyFrom(stats);
+
+        std::vector<Action> actions;
+        OptRef<const DpState> state = lastState.prevDpState;
+        OptRef<const Event> event = lastState.prevEvent;
+        while (event)
+        {
+            Action action;
+            action.set_eventid(event->get().id());
+            action.set_timestart(state->get().start);
+            action.set_timefinish(state->get().finish);
+            action.set_distancetraveled(state->get().dist);
+
+            actions.emplace_back(std::move(action));
+
+            event = state->get().prevEvent;
+            state = state->get().prevDpState;
+        }
+
+        std::reverse(begin(actions), end(actions));
+        for (const Action& action : actions)
+        {
+            trip.mutable_actions()->Add()->CopyFrom(action);
+        }
+
+        return trip;
     }
 }

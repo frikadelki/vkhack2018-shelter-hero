@@ -47,6 +47,8 @@ message Action
 {
     int32 eventId = 1;
     int32 timeStart = 2;
+    int32 timeFinish = 3;
+    int32 distanceTraveled = 4;
 }
 
 message Stats
