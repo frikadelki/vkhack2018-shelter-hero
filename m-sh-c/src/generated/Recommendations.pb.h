@@ -659,10 +659,10 @@ class Task : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
 
   // accessors -------------------------------------------------------
 
-  // repeated .sh.generated.Order orders = 3;
+  // repeated .sh.generated.Order orders = 2;
   int orders_size() const;
   void clear_orders();
-  static const int kOrdersFieldNumber = 3;
+  static const int kOrdersFieldNumber = 2;
   ::sh::generated::Order* mutable_orders(int index);
   ::google::protobuf::RepeatedPtrField< ::sh::generated::Order >*
       mutable_orders();
@@ -671,10 +671,10 @@ class Task : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
   const ::google::protobuf::RepeatedPtrField< ::sh::generated::Order >&
       orders() const;
 
-  // .sh.generated.SearchParams params = 2;
+  // .sh.generated.SearchParams params = 1;
   bool has_params() const;
   void clear_params();
-  static const int kParamsFieldNumber = 2;
+  static const int kParamsFieldNumber = 1;
   private:
   const ::sh::generated::SearchParams& _internal_params() const;
   public:
@@ -683,19 +683,12 @@ class Task : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
   ::sh::generated::SearchParams* mutable_params();
   void set_allocated_params(::sh::generated::SearchParams* params);
 
-  // int32 id = 1;
-  void clear_id();
-  static const int kIdFieldNumber = 1;
-  ::google::protobuf::int32 id() const;
-  void set_id(::google::protobuf::int32 value);
-
   // @@protoc_insertion_point(class_scope:sh.generated.Task)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::RepeatedPtrField< ::sh::generated::Order > orders_;
   ::sh::generated::SearchParams* params_;
-  ::google::protobuf::int32 id_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_Recommendations_2eproto::TableStruct;
 };
@@ -1490,21 +1483,7 @@ Order::demands() const {
 
 // Task
 
-// int32 id = 1;
-inline void Task::clear_id() {
-  id_ = 0;
-}
-inline ::google::protobuf::int32 Task::id() const {
-  // @@protoc_insertion_point(field_get:sh.generated.Task.id)
-  return id_;
-}
-inline void Task::set_id(::google::protobuf::int32 value) {
-  
-  id_ = value;
-  // @@protoc_insertion_point(field_set:sh.generated.Task.id)
-}
-
-// .sh.generated.SearchParams params = 2;
+// .sh.generated.SearchParams params = 1;
 inline bool Task::has_params() const {
   return this != internal_default_instance() && params_ != NULL;
 }
@@ -1552,7 +1531,7 @@ inline void Task::set_allocated_params(::sh::generated::SearchParams* params) {
   // @@protoc_insertion_point(field_set_allocated:sh.generated.Task.params)
 }
 
-// repeated .sh.generated.Order orders = 3;
+// repeated .sh.generated.Order orders = 2;
 inline int Task::orders_size() const {
   return orders_.size();
 }
