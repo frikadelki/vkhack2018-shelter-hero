@@ -89,12 +89,16 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = .white
+
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.tableFooterView = UIView()
         view.addSubview(tableView)
 
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.activityIndicatorViewStyle = .gray
         activityIndicator.hidesWhenStopped = true
         view.addSubview(activityIndicator)
 
@@ -110,29 +114,33 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        tableView.isUserInteractionEnabled = false
+        tableView.alpha = 0.5
+        activityIndicator.startAnimating()
+
+        let completion = {
+            self.tableView.reloadData()
+            self.activityIndicator.stopAnimating()
+            self.tableView.isUserInteractionEnabled = true
+            self.tableView.alpha = 1.0
+        }
+
         if questsSearchController != nil, let request = request {
-            activityIndicator.startAnimating()
             questsSearchController?.search(request: request) { result in
                 switch result {
                 case .success(let questsResponse): self.questsResponse = questsResponse
                 case .error(_): self.questsResponse = nil
                 }
-                self.tableView.reloadData()
-                self.activityIndicator.stopAnimating()
+                completion()
             }
         } else if questRecordController != nil {
-            activityIndicator.startAnimating()
             questRecordController?.list(completion: { records in
-
                 self.questsResponse = Sh_Generated_SearchQuestsResponse()
                 self.records = records
-
                 if let records = records {
                     self.questsResponse?.quests = records.map({ $0.shelterQuest })
                 }
-
-                self.tableView.reloadData()
-                self.activityIndicator.stopAnimating()
+                completion()
             })
         }
     }

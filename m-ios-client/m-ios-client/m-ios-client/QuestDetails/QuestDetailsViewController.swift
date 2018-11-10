@@ -12,7 +12,7 @@ import SnapKit
 
 class QuestStepView: UIView {
     let label = UILabel()
-    let button = UISwitch()
+    let uiSwitch = UISwitch()
 
     private let activityIndicator = UIActivityIndicatorView()
     private var buttonWidth: Constraint!
@@ -20,7 +20,7 @@ class QuestStepView: UIView {
     var changedCheckedHandler: ((_ check: Bool) -> Void)?
 
     var isActivity: Bool {
-        return button.isHidden
+        return uiSwitch.isHidden
     }
 
     override init(frame: CGRect) {
@@ -29,8 +29,8 @@ class QuestStepView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
 
-        button.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(button)
+        uiSwitch.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(uiSwitch)
 
         activityIndicator.hidesWhenStopped = true
         activityIndicator.activityIndicatorViewStyle = .gray
@@ -41,17 +41,17 @@ class QuestStepView: UIView {
             maker.top.leading.bottom.equalTo(self)
         }
 
-        button.snp.makeConstraints { maker in
+        uiSwitch.snp.makeConstraints { maker in
             maker.leading.equalTo(label.snp.trailing)
             maker.top.trailing.bottom.equalTo(self)
             buttonWidth = maker.width.equalTo(0).constraint
         }
 
         activityIndicator.snp.makeConstraints { maker in
-            maker.center.equalTo(button)
+            maker.center.equalTo(uiSwitch)
         }
 
-        button.addTarget(self, action: #selector(QuestStepView.changeValueAction(sender:)), for: .valueChanged)
+        uiSwitch.addTarget(self, action: #selector(QuestStepView.changeValueAction(sender:)), for: .valueChanged)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -63,22 +63,24 @@ class QuestStepView: UIView {
     }
 
     func showStatus(checked: Bool) {
-        button.isOn = checked
+        uiSwitch.isOn = checked
         buttonWidth.deactivate()
     }
 
     @objc private func changeValueAction(sender: Any) {
-        changedCheckedHandler?(button.isOn)
+        CATransaction.setCompletionBlock({
+            self.changedCheckedHandler?(self.uiSwitch.isOn)
+        })
     }
 
     func startUpdating() {
         activityIndicator.startAnimating()
-        button.isHidden = true
+        uiSwitch.isHidden = true
     }
 
     func stopUpdating() {
         activityIndicator.stopAnimating()
-        button.isHidden = false
+        uiSwitch.isHidden = false
     }
 }
 
@@ -103,6 +105,7 @@ class QuestDetailsViewController: UIViewController
     private let recordController = ShlterQuestRecordController()
     private var steps: UIStackView!
     private var bottomButtonContainer: UIStackView!
+    private let activityIndicator = UIActivityIndicatorView()
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -131,6 +134,124 @@ class QuestDetailsViewController: UIViewController
         description.text = quest.order.description_p
         contentScrollView.addSubview(description)
 
+        steps = UIStackView(arrangedSubviews: [])
+        steps.axis = .vertical
+
+        quest.steps.forEach { step in
+            let stepView = QuestStepView()
+            stepView.show(step: step)
+            if let record = record {
+                stepView.showStatus(checked: record.doneDemandsIds.contains(step.demand.id))
+                stepView.changedCheckedHandler = { [weak self, weak stepView] check in
+                    guard let stepView = stepView else { return }
+                    self?.updateDemand(demand: step.demand, check: check, stepView: stepView)
+                }
+            }
+            stepView.translatesAutoresizingMaskIntoConstraints = false
+            steps.addArrangedSubview(stepView)
+        }
+
+        contentScrollView.addSubview(steps)
+
+        bottomButtonContainer = UIStackView()
+        bottomButtonContainer.translatesAutoresizingMaskIntoConstraints = false
+        contentScrollView.addSubview(bottomButtonContainer)
+
+        if record == nil {
+            let pickButton = UIButton()
+            pickButton.setTitle(NSLocalizedString("pick quest", comment: ""), for: .normal)
+            pickButton.setTitleColor(.black, for: .normal)
+            pickButton.translatesAutoresizingMaskIntoConstraints = false
+            pickButton.addTarget(self, action: #selector(QuestDetailsViewController.startQuest(sender:)), for: .touchUpInside)
+
+            bottomButtonContainer.addArrangedSubview(pickButton)
+        }
+
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.activityIndicatorViewStyle = .gray
+        view.addSubview(activityIndicator)
+
+        setupConstraints(title: title, description: description)
+    }
+
+    func startUpdating() {
+        activityIndicator.startAnimating()
+        scrollView.alpha = 0.5
+        scrollView.isUserInteractionEnabled = false
+    }
+
+    func stopUpdating() {
+        activityIndicator.stopAnimating()
+        scrollView.alpha = 1.0
+        scrollView.isUserInteractionEnabled = true
+    }
+
+    func updateDemand(demand: Sh_Generated_ShelterDemand, check: Bool, stepView: QuestStepView) {
+        guard let record = record else { return }
+        stepView.startUpdating()
+        recordController.updateDemand(record: record, demand: demand, check: check) { result in
+            stepView.stopUpdating()
+            if !result {
+                stepView.uiSwitch.isOn = !stepView.uiSwitch.isOn
+            }
+            self.showOnReviewButtonIfNeeded()
+        }
+    }
+
+    func showOnReviewButtonIfNeeded() {
+        let activityOrCheckOffViews = steps.arrangedSubviews.filter { view in
+            return (view as? QuestStepView)?.isActivity == true || (view as? QuestStepView)?.uiSwitch.isOn == false
+        }
+
+        if let subview = bottomButtonContainer.arrangedSubviews.first {
+            bottomButtonContainer.removeArrangedSubview(subview)
+            subview.removeFromSuperview()
+        }
+
+        if activityOrCheckOffViews.count == 0 {
+
+            let pickButton = UIButton()
+            pickButton.setTitle(NSLocalizedString("done quest", comment: ""), for: .normal)
+            pickButton.setTitleColor(.black, for: .normal)
+            pickButton.translatesAutoresizingMaskIntoConstraints = false
+            pickButton.addTarget(self, action: #selector(QuestDetailsViewController.doneQuest(sender:)), for: .touchUpInside)
+
+            bottomButtonContainer.addArrangedSubview(pickButton)
+        }
+    }
+}
+
+extension QuestDetailsViewController
+{
+    @objc private func startQuest(sender: Any) {
+        startUpdating()
+        recordController.start(shelterQuest: quest) { record in
+            if record != nil {
+                (UIApplication.shared.delegate as? AppDelegate)?.navigateToMyQuests()
+            }
+            self.stopUpdating()
+        }
+    }
+
+    @objc private func doneQuest(sender: Any) {
+        guard let record = record else { return }
+        startUpdating()
+        recordController.done(record: record) { record in
+            if record != nil {
+                if let subview = self.bottomButtonContainer.arrangedSubviews.first {
+                    self.bottomButtonContainer.removeArrangedSubview(subview)
+                    subview.removeFromSuperview()
+                }
+            }
+            self.stopUpdating()
+        }
+    }
+}
+
+extension QuestDetailsViewController
+{
+    func setupConstraints(title: UILabel, description: UILabel)
+    {
         scrollView.snp.makeConstraints { maker in
             maker.edges.equalTo(view)
         }
@@ -151,34 +272,11 @@ class QuestDetailsViewController: UIViewController
             maker.trailing.equalTo(contentScrollView)
         }
 
-        steps = UIStackView(arrangedSubviews: [])
-        steps.axis = .vertical
-
-        quest.steps.forEach { step in
-            let stepView = QuestStepView()
-            stepView.show(step: step)
-            if let record = record {
-                stepView.showStatus(checked: record.doneDemandsIds.contains(step.demand.id))
-                stepView.changedCheckedHandler = { [weak self, weak stepView] check in
-                    guard let stepView = stepView else { return }
-                    self?.updateDemand(demand: step.demand, check: check, stepView: stepView)
-                }
-            }
-            stepView.translatesAutoresizingMaskIntoConstraints = false
-            steps.addArrangedSubview(stepView)
-        }
-
-        view.addSubview(steps)
-
         steps.snp.makeConstraints { maker in
             maker.top.equalTo(description.snp.bottom)
             maker.leading.equalTo(contentScrollView)
             maker.trailing.equalTo(contentScrollView)
         }
-
-        bottomButtonContainer = UIStackView()
-        bottomButtonContainer.translatesAutoresizingMaskIntoConstraints = false
-        contentScrollView.addSubview(bottomButtonContainer)
 
         bottomButtonContainer.snp.makeConstraints { maker in
             maker.top.equalTo(steps.snp.bottom)
@@ -187,68 +285,8 @@ class QuestDetailsViewController: UIViewController
             maker.bottom.equalTo(contentScrollView)
         }
 
-        if record == nil {
-            let pickButton = UIButton()
-            pickButton.setTitle(NSLocalizedString("pick quest", comment: ""), for: .normal)
-            pickButton.setTitleColor(.black, for: .normal)
-            pickButton.translatesAutoresizingMaskIntoConstraints = false
-            pickButton.addTarget(self, action: #selector(QuestDetailsViewController.startQuest(sender:)), for: .touchUpInside)
-
-            bottomButtonContainer.addArrangedSubview(pickButton)
-        }
-    }
-
-    @objc private func startQuest(sender: Any) {
-        recordController.start(shelterQuest: quest) { record in
-            if record != nil {
-                (UIApplication.shared.delegate as? AppDelegate)?.navigateToMyQuests()
-            }
-        }
-    }
-
-    func updateDemand(demand: Sh_Generated_ShelterDemand, check: Bool, stepView: QuestStepView) {
-        guard let record = record else { return }
-        stepView.startUpdating()
-        recordController.updateDemand(record: record, demand: demand, check: check) { result in
-            stepView.stopUpdating()
-            if !result {
-                stepView.button.isOn = !stepView.button.isOn
-            }
-            self.showOnReviewButtonIfNeeded()
-        }
-    }
-
-    func showOnReviewButtonIfNeeded() {
-        let activityOrCheckOffViews = steps.arrangedSubviews.filter { view in
-            return (view as? QuestStepView)?.isActivity == true || (view as? QuestStepView)?.button.isOn == false
-        }
-
-        if let subview = bottomButtonContainer.arrangedSubviews.first {
-            bottomButtonContainer.removeArrangedSubview(subview)
-            subview.removeFromSuperview()
-        }
-
-        if activityOrCheckOffViews.count == 0 {
-
-            let pickButton = UIButton()
-            pickButton.setTitle(NSLocalizedString("done quest", comment: ""), for: .normal)
-            pickButton.setTitleColor(.black, for: .normal)
-            pickButton.translatesAutoresizingMaskIntoConstraints = false
-            pickButton.addTarget(self, action: #selector(QuestDetailsViewController.doneQuest(sender:)), for: .touchUpInside)
-
-            bottomButtonContainer.addArrangedSubview(pickButton)
-        }
-    }
-
-    @objc private func doneQuest(sender: Any) {
-        guard let record = record else { return }
-        recordController.done(record: record) { record in
-            if record != nil {
-                if let subview = self.bottomButtonContainer.arrangedSubviews.first {
-                    self.bottomButtonContainer.removeArrangedSubview(subview)
-                    subview.removeFromSuperview()
-                }
-            }
+        activityIndicator.snp.makeConstraints { maker in
+            maker.center.equalToSuperview()
         }
     }
 }

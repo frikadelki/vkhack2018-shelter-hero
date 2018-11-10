@@ -15,10 +15,14 @@ class ShlterQuestRecordController {
         request.shelterQuest = shelterQuest
         request.token = AuthController.shared.token
         let call = try? Sh_Generated_ShelterQuestRecordServiceServiceClient(address: ApiConfig().address, secure: false).start(request) { response, _ in
-            DispatchQueue.main.async {
-                if AuthController.shared.fakeResponses {
+
+            if AuthController.shared.fakeResponses {
+                Thread.sleep(forTimeInterval: 1)
+                DispatchQueue.main.async {
                     self.fakeStartReponse(shelterQuest: shelterQuest, completion: completion)
-                } else {
+                }
+            } else {
+                DispatchQueue.main.async {
                     completion(response?.shelterQuestRecord)
                 }
             }
@@ -42,10 +46,14 @@ class ShlterQuestRecordController {
         var request = Sh_Generated_ShelterQuestListRequest()
         request.token = AuthController.shared.token
         let call = try? Sh_Generated_ShelterQuestRecordServiceServiceClient(address: ApiConfig().address, secure: false).list(request) { response, _ in
-            DispatchQueue.main.async {
-                if AuthController.shared.fakeResponses {
+
+            if AuthController.shared.fakeResponses {
+                Thread.sleep(forTimeInterval: 1)
+                DispatchQueue.main.async {
                     self.fakeListReponse(completion: completion)
-                } else {
+                }
+            } else {
+                DispatchQueue.main.async {
                     completion(response?.questsRecords)
                 }
             }
@@ -112,7 +120,7 @@ class ShlterQuestRecordController {
         request.token = AuthController.shared.token
         let call = try? Sh_Generated_ShelterQuestRecordServiceServiceClient(address: ApiConfig().address, secure: false).updateDemand(request) { response, _ in
             if AuthController.shared.fakeResponses {
-                Thread.sleep(forTimeInterval: 2)
+                Thread.sleep(forTimeInterval: 1)
                 DispatchQueue.main.async {
                     completion(true)
                 }
@@ -136,7 +144,7 @@ class ShlterQuestRecordController {
         request.token = AuthController.shared.token
         let call = try? Sh_Generated_ShelterQuestRecordServiceServiceClient(address: ApiConfig().address, secure: false).done(request) { response, _ in
             if AuthController.shared.fakeResponses {
-                Thread.sleep(forTimeInterval: 2)
+                Thread.sleep(forTimeInterval: 1)
                 DispatchQueue.main.async {
                     completion(record)
                 }

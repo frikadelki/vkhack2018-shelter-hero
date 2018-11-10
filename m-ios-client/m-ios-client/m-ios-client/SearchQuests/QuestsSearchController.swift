@@ -30,6 +30,7 @@ class QuestsSearchController {
         do {
             let _ = try Sh_Generated_QuestsServiceServiceClient(address: ApiConfig().address, secure: false).search(request) { response, callResult in
                 if AuthController.shared.fakeResponses {
+                    Thread.sleep(forTimeInterval: 1)
                     self.fakeResponse(request: request, completion: completionOnMainThread)
                 } else if let response = response {
                     completionOnMainThread(.success(quests: response))
