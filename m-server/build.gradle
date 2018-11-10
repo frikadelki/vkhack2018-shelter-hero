@@ -16,6 +16,10 @@ compileTestKotlin {
 
 sourceSets {
     main {
+        java {
+            srcDir "${project.buildDir}/generated/source/proto/main/grpc"
+            srcDir "${project.buildDir}/generated/source/proto/main/java"
+        }
         proto {
             srcDir "${project.rootDir}/m-protos"
         }
@@ -28,7 +32,7 @@ protobuf {
     }
     plugins {
         grpc {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.15.0"
+            artifact = "io.grpc:protoc-gen-grpc-java:$lib_grpc_v"
         }
     }
     generateProtoTasks {
@@ -46,9 +50,14 @@ dependencies {
     compile "io.ktor:ktor-html-builder:$lib_ktor_v"
     compile "io.ktor:ktor-gson:$lib_ktor_v"
 
+    compile "io.grpc:grpc-netty-shaded:$lib_grpc_v"
+    compile "io.grpc:grpc-protobuf:$lib_grpc_v"
+    compile "io.grpc:grpc-stub:$lib_grpc_v"
+
     compile "com.h2database:h2:1.4.197"
     compile "org.jetbrains.exposed:exposed:0.11.2"
 
+    compile "org.slf4j:slf4j-api:1.7.25"
     compile "org.slf4j:slf4j-simple:1.7.25"
 
     testCompile "org.jetbrains.kotlin:kotlin-test:$lib_kotlin_v"
