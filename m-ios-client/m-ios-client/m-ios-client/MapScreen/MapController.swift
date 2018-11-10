@@ -14,7 +14,7 @@ class MapController {
         case success(mapObjects: Sh_Generated_MapObjectResponse)
         case error(error: Error)
     }
-
+    
     func allObjects(completion: @escaping (_ result: Result) -> Void) {
         let request = Sh_Generated_MapObjectRequest()
 
@@ -29,7 +29,7 @@ class MapController {
         }
 
         do {
-            let _ = try Sh_Generated_MapObjectServiceServiceClient(address: ApiConfig().address).allObjects(request) { (response, callResult) in
+            let _ = try Sh_Generated_MapObjectServiceServiceClient(address: ApiConfig().address, secure: false).allObjects(request) { (response, callResult) in
                 if AuthController.shared.fakeResponses {
                     self.fakeResponse(completion: completionOnMainThread)
                 } else if let response = response {

@@ -9,5 +9,5 @@
 import Foundation
 
 class ApiConfig {
-    let address: String = ""
+    let address: String = "172.20.38.64:50051"
 }

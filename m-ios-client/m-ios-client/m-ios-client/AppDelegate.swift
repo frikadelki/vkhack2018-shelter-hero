@@ -13,9 +13,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    let tabBarController = UITabBarController()
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        let tabBarController = UITabBarController()
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
 
@@ -29,8 +30,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         filterNC.tabBarItem = UITabBarItem(title: NSLocalizedString("filter tab", comment: ""),
                                            image: nil, selectedImage: nil)
 
-        tabBarController.viewControllers = [mapNC, filterNC]
+        let myQuestsVC = QuestsSearchViewController()
+        let myQuestsNC = UINavigationController(rootViewController: myQuestsVC)
+        myQuestsNC.tabBarItem = UITabBarItem(title: NSLocalizedString("my quests tab", comment: ""),
+                                            image: nil, selectedImage: nil)
+
+        tabBarController.viewControllers = [mapNC, filterNC, myQuestsNC]
 
         return true
+    }
+
+    func navigateToMyQuests() {
+        tabBarController.viewControllers?.forEach({ vc in
+            if let nc = vc as? UINavigationController {
+                nc.popToRootViewController(animated: false)
+            }
+        })
+        tabBarController.selectedViewController = tabBarController.viewControllers?[2]
+        DispatchQueue.main.async {
+            let nc = (self.tabBarController.selectedViewController as? UINavigationController)
+            nc?.setViewControllers([QuestsSearchViewController()], animated: true)
+        }
     }
 }
