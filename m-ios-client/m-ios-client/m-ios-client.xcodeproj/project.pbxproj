@@ -92,6 +92,44 @@
 			path = "../../../m-protos";
 			sourceTree = "<group>";
 		};
+		CBD2BFE42196B569005006DD /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CBD2BFDE21963ED5005006DD /* AuthController.swift */,
+				CBD2BFE021963F57005006DD /* ApiConfig.swift */,
+				CBD2BFE22196422E005006DD /* MapView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		CBD2BFE52196B59D005006DD /* MapScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CBD2BFCC2195FB62005006DD /* MapController.swift */,
+				CBDEDA4C2195C0DA009F337A /* MapViewController.swift */,
+			);
+			path = MapScreen;
+			sourceTree = "<group>";
+		};
+		CBD2BFE62196B5A9005006DD /* FiltersScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CBD2BFD4219620DA005006DD /* FilterViewController.swift */,
+			);
+			path = FiltersScreen;
+			sourceTree = "<group>";
+		};
+		CBD2BFE72196B5B7005006DD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CBDEDA512195C0DC009F337A /* Assets.xcassets */,
+				CBDEDA532195C0DC009F337A /* LaunchScreen.storyboard */,
+				CBDEDA562195C0DC009F337A /* Info.plist */,
+				CBD2BFD021961F28005006DD /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		CBDEDA3E2195C0DA009F337A = {
 			isa = PBXGroup;
 			children = (
@@ -113,19 +151,13 @@
 		CBDEDA492195C0DA009F337A /* m-ios-client */ = {
 			isa = PBXGroup;
 			children = (
+				CBD2BFE72196B5B7005006DD /* Resources */,
+				CBD2BFE62196B5A9005006DD /* FiltersScreen */,
+				CBD2BFE52196B59D005006DD /* MapScreen */,
+				CBD2BFE42196B569005006DD /* Common */,
 				CBD2BFC92195F7EF005006DD /* m-protos */,
 				CBD2BFC42195F7C0005006DD /* ApiLayer */,
 				CBDEDA4A2195C0DA009F337A /* AppDelegate.swift */,
-				CBD2BFDE21963ED5005006DD /* AuthController.swift */,
-				CBD2BFCC2195FB62005006DD /* MapController.swift */,
-				CBDEDA4C2195C0DA009F337A /* MapViewController.swift */,
-				CBDEDA512195C0DC009F337A /* Assets.xcassets */,
-				CBDEDA532195C0DC009F337A /* LaunchScreen.storyboard */,
-				CBDEDA562195C0DC009F337A /* Info.plist */,
-				CBD2BFD021961F28005006DD /* Localizable.strings */,
-				CBD2BFD4219620DA005006DD /* FilterViewController.swift */,
-				CBD2BFE021963F57005006DD /* ApiConfig.swift */,
-				CBD2BFE22196422E005006DD /* MapView.swift */,
 			);
 			path = "m-ios-client";
 			sourceTree = "<group>";
