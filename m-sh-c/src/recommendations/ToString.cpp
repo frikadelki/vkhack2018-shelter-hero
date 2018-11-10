@@ -6,12 +6,8 @@ namespace sh
 {
     std::string toString(const Trip& trip)
     {
-        using namespace google::protobuf::util;
-
         std::string result;
-
-        MessageToJsonString(trip, &result);
-
+        google::protobuf::util::MessageToJsonString(trip, &result);
         return result;
     }
 }

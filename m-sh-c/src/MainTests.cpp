@@ -51,15 +51,15 @@ void testOrderPlanner()
     locShop0.mutable_geopoint()->CopyFrom(shop0);
 
     GeoPoint shop1;
-    shop1.set_lat(59.935880);
-    shop1.set_lon(30.236351);
+    shop1.set_lat(59.943151);
+    shop1.set_lon(30.261406);
     Location locShop1;
     locShop1.set_id(1);
     locShop1.mutable_geopoint()->CopyFrom(shop1);
 
     GeoPoint shop2;
-    shop2.set_lat(59.943151);
-    shop2.set_lon(30.261406);
+    shop2.set_lat(59.935880);
+    shop2.set_lon(30.236351);
     Location locShop2;
     locShop2.set_id(2);
     locShop2.mutable_geopoint()->CopyFrom(shop2);
