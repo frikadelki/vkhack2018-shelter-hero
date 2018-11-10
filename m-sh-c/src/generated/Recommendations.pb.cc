@@ -19,30 +19,22 @@
 #endif
 // @@protoc_insertion_point(includes)
 
+namespace protobuf_General_2eproto {
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_General_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_GeoPoint;
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_General_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_TimeWindow;
+extern PROTOBUF_INTERNAL_EXPORT_protobuf_General_2eproto ::google::protobuf::internal::SCCInfo<2> scc_info_SearchParams;
+}  // namespace protobuf_General_2eproto
 namespace protobuf_Recommendations_2eproto {
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_Recommendations_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_Action;
-extern PROTOBUF_INTERNAL_EXPORT_protobuf_Recommendations_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_GeoPoint;
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_Recommendations_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_Stats;
-extern PROTOBUF_INTERNAL_EXPORT_protobuf_Recommendations_2eproto ::google::protobuf::internal::SCCInfo<0> scc_info_TimeWindow;
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_Recommendations_2eproto ::google::protobuf::internal::SCCInfo<1> scc_info_Demand;
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_Recommendations_2eproto ::google::protobuf::internal::SCCInfo<1> scc_info_Location;
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_Recommendations_2eproto ::google::protobuf::internal::SCCInfo<1> scc_info_Order;
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_Recommendations_2eproto ::google::protobuf::internal::SCCInfo<2> scc_info_Event;
-extern PROTOBUF_INTERNAL_EXPORT_protobuf_Recommendations_2eproto ::google::protobuf::internal::SCCInfo<2> scc_info_SearchParams;
 extern PROTOBUF_INTERNAL_EXPORT_protobuf_Recommendations_2eproto ::google::protobuf::internal::SCCInfo<3> scc_info_Trip;
 }  // namespace protobuf_Recommendations_2eproto
 namespace sh {
 namespace generated {
-class TimeWindowDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<TimeWindow>
-      _instance;
-} _TimeWindow_default_instance_;
-class GeoPointDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<GeoPoint>
-      _instance;
-} _GeoPoint_default_instance_;
 class LocationDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<Location>
@@ -63,11 +55,6 @@ class OrderDefaultTypeInternal {
   ::google::protobuf::internal::ExplicitlyConstructed<Order>
       _instance;
 } _Order_default_instance_;
-class SearchParamsDefaultTypeInternal {
- public:
-  ::google::protobuf::internal::ExplicitlyConstructed<SearchParams>
-      _instance;
-} _SearchParams_default_instance_;
 class TaskDefaultTypeInternal {
  public:
   ::google::protobuf::internal::ExplicitlyConstructed<Task>
@@ -96,34 +83,6 @@ class RecommendationsDefaultTypeInternal {
 }  // namespace generated
 }  // namespace sh
 namespace protobuf_Recommendations_2eproto {
-static void InitDefaultsTimeWindow() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::sh::generated::_TimeWindow_default_instance_;
-    new (ptr) ::sh::generated::TimeWindow();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::sh::generated::TimeWindow::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_TimeWindow =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsTimeWindow}, {}};
-
-static void InitDefaultsGeoPoint() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::sh::generated::_GeoPoint_default_instance_;
-    new (ptr) ::sh::generated::GeoPoint();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::sh::generated::GeoPoint::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<0> scc_info_GeoPoint =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 0, InitDefaultsGeoPoint}, {}};
-
 static void InitDefaultsLocation() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -137,7 +96,7 @@ static void InitDefaultsLocation() {
 
 ::google::protobuf::internal::SCCInfo<1> scc_info_Location =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsLocation}, {
-      &protobuf_Recommendations_2eproto::scc_info_GeoPoint.base,}};
+      &protobuf_General_2eproto::scc_info_GeoPoint.base,}};
 
 static void InitDefaultsEvent() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -153,7 +112,7 @@ static void InitDefaultsEvent() {
 ::google::protobuf::internal::SCCInfo<2> scc_info_Event =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsEvent}, {
       &protobuf_Recommendations_2eproto::scc_info_Location.base,
-      &protobuf_Recommendations_2eproto::scc_info_TimeWindow.base,}};
+      &protobuf_General_2eproto::scc_info_TimeWindow.base,}};
 
 static void InitDefaultsDemand() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -185,22 +144,6 @@ static void InitDefaultsOrder() {
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 1, InitDefaultsOrder}, {
       &protobuf_Recommendations_2eproto::scc_info_Demand.base,}};
 
-static void InitDefaultsSearchParams() {
-  GOOGLE_PROTOBUF_VERIFY_VERSION;
-
-  {
-    void* ptr = &::sh::generated::_SearchParams_default_instance_;
-    new (ptr) ::sh::generated::SearchParams();
-    ::google::protobuf::internal::OnShutdownDestroyMessage(ptr);
-  }
-  ::sh::generated::SearchParams::InitAsDefaultInstance();
-}
-
-::google::protobuf::internal::SCCInfo<2> scc_info_SearchParams =
-    {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsSearchParams}, {
-      &protobuf_Recommendations_2eproto::scc_info_GeoPoint.base,
-      &protobuf_Recommendations_2eproto::scc_info_TimeWindow.base,}};
-
 static void InitDefaultsTask() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -214,7 +157,7 @@ static void InitDefaultsTask() {
 
 ::google::protobuf::internal::SCCInfo<2> scc_info_Task =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 2, InitDefaultsTask}, {
-      &protobuf_Recommendations_2eproto::scc_info_SearchParams.base,
+      &protobuf_General_2eproto::scc_info_SearchParams.base,
       &protobuf_Recommendations_2eproto::scc_info_Order.base,}};
 
 static void InitDefaultsAction() {
@@ -258,7 +201,7 @@ static void InitDefaultsTrip() {
 
 ::google::protobuf::internal::SCCInfo<3> scc_info_Trip =
     {{ATOMIC_VAR_INIT(::google::protobuf::internal::SCCInfoBase::kUninitialized), 3, InitDefaultsTrip}, {
-      &protobuf_Recommendations_2eproto::scc_info_GeoPoint.base,
+      &protobuf_General_2eproto::scc_info_GeoPoint.base,
       &protobuf_Recommendations_2eproto::scc_info_Action.base,
       &protobuf_Recommendations_2eproto::scc_info_Stats.base,}};
 
@@ -278,13 +221,10 @@ static void InitDefaultsRecommendations() {
       &protobuf_Recommendations_2eproto::scc_info_Trip.base,}};
 
 void InitDefaults() {
-  ::google::protobuf::internal::InitSCC(&scc_info_TimeWindow.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_GeoPoint.base);
   ::google::protobuf::internal::InitSCC(&scc_info_Location.base);
   ::google::protobuf::internal::InitSCC(&scc_info_Event.base);
   ::google::protobuf::internal::InitSCC(&scc_info_Demand.base);
   ::google::protobuf::internal::InitSCC(&scc_info_Order.base);
-  ::google::protobuf::internal::InitSCC(&scc_info_SearchParams.base);
   ::google::protobuf::internal::InitSCC(&scc_info_Task.base);
   ::google::protobuf::internal::InitSCC(&scc_info_Action.base);
   ::google::protobuf::internal::InitSCC(&scc_info_Stats.base);
@@ -292,24 +232,9 @@ void InitDefaults() {
   ::google::protobuf::internal::InitSCC(&scc_info_Recommendations.base);
 }
 
-::google::protobuf::Metadata file_level_metadata[12];
-const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[1];
+::google::protobuf::Metadata file_level_metadata[9];
 
 const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::TimeWindow, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::TimeWindow, from_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::TimeWindow, to_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::GeoPoint, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::GeoPoint, lat_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::GeoPoint, lon_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::Location, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -339,17 +264,6 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::Order, id_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::Order, demands_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::SearchParams, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::SearchParams, id_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::SearchParams, start_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::SearchParams, finish_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::SearchParams, transport_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::SearchParams, availabilitywindow_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::SearchParams, distancelimit_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::Task, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -390,28 +304,22 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::Recommendations, recommendations_),
 };
 static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, sizeof(::sh::generated::TimeWindow)},
-  { 7, -1, sizeof(::sh::generated::GeoPoint)},
-  { 14, -1, sizeof(::sh::generated::Location)},
-  { 21, -1, sizeof(::sh::generated::Event)},
-  { 30, -1, sizeof(::sh::generated::Demand)},
-  { 36, -1, sizeof(::sh::generated::Order)},
-  { 43, -1, sizeof(::sh::generated::SearchParams)},
-  { 54, -1, sizeof(::sh::generated::Task)},
-  { 62, -1, sizeof(::sh::generated::Action)},
-  { 69, -1, sizeof(::sh::generated::Stats)},
-  { 76, -1, sizeof(::sh::generated::Trip)},
-  { 86, -1, sizeof(::sh::generated::Recommendations)},
+  { 0, -1, sizeof(::sh::generated::Location)},
+  { 7, -1, sizeof(::sh::generated::Event)},
+  { 16, -1, sizeof(::sh::generated::Demand)},
+  { 22, -1, sizeof(::sh::generated::Order)},
+  { 29, -1, sizeof(::sh::generated::Task)},
+  { 37, -1, sizeof(::sh::generated::Action)},
+  { 44, -1, sizeof(::sh::generated::Stats)},
+  { 51, -1, sizeof(::sh::generated::Trip)},
+  { 61, -1, sizeof(::sh::generated::Recommendations)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::google::protobuf::Message*>(&::sh::generated::_TimeWindow_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::sh::generated::_GeoPoint_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::sh::generated::_Location_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::sh::generated::_Event_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::sh::generated::_Demand_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::sh::generated::_Order_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&::sh::generated::_SearchParams_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::sh::generated::_Task_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::sh::generated::_Action_default_instance_),
   reinterpret_cast<const ::google::protobuf::Message*>(&::sh::generated::_Stats_default_instance_),
@@ -423,7 +331,7 @@ void protobuf_AssignDescriptors() {
   AddDescriptors();
   AssignDescriptors(
       "Recommendations.proto", schemas, file_default_instances, TableStruct::offsets,
-      file_level_metadata, file_level_enum_descriptors, NULL);
+      file_level_metadata, NULL, NULL);
 }
 
 void protobuf_AssignDescriptorsOnce() {
@@ -434,50 +342,42 @@ void protobuf_AssignDescriptorsOnce() {
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_PROTOBUF_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 12);
+  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 9);
 }
 
 void AddDescriptorsImpl() {
   InitDefaults();
   static const char descriptor[] GOOGLE_PROTOBUF_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-      "\n\025Recommendations.proto\022\014sh.generated\"&\n"
-      "\nTimeWindow\022\014\n\004from\030\001 \001(\005\022\n\n\002to\030\002 \001(\005\"$\n"
-      "\010GeoPoint\022\013\n\003lat\030\001 \001(\001\022\013\n\003lon\030\002 \001(\001\"@\n\010L"
-      "ocation\022\n\n\002id\030\001 \001(\005\022(\n\010geoPoint\030\002 \001(\0132\026."
-      "sh.generated.GeoPoint\"}\n\005Event\022\n\n\002id\030\001 \001"
-      "(\005\022(\n\010location\030\002 \001(\0132\026.sh.generated.Loca"
-      "tion\022,\n\ntimeWindow\030\003 \001(\0132\030.sh.generated."
-      "TimeWindow\022\020\n\010duration\030\004 \001(\005\"-\n\006Demand\022#"
-      "\n\006events\030\001 \003(\0132\023.sh.generated.Event\":\n\005O"
-      "rder\022\n\n\002id\030\001 \001(\005\022%\n\007demands\030\002 \003(\0132\024.sh.g"
-      "enerated.Demand\"\342\001\n\014SearchParams\022\n\n\002id\030\001"
-      " \001(\005\022%\n\005start\030\002 \001(\0132\026.sh.generated.GeoPo"
-      "int\022&\n\006finish\030\003 \001(\0132\026.sh.generated.GeoPo"
-      "int\022*\n\ttransport\030\004 \001(\0162\027.sh.generated.Tr"
-      "ansport\0224\n\022availabilityWindow\030\005 \001(\0132\030.sh"
-      ".generated.TimeWindow\022\025\n\rdistanceLimit\030\006"
-      " \001(\005\"c\n\004Task\022\n\n\002id\030\001 \001(\005\022*\n\006params\030\002 \001(\013"
-      "2\032.sh.generated.SearchParams\022#\n\006orders\030\003"
-      " \003(\0132\023.sh.generated.Order\",\n\006Action\022\017\n\007e"
-      "ventId\030\001 \001(\005\022\021\n\ttimeStart\030\002 \001(\005\"4\n\005Stats"
-      "\022\021\n\ttimeSpent\030\001 \001(\005\022\030\n\020distanceTraveled\030"
-      "\002 \001(\005\"\261\001\n\004Trip\022\017\n\007orderId\030\001 \001(\005\022%\n\005start"
-      "\030\002 \001(\0132\026.sh.generated.GeoPoint\022&\n\006finish"
-      "\030\003 \001(\0132\026.sh.generated.GeoPoint\022%\n\007action"
-      "s\030\004 \003(\0132\024.sh.generated.Action\022\"\n\005stats\030\005"
-      " \001(\0132\023.sh.generated.Stats\">\n\017Recommendat"
-      "ions\022+\n\017recommendations\030\001 \003(\0132\022.sh.gener"
-      "ated.Trip*:\n\tTransport\022\016\n\nPEDESTRIAN\020\000\022\007"
-      "\n\003CAR\020\001\022\024\n\020PUBLIC_TRANSPORT\020\0022e\n\027Recomme"
-      "ndationsSearcher\022J\n\023findRecommendations\022"
-      "\022.sh.generated.Task\032\035.sh.generated.Recom"
-      "mendations\"\000B\036\n\032com.piggybank.sh.generat"
-      "edP\001b\006proto3"
+      "\n\025Recommendations.proto\022\014sh.generated\032\rG"
+      "eneral.proto\"@\n\010Location\022\n\n\002id\030\001 \001(\005\022(\n\010"
+      "geoPoint\030\002 \001(\0132\026.sh.generated.GeoPoint\"}"
+      "\n\005Event\022\n\n\002id\030\001 \001(\005\022(\n\010location\030\002 \001(\0132\026."
+      "sh.generated.Location\022,\n\ntimeWindow\030\003 \001("
+      "\0132\030.sh.generated.TimeWindow\022\020\n\010duration\030"
+      "\004 \001(\005\"-\n\006Demand\022#\n\006events\030\001 \003(\0132\023.sh.gen"
+      "erated.Event\":\n\005Order\022\n\n\002id\030\001 \001(\005\022%\n\007dem"
+      "ands\030\002 \003(\0132\024.sh.generated.Demand\"c\n\004Task"
+      "\022\n\n\002id\030\001 \001(\005\022*\n\006params\030\002 \001(\0132\032.sh.genera"
+      "ted.SearchParams\022#\n\006orders\030\003 \003(\0132\023.sh.ge"
+      "nerated.Order\",\n\006Action\022\017\n\007eventId\030\001 \001(\005"
+      "\022\021\n\ttimeStart\030\002 \001(\005\"4\n\005Stats\022\021\n\ttimeSpen"
+      "t\030\001 \001(\005\022\030\n\020distanceTraveled\030\002 \001(\005\"\261\001\n\004Tr"
+      "ip\022\017\n\007orderId\030\001 \001(\005\022%\n\005start\030\002 \001(\0132\026.sh."
+      "generated.GeoPoint\022&\n\006finish\030\003 \001(\0132\026.sh."
+      "generated.GeoPoint\022%\n\007actions\030\004 \003(\0132\024.sh"
+      ".generated.Action\022\"\n\005stats\030\005 \001(\0132\023.sh.ge"
+      "nerated.Stats\">\n\017Recommendations\022+\n\017reco"
+      "mmendations\030\001 \003(\0132\022.sh.generated.Trip2e\n"
+      "\027RecommendationsSearcher\022J\n\023findRecommen"
+      "dations\022\022.sh.generated.Task\032\035.sh.generat"
+      "ed.Recommendations\"\000B\036\n\032com.piggybank.sh"
+      ".generatedP\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 1292);
+      descriptor, 940);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Recommendations.proto", &protobuf_RegisterTypes);
+  ::protobuf_General_2eproto::AddDescriptors();
 }
 
 void AddDescriptors() {
@@ -493,553 +393,18 @@ struct StaticDescriptorInitializer {
 }  // namespace protobuf_Recommendations_2eproto
 namespace sh {
 namespace generated {
-const ::google::protobuf::EnumDescriptor* Transport_descriptor() {
-  protobuf_Recommendations_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Recommendations_2eproto::file_level_enum_descriptors[0];
-}
-bool Transport_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-      return true;
-    default:
-      return false;
-  }
-}
-
-
-// ===================================================================
-
-void TimeWindow::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int TimeWindow::kFromFieldNumber;
-const int TimeWindow::kToFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-TimeWindow::TimeWindow()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_Recommendations_2eproto::scc_info_TimeWindow.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:sh.generated.TimeWindow)
-}
-TimeWindow::TimeWindow(const TimeWindow& from)
-  : ::google::protobuf::Message(),
-      _internal_metadata_(NULL) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::memcpy(&from_, &from.from_,
-    static_cast<size_t>(reinterpret_cast<char*>(&to_) -
-    reinterpret_cast<char*>(&from_)) + sizeof(to_));
-  // @@protoc_insertion_point(copy_constructor:sh.generated.TimeWindow)
-}
-
-void TimeWindow::SharedCtor() {
-  ::memset(&from_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&to_) -
-      reinterpret_cast<char*>(&from_)) + sizeof(to_));
-}
-
-TimeWindow::~TimeWindow() {
-  // @@protoc_insertion_point(destructor:sh.generated.TimeWindow)
-  SharedDtor();
-}
-
-void TimeWindow::SharedDtor() {
-}
-
-void TimeWindow::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-const ::google::protobuf::Descriptor* TimeWindow::descriptor() {
-  ::protobuf_Recommendations_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_Recommendations_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
-const TimeWindow& TimeWindow::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_Recommendations_2eproto::scc_info_TimeWindow.base);
-  return *internal_default_instance();
-}
-
-
-void TimeWindow::Clear() {
-// @@protoc_insertion_point(message_clear_start:sh.generated.TimeWindow)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  ::memset(&from_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&to_) -
-      reinterpret_cast<char*>(&from_)) + sizeof(to_));
-  _internal_metadata_.Clear();
-}
-
-bool TimeWindow::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:sh.generated.TimeWindow)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // int32 from = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &from_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // int32 to = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(16u /* 16 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &to_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, _internal_metadata_.mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:sh.generated.TimeWindow)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:sh.generated.TimeWindow)
-  return false;
-#undef DO_
-}
-
-void TimeWindow::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:sh.generated.TimeWindow)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // int32 from = 1;
-  if (this->from() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->from(), output);
-  }
-
-  // int32 to = 2;
-  if (this->to() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->to(), output);
-  }
-
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
-  }
-  // @@protoc_insertion_point(serialize_end:sh.generated.TimeWindow)
-}
-
-::google::protobuf::uint8* TimeWindow::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:sh.generated.TimeWindow)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // int32 from = 1;
-  if (this->from() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->from(), target);
-  }
-
-  // int32 to = 2;
-  if (this->to() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->to(), target);
-  }
-
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:sh.generated.TimeWindow)
-  return target;
-}
-
-size_t TimeWindow::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:sh.generated.TimeWindow)
-  size_t total_size = 0;
-
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
-  }
-  // int32 from = 1;
-  if (this->from() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->from());
-  }
-
-  // int32 to = 2;
-  if (this->to() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->to());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void TimeWindow::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:sh.generated.TimeWindow)
-  GOOGLE_DCHECK_NE(&from, this);
-  const TimeWindow* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const TimeWindow>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:sh.generated.TimeWindow)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:sh.generated.TimeWindow)
-    MergeFrom(*source);
-  }
-}
-
-void TimeWindow::MergeFrom(const TimeWindow& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:sh.generated.TimeWindow)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from.from() != 0) {
-    set_from(from.from());
-  }
-  if (from.to() != 0) {
-    set_to(from.to());
-  }
-}
-
-void TimeWindow::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:sh.generated.TimeWindow)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void TimeWindow::CopyFrom(const TimeWindow& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:sh.generated.TimeWindow)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool TimeWindow::IsInitialized() const {
-  return true;
-}
-
-void TimeWindow::Swap(TimeWindow* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void TimeWindow::InternalSwap(TimeWindow* other) {
-  using std::swap;
-  swap(from_, other->from_);
-  swap(to_, other->to_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-}
-
-::google::protobuf::Metadata TimeWindow::GetMetadata() const {
-  protobuf_Recommendations_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_Recommendations_2eproto::file_level_metadata[kIndexInFileMessages];
-}
-
-
-// ===================================================================
-
-void GeoPoint::InitAsDefaultInstance() {
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int GeoPoint::kLatFieldNumber;
-const int GeoPoint::kLonFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-GeoPoint::GeoPoint()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_Recommendations_2eproto::scc_info_GeoPoint.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:sh.generated.GeoPoint)
-}
-GeoPoint::GeoPoint(const GeoPoint& from)
-  : ::google::protobuf::Message(),
-      _internal_metadata_(NULL) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::memcpy(&lat_, &from.lat_,
-    static_cast<size_t>(reinterpret_cast<char*>(&lon_) -
-    reinterpret_cast<char*>(&lat_)) + sizeof(lon_));
-  // @@protoc_insertion_point(copy_constructor:sh.generated.GeoPoint)
-}
-
-void GeoPoint::SharedCtor() {
-  ::memset(&lat_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&lon_) -
-      reinterpret_cast<char*>(&lat_)) + sizeof(lon_));
-}
-
-GeoPoint::~GeoPoint() {
-  // @@protoc_insertion_point(destructor:sh.generated.GeoPoint)
-  SharedDtor();
-}
-
-void GeoPoint::SharedDtor() {
-}
-
-void GeoPoint::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-const ::google::protobuf::Descriptor* GeoPoint::descriptor() {
-  ::protobuf_Recommendations_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_Recommendations_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
-const GeoPoint& GeoPoint::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_Recommendations_2eproto::scc_info_GeoPoint.base);
-  return *internal_default_instance();
-}
-
-
-void GeoPoint::Clear() {
-// @@protoc_insertion_point(message_clear_start:sh.generated.GeoPoint)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  ::memset(&lat_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&lon_) -
-      reinterpret_cast<char*>(&lat_)) + sizeof(lon_));
-  _internal_metadata_.Clear();
-}
-
-bool GeoPoint::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:sh.generated.GeoPoint)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // double lat = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(9u /* 9 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &lat_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // double lon = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(17u /* 17 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   double, ::google::protobuf::internal::WireFormatLite::TYPE_DOUBLE>(
-                 input, &lon_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, _internal_metadata_.mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:sh.generated.GeoPoint)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:sh.generated.GeoPoint)
-  return false;
-#undef DO_
-}
-
-void GeoPoint::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:sh.generated.GeoPoint)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // double lat = 1;
-  if (this->lat() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(1, this->lat(), output);
-  }
-
-  // double lon = 2;
-  if (this->lon() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteDouble(2, this->lon(), output);
-  }
-
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
-  }
-  // @@protoc_insertion_point(serialize_end:sh.generated.GeoPoint)
-}
-
-::google::protobuf::uint8* GeoPoint::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:sh.generated.GeoPoint)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // double lat = 1;
-  if (this->lat() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(1, this->lat(), target);
-  }
-
-  // double lon = 2;
-  if (this->lon() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(2, this->lon(), target);
-  }
-
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:sh.generated.GeoPoint)
-  return target;
-}
-
-size_t GeoPoint::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:sh.generated.GeoPoint)
-  size_t total_size = 0;
-
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
-  }
-  // double lat = 1;
-  if (this->lat() != 0) {
-    total_size += 1 + 8;
-  }
-
-  // double lon = 2;
-  if (this->lon() != 0) {
-    total_size += 1 + 8;
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void GeoPoint::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:sh.generated.GeoPoint)
-  GOOGLE_DCHECK_NE(&from, this);
-  const GeoPoint* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const GeoPoint>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:sh.generated.GeoPoint)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:sh.generated.GeoPoint)
-    MergeFrom(*source);
-  }
-}
-
-void GeoPoint::MergeFrom(const GeoPoint& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:sh.generated.GeoPoint)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from.lat() != 0) {
-    set_lat(from.lat());
-  }
-  if (from.lon() != 0) {
-    set_lon(from.lon());
-  }
-}
-
-void GeoPoint::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:sh.generated.GeoPoint)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void GeoPoint::CopyFrom(const GeoPoint& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:sh.generated.GeoPoint)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool GeoPoint::IsInitialized() const {
-  return true;
-}
-
-void GeoPoint::Swap(GeoPoint* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void GeoPoint::InternalSwap(GeoPoint* other) {
-  using std::swap;
-  swap(lat_, other->lat_);
-  swap(lon_, other->lon_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-}
-
-::google::protobuf::Metadata GeoPoint::GetMetadata() const {
-  protobuf_Recommendations_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_Recommendations_2eproto::file_level_metadata[kIndexInFileMessages];
-}
-
 
 // ===================================================================
 
 void Location::InitAsDefaultInstance() {
   ::sh::generated::_Location_default_instance_._instance.get_mutable()->geopoint_ = const_cast< ::sh::generated::GeoPoint*>(
       ::sh::generated::GeoPoint::internal_default_instance());
+}
+void Location::clear_geopoint() {
+  if (GetArenaNoVirtual() == NULL && geopoint_ != NULL) {
+    delete geopoint_;
+  }
+  geopoint_ = NULL;
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Location::kIdFieldNumber;
@@ -1316,6 +681,12 @@ void Event::InitAsDefaultInstance() {
       ::sh::generated::Location::internal_default_instance());
   ::sh::generated::_Event_default_instance_._instance.get_mutable()->timewindow_ = const_cast< ::sh::generated::TimeWindow*>(
       ::sh::generated::TimeWindow::internal_default_instance());
+}
+void Event::clear_timewindow() {
+  if (GetArenaNoVirtual() == NULL && timewindow_ != NULL) {
+    delete timewindow_;
+  }
+  timewindow_ = NULL;
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Event::kIdFieldNumber;
@@ -2171,459 +1542,15 @@ void Order::InternalSwap(Order* other) {
 
 // ===================================================================
 
-void SearchParams::InitAsDefaultInstance() {
-  ::sh::generated::_SearchParams_default_instance_._instance.get_mutable()->start_ = const_cast< ::sh::generated::GeoPoint*>(
-      ::sh::generated::GeoPoint::internal_default_instance());
-  ::sh::generated::_SearchParams_default_instance_._instance.get_mutable()->finish_ = const_cast< ::sh::generated::GeoPoint*>(
-      ::sh::generated::GeoPoint::internal_default_instance());
-  ::sh::generated::_SearchParams_default_instance_._instance.get_mutable()->availabilitywindow_ = const_cast< ::sh::generated::TimeWindow*>(
-      ::sh::generated::TimeWindow::internal_default_instance());
-}
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int SearchParams::kIdFieldNumber;
-const int SearchParams::kStartFieldNumber;
-const int SearchParams::kFinishFieldNumber;
-const int SearchParams::kTransportFieldNumber;
-const int SearchParams::kAvailabilityWindowFieldNumber;
-const int SearchParams::kDistanceLimitFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-SearchParams::SearchParams()
-  : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  ::google::protobuf::internal::InitSCC(
-      &protobuf_Recommendations_2eproto::scc_info_SearchParams.base);
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:sh.generated.SearchParams)
-}
-SearchParams::SearchParams(const SearchParams& from)
-  : ::google::protobuf::Message(),
-      _internal_metadata_(NULL) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.has_start()) {
-    start_ = new ::sh::generated::GeoPoint(*from.start_);
-  } else {
-    start_ = NULL;
-  }
-  if (from.has_finish()) {
-    finish_ = new ::sh::generated::GeoPoint(*from.finish_);
-  } else {
-    finish_ = NULL;
-  }
-  if (from.has_availabilitywindow()) {
-    availabilitywindow_ = new ::sh::generated::TimeWindow(*from.availabilitywindow_);
-  } else {
-    availabilitywindow_ = NULL;
-  }
-  ::memcpy(&id_, &from.id_,
-    static_cast<size_t>(reinterpret_cast<char*>(&distancelimit_) -
-    reinterpret_cast<char*>(&id_)) + sizeof(distancelimit_));
-  // @@protoc_insertion_point(copy_constructor:sh.generated.SearchParams)
-}
-
-void SearchParams::SharedCtor() {
-  ::memset(&start_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&distancelimit_) -
-      reinterpret_cast<char*>(&start_)) + sizeof(distancelimit_));
-}
-
-SearchParams::~SearchParams() {
-  // @@protoc_insertion_point(destructor:sh.generated.SearchParams)
-  SharedDtor();
-}
-
-void SearchParams::SharedDtor() {
-  if (this != internal_default_instance()) delete start_;
-  if (this != internal_default_instance()) delete finish_;
-  if (this != internal_default_instance()) delete availabilitywindow_;
-}
-
-void SearchParams::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-const ::google::protobuf::Descriptor* SearchParams::descriptor() {
-  ::protobuf_Recommendations_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_Recommendations_2eproto::file_level_metadata[kIndexInFileMessages].descriptor;
-}
-
-const SearchParams& SearchParams::default_instance() {
-  ::google::protobuf::internal::InitSCC(&protobuf_Recommendations_2eproto::scc_info_SearchParams.base);
-  return *internal_default_instance();
-}
-
-
-void SearchParams::Clear() {
-// @@protoc_insertion_point(message_clear_start:sh.generated.SearchParams)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  if (GetArenaNoVirtual() == NULL && start_ != NULL) {
-    delete start_;
-  }
-  start_ = NULL;
-  if (GetArenaNoVirtual() == NULL && finish_ != NULL) {
-    delete finish_;
-  }
-  finish_ = NULL;
-  if (GetArenaNoVirtual() == NULL && availabilitywindow_ != NULL) {
-    delete availabilitywindow_;
-  }
-  availabilitywindow_ = NULL;
-  ::memset(&id_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&distancelimit_) -
-      reinterpret_cast<char*>(&id_)) + sizeof(distancelimit_));
-  _internal_metadata_.Clear();
-}
-
-bool SearchParams::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:sh.generated.SearchParams)
-  for (;;) {
-    ::std::pair<::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // int32 id = 1;
-      case 1: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(8u /* 8 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &id_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .sh.generated.GeoPoint start = 2;
-      case 2: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(18u /* 18 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
-               input, mutable_start()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .sh.generated.GeoPoint finish = 3;
-      case 3: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(26u /* 26 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
-               input, mutable_finish()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .sh.generated.Transport transport = 4;
-      case 4: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(32u /* 32 & 0xFF */)) {
-          int value;
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
-                 input, &value)));
-          set_transport(static_cast< ::sh::generated::Transport >(value));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // .sh.generated.TimeWindow availabilityWindow = 5;
-      case 5: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(42u /* 42 & 0xFF */)) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadMessage(
-               input, mutable_availabilitywindow()));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      // int32 distanceLimit = 6;
-      case 6: {
-        if (static_cast< ::google::protobuf::uint8>(tag) ==
-            static_cast< ::google::protobuf::uint8>(48u /* 48 & 0xFF */)) {
-
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &distancelimit_)));
-        } else {
-          goto handle_unusual;
-        }
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormat::SkipField(
-              input, tag, _internal_metadata_.mutable_unknown_fields()));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:sh.generated.SearchParams)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:sh.generated.SearchParams)
-  return false;
-#undef DO_
-}
-
-void SearchParams::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:sh.generated.SearchParams)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // int32 id = 1;
-  if (this->id() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->id(), output);
-  }
-
-  // .sh.generated.GeoPoint start = 2;
-  if (this->has_start()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      2, this->_internal_start(), output);
-  }
-
-  // .sh.generated.GeoPoint finish = 3;
-  if (this->has_finish()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      3, this->_internal_finish(), output);
-  }
-
-  // .sh.generated.Transport transport = 4;
-  if (this->transport() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteEnum(
-      4, this->transport(), output);
-  }
-
-  // .sh.generated.TimeWindow availabilityWindow = 5;
-  if (this->has_availabilitywindow()) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      5, this->_internal_availabilitywindow(), output);
-  }
-
-  // int32 distanceLimit = 6;
-  if (this->distancelimit() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->distancelimit(), output);
-  }
-
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
-  }
-  // @@protoc_insertion_point(serialize_end:sh.generated.SearchParams)
-}
-
-::google::protobuf::uint8* SearchParams::InternalSerializeWithCachedSizesToArray(
-    bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic; // Unused
-  // @@protoc_insertion_point(serialize_to_array_start:sh.generated.SearchParams)
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // int32 id = 1;
-  if (this->id() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->id(), target);
-  }
-
-  // .sh.generated.GeoPoint start = 2;
-  if (this->has_start()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageToArray(
-        2, this->_internal_start(), deterministic, target);
-  }
-
-  // .sh.generated.GeoPoint finish = 3;
-  if (this->has_finish()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageToArray(
-        3, this->_internal_finish(), deterministic, target);
-  }
-
-  // .sh.generated.Transport transport = 4;
-  if (this->transport() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
-      4, this->transport(), target);
-  }
-
-  // .sh.generated.TimeWindow availabilityWindow = 5;
-  if (this->has_availabilitywindow()) {
-    target = ::google::protobuf::internal::WireFormatLite::
-      InternalWriteMessageToArray(
-        5, this->_internal_availabilitywindow(), deterministic, target);
-  }
-
-  // int32 distanceLimit = 6;
-  if (this->distancelimit() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(6, this->distancelimit(), target);
-  }
-
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    target = ::google::protobuf::internal::WireFormat::SerializeUnknownFieldsToArray(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), target);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:sh.generated.SearchParams)
-  return target;
-}
-
-size_t SearchParams::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:sh.generated.SearchParams)
-  size_t total_size = 0;
-
-  if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
-    total_size +=
-      ::google::protobuf::internal::WireFormat::ComputeUnknownFieldsSize(
-        (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()));
-  }
-  // .sh.generated.GeoPoint start = 2;
-  if (this->has_start()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSize(
-        *start_);
-  }
-
-  // .sh.generated.GeoPoint finish = 3;
-  if (this->has_finish()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSize(
-        *finish_);
-  }
-
-  // .sh.generated.TimeWindow availabilityWindow = 5;
-  if (this->has_availabilitywindow()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSize(
-        *availabilitywindow_);
-  }
-
-  // int32 id = 1;
-  if (this->id() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->id());
-  }
-
-  // .sh.generated.Transport transport = 4;
-  if (this->transport() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->transport());
-  }
-
-  // int32 distanceLimit = 6;
-  if (this->distancelimit() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->distancelimit());
-  }
-
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-void SearchParams::MergeFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_merge_from_start:sh.generated.SearchParams)
-  GOOGLE_DCHECK_NE(&from, this);
-  const SearchParams* source =
-      ::google::protobuf::internal::DynamicCastToGenerated<const SearchParams>(
-          &from);
-  if (source == NULL) {
-  // @@protoc_insertion_point(generalized_merge_from_cast_fail:sh.generated.SearchParams)
-    ::google::protobuf::internal::ReflectionOps::Merge(from, this);
-  } else {
-  // @@protoc_insertion_point(generalized_merge_from_cast_success:sh.generated.SearchParams)
-    MergeFrom(*source);
-  }
-}
-
-void SearchParams::MergeFrom(const SearchParams& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:sh.generated.SearchParams)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::google::protobuf::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from.has_start()) {
-    mutable_start()->::sh::generated::GeoPoint::MergeFrom(from.start());
-  }
-  if (from.has_finish()) {
-    mutable_finish()->::sh::generated::GeoPoint::MergeFrom(from.finish());
-  }
-  if (from.has_availabilitywindow()) {
-    mutable_availabilitywindow()->::sh::generated::TimeWindow::MergeFrom(from.availabilitywindow());
-  }
-  if (from.id() != 0) {
-    set_id(from.id());
-  }
-  if (from.transport() != 0) {
-    set_transport(from.transport());
-  }
-  if (from.distancelimit() != 0) {
-    set_distancelimit(from.distancelimit());
-  }
-}
-
-void SearchParams::CopyFrom(const ::google::protobuf::Message& from) {
-// @@protoc_insertion_point(generalized_copy_from_start:sh.generated.SearchParams)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-void SearchParams::CopyFrom(const SearchParams& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:sh.generated.SearchParams)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool SearchParams::IsInitialized() const {
-  return true;
-}
-
-void SearchParams::Swap(SearchParams* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void SearchParams::InternalSwap(SearchParams* other) {
-  using std::swap;
-  swap(start_, other->start_);
-  swap(finish_, other->finish_);
-  swap(availabilitywindow_, other->availabilitywindow_);
-  swap(id_, other->id_);
-  swap(transport_, other->transport_);
-  swap(distancelimit_, other->distancelimit_);
-  _internal_metadata_.Swap(&other->_internal_metadata_);
-}
-
-::google::protobuf::Metadata SearchParams::GetMetadata() const {
-  protobuf_Recommendations_2eproto::protobuf_AssignDescriptorsOnce();
-  return ::protobuf_Recommendations_2eproto::file_level_metadata[kIndexInFileMessages];
-}
-
-
-// ===================================================================
-
 void Task::InitAsDefaultInstance() {
   ::sh::generated::_Task_default_instance_._instance.get_mutable()->params_ = const_cast< ::sh::generated::SearchParams*>(
       ::sh::generated::SearchParams::internal_default_instance());
+}
+void Task::clear_params() {
+  if (GetArenaNoVirtual() == NULL && params_ != NULL) {
+    delete params_;
+  }
+  params_ = NULL;
 }
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Task::kIdFieldNumber;
@@ -3478,6 +2405,18 @@ void Trip::InitAsDefaultInstance() {
   ::sh::generated::_Trip_default_instance_._instance.get_mutable()->stats_ = const_cast< ::sh::generated::Stats*>(
       ::sh::generated::Stats::internal_default_instance());
 }
+void Trip::clear_start() {
+  if (GetArenaNoVirtual() == NULL && start_ != NULL) {
+    delete start_;
+  }
+  start_ = NULL;
+}
+void Trip::clear_finish() {
+  if (GetArenaNoVirtual() == NULL && finish_ != NULL) {
+    delete finish_;
+  }
+  finish_ = NULL;
+}
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Trip::kOrderIdFieldNumber;
 const int Trip::kStartFieldNumber;
@@ -4119,12 +3058,6 @@ void Recommendations::InternalSwap(Recommendations* other) {
 }  // namespace sh
 namespace google {
 namespace protobuf {
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::sh::generated::TimeWindow* Arena::CreateMaybeMessage< ::sh::generated::TimeWindow >(Arena* arena) {
-  return Arena::CreateInternal< ::sh::generated::TimeWindow >(arena);
-}
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::sh::generated::GeoPoint* Arena::CreateMaybeMessage< ::sh::generated::GeoPoint >(Arena* arena) {
-  return Arena::CreateInternal< ::sh::generated::GeoPoint >(arena);
-}
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::sh::generated::Location* Arena::CreateMaybeMessage< ::sh::generated::Location >(Arena* arena) {
   return Arena::CreateInternal< ::sh::generated::Location >(arena);
 }
@@ -4136,9 +3069,6 @@ template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::sh::generated::Demand* Arena::Cr
 }
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::sh::generated::Order* Arena::CreateMaybeMessage< ::sh::generated::Order >(Arena* arena) {
   return Arena::CreateInternal< ::sh::generated::Order >(arena);
-}
-template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::sh::generated::SearchParams* Arena::CreateMaybeMessage< ::sh::generated::SearchParams >(Arena* arena) {
-  return Arena::CreateInternal< ::sh::generated::SearchParams >(arena);
 }
 template<> GOOGLE_PROTOBUF_ATTRIBUTE_NOINLINE ::sh::generated::Task* Arena::CreateMaybeMessage< ::sh::generated::Task >(Arena* arena) {
   return Arena::CreateInternal< ::sh::generated::Task >(arena);
