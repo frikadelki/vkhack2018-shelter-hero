@@ -20,20 +20,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = tabBarController
         window?.makeKeyAndVisible()
 
+        window?.tintColor = UIColor.ray_orange
+
         let mapVC = MapViewController(mapObjects: nil)
         let mapNC = UINavigationController(rootViewController: mapVC)
         mapNC.tabBarItem = UITabBarItem(title: NSLocalizedString("map tab", comment: ""),
-                                        image: nil, selectedImage: nil)
+                                        image: UIImage(named: "map-tab")?.withRenderingMode(.alwaysOriginal),
+                                        selectedImage: UIImage(named: "map-tab-selected")?.withRenderingMode(.alwaysOriginal))
 
         let filterVC = FilterViewController(venueTags: Set(), venueTagsCheked: Set(), taskTags: Set(["tag1", "tag2"]), taskTagsCheked: Set(), style: .search)
         let filterNC = UINavigationController(rootViewController: filterVC)
-        filterNC.tabBarItem = UITabBarItem(title: NSLocalizedString("filter tab", comment: ""),
-                                           image: nil, selectedImage: nil)
+        filterNC.tabBarItem = UITabBarItem(title: NSLocalizedString("tasks tab", comment: ""),
+                                           image: UIImage(named: "tasks-tab")?.withRenderingMode(.alwaysOriginal),
+                                           selectedImage: UIImage(named: "tasks-tab-selected")?.withRenderingMode(.alwaysOriginal))
 
         let myQuestsVC = QuestsSearchViewController()
         let myQuestsNC = UINavigationController(rootViewController: myQuestsVC)
         myQuestsNC.tabBarItem = UITabBarItem(title: NSLocalizedString("my quests tab", comment: ""),
-                                            image: nil, selectedImage: nil)
+                                             image: UIImage(named: "user-tab")?.withRenderingMode(.alwaysOriginal),
+                                             selectedImage: UIImage(named: "user-tab-selected")?.withRenderingMode(.alwaysOriginal))
 
         tabBarController.viewControllers = [mapNC, filterNC, myQuestsNC]
 

@@ -10,4 +10,5 @@ import Foundation
 
 class ApiConfig {
     let address: String = "172.20.38.64:50051"
+    let fakeResponses: Bool = true
 }
