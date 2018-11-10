@@ -13,9 +13,10 @@ namespace sh
         {
             switch (transport)
             {
-                case Transport::PEDESTRIAN: return 83; // 5 km / h
-                case Transport::PUBLIC_TRANSPORT: return 333; // 20 km / h
-                case Transport::CAR: return 666; // 40 km / h
+                case Transport::PEDESTRIAN: return 41; // 2.5 km / h
+                case Transport::PUBLIC_TRANSPORT: return 166; // 10 km / h
+                case Transport::CAR: return 333; // 20 km / h
+                default: assert(false);
             }
 
             assert(false);
@@ -28,12 +29,12 @@ namespace sh
         }
     }
 
-    Time time(const GeoPoint& from, const GeoPoint& to, const Transport transport)
+    Time calcTime(const GeoPoint& from, const GeoPoint& to, const Transport transport)
     {
-        return dist(from, to, transport) / velocity(transport);
+        return calcDist(from, to, transport) / velocity(transport);
     }
 
-    Dist dist(const GeoPoint& from, const GeoPoint& to, const Transport /*transport*/)
+    Dist calcDist(const GeoPoint& from, const GeoPoint& to, const Transport /*transport*/)
     {
         using namespace std;
 

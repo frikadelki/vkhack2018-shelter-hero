@@ -9,7 +9,7 @@ SET(DEPS_ROOT_INCLUDE "${DEPS_ROOT}/include/")
 SET(DEPS_ROOT_LIB "${DEPS_ROOT}/lib")
 
 # add compilation flags
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Wall")
 
 SET(EXECUTABLE_OUTPUT_PATH "${PROJECT_DIR}/target/bin/")
 SET(LIBRARY_OUTPUT_PATH "${PROJECT_DIR}/target/bin/")
