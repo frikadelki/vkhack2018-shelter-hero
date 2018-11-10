@@ -14,9 +14,8 @@ service QuestsService {
 }
 
 message ShelterQuest {
-    int32 id = 1;
-    ShelterOrder order = 2;
-    repeated ShelterQuestStep steps = 3;
+    ShelterOrder order = 1;
+    repeated ShelterQuestStep steps = 2;
 }
 
 message ShelterQuestStep {

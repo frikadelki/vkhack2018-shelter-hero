@@ -9,9 +9,6 @@ import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.sql.Column
 import kotlin.reflect.KProperty
 
-private val GSON = GsonBuilder()
-        .create()!!
-
 class GeoPointDelegator(private val latColumn: Column<Double>, private val lonColumn: Column<Double>) {
     operator fun getValue(entity: IntEntity, property: KProperty<*>): GeoPoint {
         return entity.run {

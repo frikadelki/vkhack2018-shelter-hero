@@ -3,7 +3,9 @@ package com.piggybank.sh.backend
 import com.piggybank.sh.backend.db.*
 import com.piggybank.sh.generated.Shelter
 import com.piggybank.sh.generated.ShelterMapObject
-import com.piggybank.sh.genex.geoPoint
+import com.piggybank.sh.generated.Venue
+import com.piggybank.sh.generated.VenueMapObject
+import com.piggybank.sh.genex.geoPointOf
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -16,7 +18,7 @@ class SHRepo(private val db: Database) {
                     VenuesTable,
                     SheltersTable,
                     SheltersOrdersTable,
-                    OrderDemandsTable)
+                    OrdersDemandsTable)
         }
 
         initSheltersData()
@@ -53,7 +55,7 @@ class SHRepo(private val db: Database) {
                 ShelterEntity.new {
                     name = splitted[0].trim()
                     iconName = "shelter"
-                    location = geoPoint(splitted[1].trim().toDouble(), splitted[2].trim().toDouble())
+                    location = geoPointOf(splitted[1].trim().toDouble(), splitted[2].trim().toDouble())
                 }
             }
         }
@@ -128,10 +130,10 @@ class SHRepo(private val db: Database) {
                 VenueEntity.new {
                     name = splitted[0].trim()
                     iconName = splitted[1].trim()
-                    location = geoPoint(splitted[2].trim().toDouble(), splitted[3].trim().toDouble())
+                    location = geoPointOf(splitted[2].trim().toDouble(), splitted[3].trim().toDouble())
 
                     val tagsInternal = mutableListOf<String>()
-                    for (i in 4 .. splitted.size) {
+                    for (i in 4 until splitted.size) {
                         tagsInternal.add(splitted[i].trim())
                     }
 
@@ -148,6 +150,29 @@ class SHRepo(private val db: Database) {
                     .addAllAvailableOrders(emptyList())
                     .build()
         }
+    }
+
+    fun venuesMapObjects(): Iterable<VenueMapObject> = transaction(db) {
+        return@transaction VenueEntity.all().map {
+            val venue = Venue.newBuilder()
+                    .setId(it.id.value)
+                    .setCoordinate(it.location)
+                    .setIconName(it.iconName)
+                    .addAllTags(it.tags)
+                    .build()
+            return@map VenueMapObject.newBuilder()
+                    .setVenue(venue)
+                    .build()
+        }
+    }
+
+    fun openSheltersOrders() = transaction(db) {
+        // TODO: filter out running/completed orders orders
+        return@transaction SheltersOrderEntity.all()
+    }
+
+    fun orderEntity(orderId: Int): SheltersOrderEntity = transaction(db) {
+        return@transaction SheltersOrderEntity.findById(orderId)!!
     }
 }
 
