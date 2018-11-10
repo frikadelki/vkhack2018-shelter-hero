@@ -16,7 +16,9 @@ class SHApp(db: Database) {
 
     fun venueMapObjects(): Iterable<VenueMapObject> = repo.venuesMapObjects()
 
-    fun prepareSearchTask(params: SearchParams): Task {
+    fun orderEntity(orderId: Int): SheltersOrderEntity  = repo.orderEntity(orderId)
+
+    fun prepareSearchTask(params: SearchParams, acceptableOrdersTags: List<String>): Task {
         var eventsIdsSequence = 0
         fun nextEventId() = eventsIdsSequence++
 
@@ -84,10 +86,11 @@ class SHApp(db: Database) {
                     .build()
         }
 
-        val openSheltersOrders = repo.openSheltersOrders()
-        val openOrders = openSheltersOrders.map {
-            return@map mapShelterOrderEntity(it)
-        }
+        val openOrders = repo.openSheltersOrders()
+                .filter { order ->
+                    return@filter acceptableOrdersTags.any { order.tags.contains(it) }
+                }
+                .map(::mapShelterOrderEntity)
 
         return Task.newBuilder()
                 .setParams(params)

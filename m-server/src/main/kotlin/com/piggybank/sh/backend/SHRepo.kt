@@ -170,6 +170,10 @@ class SHRepo(private val db: Database) {
         // TODO: filter out running/completed orders orders
         return@transaction SheltersOrderEntity.all()
     }
+
+    fun orderEntity(orderId: Int): SheltersOrderEntity = transaction(db) {
+        return@transaction SheltersOrderEntity.findById(orderId)!!
+    }
 }
 
 fun ShelterEntity.shelter(): Shelter {

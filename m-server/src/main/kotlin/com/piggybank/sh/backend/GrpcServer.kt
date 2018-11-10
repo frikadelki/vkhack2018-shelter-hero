@@ -1,10 +1,10 @@
 package com.piggybank.sh.backend
 
-import com.piggybank.sh.generated.MapObjectRequest
-import com.piggybank.sh.generated.MapObjectResponse
-import com.piggybank.sh.generated.MapObjectServiceGrpc
+import com.piggybank.sh.generated.*
 import io.grpc.ServerBuilder
 import io.grpc.stub.StreamObserver
+import io.grpc.ManagedChannelBuilder
+import io.grpc.ManagedChannel
 
 class GrpcServer(private val app: SHApp) {
     private var started = false
@@ -13,6 +13,7 @@ class GrpcServer(private val app: SHApp) {
     private val port = 50051
     private val server = ServerBuilder.forPort(port)
             .addService(MapObjectServiceImpl(app))
+            .addService(QuestServiceImpl(app, RecommendationsClient("172.20.38.33", 12100)))
             .build()
 
     fun start() {
@@ -42,5 +43,64 @@ class MapObjectServiceImpl(private val app: SHApp) : MapObjectServiceGrpc.MapObj
 
         responseObserver.onNext(response)
         responseObserver.onCompleted()
+    }
+}
+
+class QuestServiceImpl(private val app: SHApp,
+                       private val recommendationsClient: RecommendationsClient)
+    : QuestsServiceGrpc.QuestsServiceImplBase() {
+    override fun search(request: SearchQuestsRequest, responseObserver: StreamObserver<SearchQuestsResponse>) {
+        val searchTask = app.prepareSearchTask(request.params, request.orderTagsList)
+        recommendationsClient.searcher.findRecommendations(searchTask, object : StreamObserver<Recommendations> {
+            override fun onNext(value: Recommendations) {
+                fun mapTrip(trip: Trip): ShelterQuest {
+                    val orderEntity = app.orderEntity(trip.orderId)
+
+                    val fakishShelter =  Shelter.newBuilder()
+                            .setId(orderEntity.shelter.id.value)
+                            .setName(orderEntity.shelter.name)
+                            .setIconName(orderEntity.shelter.iconName)
+                            .build()
+
+                    val order = ShelterOrder.newBuilder()
+                            .setTitle(orderEntity.title)
+                            .setDescription(orderEntity.description)
+                            .addAllTags(orderEntity.tags)
+                            .setShelter(fakishShelter)
+                            .build()
+
+                    return ShelterQuest.newBuilder()
+                            .setOrder(order)
+                            .build()
+                }
+
+                val quests = value.recommendationsList.map(::mapTrip)
+
+                val response = SearchQuestsResponse.newBuilder()
+                        .addAllQuests(quests)
+                        .build()
+                responseObserver.onNext(response)
+                responseObserver.onCompleted()
+            }
+
+            override fun onError(t: Throwable?) {
+                responseObserver.onError(Throwable(t))
+            }
+
+            override fun onCompleted() {
+            }
+        })
+    }
+}
+
+class RecommendationsClient(host: String, port: Int) {
+    private val channel: ManagedChannel = ManagedChannelBuilder.forAddress(host, port)
+            .usePlaintext(true)
+            .build()!!
+
+    val searcher = RecommendationsSearcherGrpc.newStub(channel)!!
+
+    fun shutdown() {
+        channel.shutdown()
     }
 }
