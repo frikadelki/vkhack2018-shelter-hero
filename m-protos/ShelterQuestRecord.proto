@@ -5,7 +5,7 @@ package sh.generated;
 import "Quests.proto";
 
 service ShelterQuestRecordService {
-    rpc list(ShelterQuestListRequest) returns (ShelterQuestListReponse) {}
+    rpc list(ShelterQuestListRequest) returns (ShelterQuestListResponse) {}
     rpc start(ShelterQuestStartRequest) returns (ShelterQuestStartResponse) {}
     rpc updateDemand(ShelterQuestUpdateDemandRequest) returns (ShelterQuestUpdateDemandResponse) {}
 }
@@ -14,7 +14,7 @@ message ShelterQuestListRequest {
     string token = 1;
 }
 
-message ShelterQuestListReponse {
+message ShelterQuestListResponse {
     repeated ShelterQuestRecord questsRecords = 1;
 }
 
@@ -51,5 +51,5 @@ message ShelterQuestRecord {
     ShelterQuest shelterQuest = 2;
     ShelterQuestRecordStatus status = 3;
     int32 startTime = 4;
-    repeated int32 doneDemands = 5;
+    repeated int32 doneDemandsIds = 5;
 }
