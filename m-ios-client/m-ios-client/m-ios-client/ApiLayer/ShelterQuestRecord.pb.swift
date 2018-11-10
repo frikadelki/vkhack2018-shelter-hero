@@ -99,6 +99,41 @@ struct Sh_Generated_ShelterQuestListResponse {
   init() {}
 }
 
+struct Sh_Generated_ShelterQuestRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var id: Int32 = 0
+
+  var token: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Sh_Generated_ShelterQuestResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var shelterQuestRecord: Sh_Generated_ShelterQuestRecord {
+    get {return _storage._shelterQuestRecord ?? Sh_Generated_ShelterQuestRecord()}
+    set {_uniqueStorage()._shelterQuestRecord = newValue}
+  }
+  /// Returns true if `shelterQuestRecord` has been explicitly set.
+  var hasShelterQuestRecord: Bool {return _storage._shelterQuestRecord != nil}
+  /// Clears the value of `shelterQuestRecord`. Subsequent reads from it will return its default value.
+  mutating func clearShelterQuestRecord() {_uniqueStorage()._shelterQuestRecord = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 struct Sh_Generated_ShelterQuestStartRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -117,27 +152,6 @@ struct Sh_Generated_ShelterQuestStartRequest {
     get {return _storage._token}
     set {_uniqueStorage()._token = newValue}
   }
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-
-  fileprivate var _storage = _StorageClass.defaultInstance
-}
-
-struct Sh_Generated_ShelterQuestStartResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var shelterQuestRecord: Sh_Generated_ShelterQuestRecord {
-    get {return _storage._shelterQuestRecord ?? Sh_Generated_ShelterQuestRecord()}
-    set {_uniqueStorage()._shelterQuestRecord = newValue}
-  }
-  /// Returns true if `shelterQuestRecord` has been explicitly set.
-  var hasShelterQuestRecord: Bool {return _storage._shelterQuestRecord != nil}
-  /// Clears the value of `shelterQuestRecord`. Subsequent reads from it will return its default value.
-  mutating func clearShelterQuestRecord() {_uniqueStorage()._shelterQuestRecord = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -288,6 +302,102 @@ extension Sh_Generated_ShelterQuestListResponse: SwiftProtobuf.Message, SwiftPro
   }
 }
 
+extension Sh_Generated_ShelterQuestRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ShelterQuestRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "token"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt32Field(value: &self.id)
+      case 2: try decoder.decodeSingularStringField(value: &self.token)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.id != 0 {
+      try visitor.visitSingularInt32Field(value: self.id, fieldNumber: 1)
+    }
+    if !self.token.isEmpty {
+      try visitor.visitSingularStringField(value: self.token, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Sh_Generated_ShelterQuestRequest, rhs: Sh_Generated_ShelterQuestRequest) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.token != rhs.token {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Sh_Generated_ShelterQuestResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ShelterQuestResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "shelterQuestRecord"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _shelterQuestRecord: Sh_Generated_ShelterQuestRecord? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _shelterQuestRecord = source._shelterQuestRecord
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._shelterQuestRecord)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._shelterQuestRecord {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Sh_Generated_ShelterQuestResponse, rhs: Sh_Generated_ShelterQuestResponse) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._shelterQuestRecord != rhs_storage._shelterQuestRecord {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Sh_Generated_ShelterQuestStartRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ShelterQuestStartRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -348,67 +458,6 @@ extension Sh_Generated_ShelterQuestStartRequest: SwiftProtobuf.Message, SwiftPro
         let rhs_storage = _args.1
         if _storage._shelterQuest != rhs_storage._shelterQuest {return false}
         if _storage._token != rhs_storage._token {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Sh_Generated_ShelterQuestStartResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ShelterQuestStartResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "shelterQuestRecord"),
-  ]
-
-  fileprivate class _StorageClass {
-    var _shelterQuestRecord: Sh_Generated_ShelterQuestRecord? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _shelterQuestRecord = source._shelterQuestRecord
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._shelterQuestRecord)
-        default: break
-        }
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._shelterQuestRecord {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      }
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Sh_Generated_ShelterQuestStartResponse, rhs: Sh_Generated_ShelterQuestStartResponse) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._shelterQuestRecord != rhs_storage._shelterQuestRecord {return false}
         return true
       }
       if !storagesAreEqual {return false}

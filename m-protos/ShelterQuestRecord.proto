@@ -6,7 +6,8 @@ import "Quests.proto";
 
 service ShelterQuestRecordService {
     rpc list(ShelterQuestListRequest) returns (ShelterQuestListResponse) {}
-    rpc start(ShelterQuestStartRequest) returns (ShelterQuestStartResponse) {}
+    rpc shelter(ShelterQuestRequest) returns (ShelterQuestResponse) {}
+    rpc start(ShelterQuestStartRequest) returns (ShelterQuestResponse) {}
     rpc updateDemand(ShelterQuestUpdateDemandRequest) returns (ShelterQuestUpdateDemandResponse) {}
 }
 
@@ -18,13 +19,18 @@ message ShelterQuestListResponse {
     repeated ShelterQuestRecord questsRecords = 1;
 }
 
-message ShelterQuestStartRequest {
-    ShelterQuest shelterQuest = 1;
+message ShelterQuestRequest {
+    int32 id = 1;
     string token = 2;
 }
 
-message ShelterQuestStartResponse {
+message ShelterQuestResponse {
     ShelterQuestRecord shelterQuestRecord = 1;
+}
+
+message ShelterQuestStartRequest {
+    ShelterQuest shelterQuest = 1;
+    string token = 2;
 }
 
 message ShelterQuestUpdateDemandRequest {
