@@ -20,7 +20,7 @@
 "on public" = "Общ.\nтранспорт";
 "on home" = "Из дома";
 "status in progress" = "Выполняется";
-"status on review" = "Проверка";
+"status on review" = "Ожидает проверки";
 "status is checked" = "Одобрено";
 "status is rejecred" = "Отклонено";
 "status is closed" = "Завершено";

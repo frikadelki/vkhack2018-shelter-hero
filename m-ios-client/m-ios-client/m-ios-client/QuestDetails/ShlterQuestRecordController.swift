@@ -146,6 +146,9 @@ class ShlterQuestRecordController {
             if AuthController.shared.fakeResponses {
                 Thread.sleep(forTimeInterval: 1)
                 DispatchQueue.main.async {
+                    var record = record
+                    record.doneDemandsIds = record.shelterQuest.steps.map({ $0.demand.id })
+                    record.status = .onReview
                     completion(record)
                 }
             } else {
