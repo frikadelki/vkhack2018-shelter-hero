@@ -1,5 +1,6 @@
 package com.piggybank.sh.backend.db
 
+import com.piggybank.sh.generated.TimeWindow
 import org.jetbrains.exposed.dao.*
 
 object SheltersTable : IntIdTable() {
@@ -25,8 +26,6 @@ object SheltersOrdersTable : IntIdTable() {
     val title = text("title")
     val description = text("description")
     val tags = text("tags")
-
-    // TODO: demands
 }
 
 class SheltersOrderEntity(id: EntityID<Int>) : IntEntity(id) {
@@ -37,5 +36,64 @@ class SheltersOrderEntity(id: EntityID<Int>) : IntEntity(id) {
     var description by SheltersOrdersTable.description
 
     var tags by StringListDelegator(SheltersOrdersTable.tags)
+
+    val demands by OrderDemandEntity referrersOn OrderDemandsTable.order
+
+    fun addDemand(builder: OrderDemandEntity.() -> Unit) {
+        OrderDemandEntity.new {
+            builder()
+            order = this@SheltersOrderEntity
+        }
+    }
 }
 
+object OrderDemandsTable : IntIdTable() {
+    val description = text("description")
+
+    val type = text("type") // OrderDemandType
+
+    val duration = integer("duration")
+
+    val timeWindow = text("time_window").nullable()
+
+    val shelter = reference("shelter", SheltersTable).nullable()
+
+    val venue = reference("venue", VenuesTable).nullable()
+
+    // parent
+    val order = reference("order", SheltersOrdersTable)
+}
+
+enum class OrderDemandType {
+    Plain,          // work handled outside of the app domain
+    ShelterAction,  // work requires shelter visit
+    VenueAction,    // work requires venue visit
+    ;
+}
+
+class OrderDemandEntity(id: EntityID<Int>) : IntEntity(id) {
+    companion object : IntEntityClass<OrderDemandEntity>(OrderDemandsTable)
+
+    var description by OrderDemandsTable.description
+
+    private var _type by OrderDemandsTable.type
+
+    var type: OrderDemandType
+        get() = OrderDemandType.valueOf(_type)
+        set(value) {
+            _type = value.name
+        }
+
+    var duration by OrderDemandsTable.duration
+
+    var timeWindow by ProtobufMessageDelegatorNullable<TimeWindow>(OrderDemandsTable.timeWindow) { TimeWindow.newBuilder() }
+
+    var shelter by ShelterEntity optionalReferencedOn OrderDemandsTable.shelter
+
+    var venue by VenueEntity optionalReferencedOn OrderDemandsTable.venue
+
+    var order by SheltersOrderEntity referencedOn OrderDemandsTable.order
+
+    init {
+    }
+}
