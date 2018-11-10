@@ -16,8 +16,7 @@ class MapController {
     }
 
     func allObjects(completion: @escaping (_ result: Result) -> Void) {
-        var request = Sh_Generated_MapObjectRequest()
-        request.token = AuthController.shared.token
+        let request = Sh_Generated_MapObjectRequest()
 
         let completionOnMainThread = { (result: Result) in
             if Thread.isMainThread {
@@ -53,28 +52,28 @@ class MapController {
 
     private func fakeResponse(completion: @escaping (_ result: Result) -> Void) {
         var shelter1 = Sh_Generated_ShelterMapObject()
-        shelter1.coordinate.latitude = 55.756683
-        shelter1.coordinate.longitude = 37.622341
-        shelter1.iconName = "shelterIcon"
+        shelter1.shelter.coordinate.lat = 55.756683
+        shelter1.shelter.coordinate.lon = 37.622341
+        shelter1.shelter.iconName = "shelterIcon"
 
-        var task1 = Sh_Generated_MapObjectTask()
+        var task1 = Sh_Generated_ShelterOrder()
         task1.tags = ["tag1"]
-        var task2 = Sh_Generated_MapObjectTask()
+        var task2 = Sh_Generated_ShelterOrder()
         task2.tags = ["tag2"]
 
-        shelter1.availableTasks = [task1, task2]
+        shelter1.availableOrders = [task1, task2]
 
         var shelter2 = Sh_Generated_ShelterMapObject()
-        shelter2.coordinate.latitude = 55.776683
-        shelter2.coordinate.longitude = 37.618341
-        shelter2.iconName = "shelterIcon"
-        shelter2.availableTasks = []
+        shelter2.shelter.coordinate.lat = 55.776683
+        shelter2.shelter.coordinate.lon = 37.618341
+        shelter2.shelter.iconName = "shelterIcon"
+        shelter2.availableOrders = []
 
         var venue1 = Sh_Generated_VenueMapObject()
-        venue1.coordinate.latitude = 55.770683
-        venue1.coordinate.longitude = 37.610341
-        venue1.iconName = "venue1"
-        venue1.tags = ["veterinary clinic"]
+        venue1.venue.coordinate.lat = 55.770683
+        venue1.venue.coordinate.lon = 37.610341
+        venue1.venue.iconName = "venue1"
+        venue1.venue.tags = ["veterinary clinic"]
 
         var fakeResponse = Sh_Generated_MapObjectResponse()
         fakeResponse.shelters = [shelter1, shelter2]

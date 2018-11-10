@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package sh.generated;
+
+import "General.proto";
+
+message Venue {
+    int32 id = 1;
+    GeoPoint coordinate = 2;
+    string iconName = 3;
+    repeated string tags = 4;
+}

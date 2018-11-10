@@ -5,35 +5,23 @@ option java_package = "com.piggybank.sh.generated";
 
 package sh.generated;
 
+import "Shelter.proto";
+import "Venue.proto";
+
 service MapObjectService {
     rpc allObjects(MapObjectRequest) returns (MapObjectResponse) {}
 }
 
 message MapObjectRequest {
-    string token = 1;
-}
-
-message MapObjectTask {
-    repeated string tags = 1;
-}
-
-message MapObjectCoordinate {
-    double latitude = 1;
-    double longitude = 2;
 }
 
 message VenueMapObject {
-    int32 id = 1;
-    MapObjectCoordinate coordinate = 2;
-    string iconName = 3;
-    repeated string tags = 4;
+    Venue venue = 1;
 }
 
 message ShelterMapObject {
-    int32 id = 1;
-    MapObjectCoordinate coordinate = 2;
-    string iconName = 3;
-    repeated MapObjectTask availableTasks = 4;
+    Shelter shelter = 1;
+    repeated ShelterOrder availableOrders = 2;
 }
 
 message MapObjectResponse {

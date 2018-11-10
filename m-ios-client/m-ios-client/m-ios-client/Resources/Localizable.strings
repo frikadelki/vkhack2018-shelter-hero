@@ -5,3 +5,7 @@
 "tasks tags" = "Типы заданий";
 "filter" = "Фильтр";
 "apply" = "Применить";
+"search" = "Найти";
+"map tab" = "Карта";
+"filter tab" = "Поиск";
+"on map" = "На карте";

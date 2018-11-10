@@ -61,7 +61,7 @@ class AuthController {
 
     func logout(completion: @escaping () -> Void) {
         var request = Sh_Generated_LogoutRequest()
-        request.toekn = token
+        request.token = token
         do {
             let _ = try Sh_Generated_AuthServiceServiceClient(address: ApiConfig().address).logout(request) { _, _ in
                 self.token = ""
