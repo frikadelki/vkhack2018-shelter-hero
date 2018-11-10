@@ -279,6 +279,8 @@ const ::google::protobuf::uint32 TableStruct::offsets[] GOOGLE_PROTOBUF_ATTRIBUT
   ~0u,  // no _weak_field_map_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::Action, eventid_),
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::Action, timestart_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::Action, timefinish_),
+  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::Action, distancetraveled_),
   ~0u,  // no _has_bits_
   GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(::sh::generated::Stats, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -310,9 +312,9 @@ static const ::google::protobuf::internal::MigrationSchema schemas[] GOOGLE_PROT
   { 22, -1, sizeof(::sh::generated::Order)},
   { 29, -1, sizeof(::sh::generated::Task)},
   { 37, -1, sizeof(::sh::generated::Action)},
-  { 44, -1, sizeof(::sh::generated::Stats)},
-  { 51, -1, sizeof(::sh::generated::Trip)},
-  { 61, -1, sizeof(::sh::generated::Recommendations)},
+  { 46, -1, sizeof(::sh::generated::Stats)},
+  { 53, -1, sizeof(::sh::generated::Trip)},
+  { 63, -1, sizeof(::sh::generated::Recommendations)},
 };
 
 static ::google::protobuf::Message const * const file_default_instances[] = {
@@ -359,22 +361,23 @@ void AddDescriptorsImpl() {
       "ands\030\002 \003(\0132\024.sh.generated.Demand\"c\n\004Task"
       "\022\n\n\002id\030\001 \001(\005\022*\n\006params\030\002 \001(\0132\032.sh.genera"
       "ted.SearchParams\022#\n\006orders\030\003 \003(\0132\023.sh.ge"
-      "nerated.Order\",\n\006Action\022\017\n\007eventId\030\001 \001(\005"
-      "\022\021\n\ttimeStart\030\002 \001(\005\"4\n\005Stats\022\021\n\ttimeSpen"
-      "t\030\001 \001(\005\022\030\n\020distanceTraveled\030\002 \001(\005\"\261\001\n\004Tr"
-      "ip\022\017\n\007orderId\030\001 \001(\005\022%\n\005start\030\002 \001(\0132\026.sh."
-      "generated.GeoPoint\022&\n\006finish\030\003 \001(\0132\026.sh."
-      "generated.GeoPoint\022%\n\007actions\030\004 \003(\0132\024.sh"
-      ".generated.Action\022\"\n\005stats\030\005 \001(\0132\023.sh.ge"
-      "nerated.Stats\">\n\017Recommendations\022+\n\017reco"
-      "mmendations\030\001 \003(\0132\022.sh.generated.Trip2e\n"
-      "\027RecommendationsSearcher\022J\n\023findRecommen"
-      "dations\022\022.sh.generated.Task\032\035.sh.generat"
-      "ed.Recommendations\"\000B\036\n\032com.piggybank.sh"
-      ".generatedP\001b\006proto3"
+      "nerated.Order\"Z\n\006Action\022\017\n\007eventId\030\001 \001(\005"
+      "\022\021\n\ttimeStart\030\002 \001(\005\022\022\n\ntimeFinish\030\003 \001(\005\022"
+      "\030\n\020distanceTraveled\030\004 \001(\005\"4\n\005Stats\022\021\n\tti"
+      "meSpent\030\001 \001(\005\022\030\n\020distanceTraveled\030\002 \001(\005\""
+      "\261\001\n\004Trip\022\017\n\007orderId\030\001 \001(\005\022%\n\005start\030\002 \001(\013"
+      "2\026.sh.generated.GeoPoint\022&\n\006finish\030\003 \001(\013"
+      "2\026.sh.generated.GeoPoint\022%\n\007actions\030\004 \003("
+      "\0132\024.sh.generated.Action\022\"\n\005stats\030\005 \001(\0132\023"
+      ".sh.generated.Stats\">\n\017Recommendations\022+"
+      "\n\017recommendations\030\001 \003(\0132\022.sh.generated.T"
+      "rip2e\n\027RecommendationsSearcher\022J\n\023findRe"
+      "commendations\022\022.sh.generated.Task\032\035.sh.g"
+      "enerated.Recommendations\"\000B\036\n\032com.piggyb"
+      "ank.sh.generatedP\001b\006proto3"
   };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 940);
+      descriptor, 986);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Recommendations.proto", &protobuf_RegisterTypes);
   ::protobuf_General_2eproto::AddDescriptors();
@@ -1872,6 +1875,8 @@ void Action::InitAsDefaultInstance() {
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Action::kEventIdFieldNumber;
 const int Action::kTimeStartFieldNumber;
+const int Action::kTimeFinishFieldNumber;
+const int Action::kDistanceTraveledFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 Action::Action()
@@ -1886,15 +1891,15 @@ Action::Action(const Action& from)
       _internal_metadata_(NULL) {
   _internal_metadata_.MergeFrom(from._internal_metadata_);
   ::memcpy(&eventid_, &from.eventid_,
-    static_cast<size_t>(reinterpret_cast<char*>(&timestart_) -
-    reinterpret_cast<char*>(&eventid_)) + sizeof(timestart_));
+    static_cast<size_t>(reinterpret_cast<char*>(&distancetraveled_) -
+    reinterpret_cast<char*>(&eventid_)) + sizeof(distancetraveled_));
   // @@protoc_insertion_point(copy_constructor:sh.generated.Action)
 }
 
 void Action::SharedCtor() {
   ::memset(&eventid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&timestart_) -
-      reinterpret_cast<char*>(&eventid_)) + sizeof(timestart_));
+      reinterpret_cast<char*>(&distancetraveled_) -
+      reinterpret_cast<char*>(&eventid_)) + sizeof(distancetraveled_));
 }
 
 Action::~Action() {
@@ -1926,8 +1931,8 @@ void Action::Clear() {
   (void) cached_has_bits;
 
   ::memset(&eventid_, 0, static_cast<size_t>(
-      reinterpret_cast<char*>(&timestart_) -
-      reinterpret_cast<char*>(&eventid_)) + sizeof(timestart_));
+      reinterpret_cast<char*>(&distancetraveled_) -
+      reinterpret_cast<char*>(&eventid_)) + sizeof(distancetraveled_));
   _internal_metadata_.Clear();
 }
 
@@ -1963,6 +1968,34 @@ bool Action::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &timestart_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 timeFinish = 3;
+      case 3: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(24u /* 24 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &timefinish_)));
+        } else {
+          goto handle_unusual;
+        }
+        break;
+      }
+
+      // int32 distanceTraveled = 4;
+      case 4: {
+        if (static_cast< ::google::protobuf::uint8>(tag) ==
+            static_cast< ::google::protobuf::uint8>(32u /* 32 & 0xFF */)) {
+
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &distancetraveled_)));
         } else {
           goto handle_unusual;
         }
@@ -2005,6 +2038,16 @@ void Action::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->timestart(), output);
   }
 
+  // int32 timeFinish = 3;
+  if (this->timefinish() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->timefinish(), output);
+  }
+
+  // int32 distanceTraveled = 4;
+  if (this->distancetraveled() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->distancetraveled(), output);
+  }
+
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
     ::google::protobuf::internal::WireFormat::SerializeUnknownFields(
         (::google::protobuf::internal::GetProto3PreserveUnknownsDefault()   ? _internal_metadata_.unknown_fields()   : _internal_metadata_.default_instance()), output);
@@ -2027,6 +2070,16 @@ void Action::SerializeWithCachedSizes(
   // int32 timeStart = 2;
   if (this->timestart() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->timestart(), target);
+  }
+
+  // int32 timeFinish = 3;
+  if (this->timefinish() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(3, this->timefinish(), target);
+  }
+
+  // int32 distanceTraveled = 4;
+  if (this->distancetraveled() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(4, this->distancetraveled(), target);
   }
 
   if ((_internal_metadata_.have_unknown_fields() &&  ::google::protobuf::internal::GetProto3PreserveUnknownsDefault())) {
@@ -2058,6 +2111,20 @@ size_t Action::ByteSizeLong() const {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->timestart());
+  }
+
+  // int32 timeFinish = 3;
+  if (this->timefinish() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->timefinish());
+  }
+
+  // int32 distanceTraveled = 4;
+  if (this->distancetraveled() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->distancetraveled());
   }
 
   int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
@@ -2093,6 +2160,12 @@ void Action::MergeFrom(const Action& from) {
   if (from.timestart() != 0) {
     set_timestart(from.timestart());
   }
+  if (from.timefinish() != 0) {
+    set_timefinish(from.timefinish());
+  }
+  if (from.distancetraveled() != 0) {
+    set_distancetraveled(from.distancetraveled());
+  }
 }
 
 void Action::CopyFrom(const ::google::protobuf::Message& from) {
@@ -2121,6 +2194,8 @@ void Action::InternalSwap(Action* other) {
   using std::swap;
   swap(eventid_, other->eventid_);
   swap(timestart_, other->timestart_);
+  swap(timefinish_, other->timefinish_);
+  swap(distancetraveled_, other->distancetraveled_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
 }
 

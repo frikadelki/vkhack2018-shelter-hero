@@ -800,12 +800,26 @@ class Action : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
   ::google::protobuf::int32 timestart() const;
   void set_timestart(::google::protobuf::int32 value);
 
+  // int32 timeFinish = 3;
+  void clear_timefinish();
+  static const int kTimeFinishFieldNumber = 3;
+  ::google::protobuf::int32 timefinish() const;
+  void set_timefinish(::google::protobuf::int32 value);
+
+  // int32 distanceTraveled = 4;
+  void clear_distancetraveled();
+  static const int kDistanceTraveledFieldNumber = 4;
+  ::google::protobuf::int32 distancetraveled() const;
+  void set_distancetraveled(::google::protobuf::int32 value);
+
   // @@protoc_insertion_point(class_scope:sh.generated.Action)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::int32 eventid_;
   ::google::protobuf::int32 timestart_;
+  ::google::protobuf::int32 timefinish_;
+  ::google::protobuf::int32 distancetraveled_;
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_Recommendations_2eproto::TableStruct;
 };
@@ -1598,6 +1612,34 @@ inline void Action::set_timestart(::google::protobuf::int32 value) {
   
   timestart_ = value;
   // @@protoc_insertion_point(field_set:sh.generated.Action.timeStart)
+}
+
+// int32 timeFinish = 3;
+inline void Action::clear_timefinish() {
+  timefinish_ = 0;
+}
+inline ::google::protobuf::int32 Action::timefinish() const {
+  // @@protoc_insertion_point(field_get:sh.generated.Action.timeFinish)
+  return timefinish_;
+}
+inline void Action::set_timefinish(::google::protobuf::int32 value) {
+  
+  timefinish_ = value;
+  // @@protoc_insertion_point(field_set:sh.generated.Action.timeFinish)
+}
+
+// int32 distanceTraveled = 4;
+inline void Action::clear_distancetraveled() {
+  distancetraveled_ = 0;
+}
+inline ::google::protobuf::int32 Action::distancetraveled() const {
+  // @@protoc_insertion_point(field_get:sh.generated.Action.distanceTraveled)
+  return distancetraveled_;
+}
+inline void Action::set_distancetraveled(::google::protobuf::int32 value) {
+  
+  distancetraveled_ = value;
+  // @@protoc_insertion_point(field_set:sh.generated.Action.distanceTraveled)
 }
 
 // -------------------------------------------------------------------
