@@ -19,6 +19,7 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
     private let questRecordController: ShlterQuestRecordController?
 
     private var questsResponse: Sh_Generated_SearchQuestsResponse?
+    private var records: [Sh_Generated_ShelterQuestRecord]?
 
     init(request: Sh_Generated_SearchQuestsRequest) {
         self.request = request
@@ -78,6 +79,7 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
             questRecordController?.list(completion: { records in
 
                 self.questsResponse = Sh_Generated_SearchQuestsResponse()
+                self.records = records
 
                 if let records = records {
                     self.questsResponse?.quests = records.map({ $0.shelterQuest })
@@ -126,7 +128,11 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailsVC = QuestDetailsViewController(quest: questsResponse!.quests[indexPath.row], record: nil)
+        let record = records?.first(where: { record in
+            record.shelterQuest.id == questsResponse!.quests[indexPath.row].id
+        })
+        let detailsVC = QuestDetailsViewController(quest: questsResponse!.quests[indexPath.row],
+                                                   record: nil)
         navigationController?.pushViewController(detailsVC, animated: true)
 
         DispatchQueue.main.async {
