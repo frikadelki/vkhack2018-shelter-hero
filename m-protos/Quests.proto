@@ -4,21 +4,10 @@ package sh.generated;
 
 import "General.proto";
 import "Shelter.proto";
+import "Venue.proto";
 
 service QuestsService {
     rpc search(SearchQuestsRequest) returns (SearchQuestsResponse) {}
-}
-
-message ShelterOrder {
-    string title = 1;
-    string description = 2;
-    repeated string tags = 3;
-    Shelter shelter = 4;
-    repeated ShelterDemand demands = 5;
-}
-
-message ShelterDemand {
-    string text = 1;
 }
 
 message ShelterQuest {
@@ -28,7 +17,7 @@ message ShelterQuest {
 
 message ShelterQuestStep {
     ShelterDemand demand = 1;
-    // TODO: Venue venue
+    Venue venue = 2;
     TimeWindow timeWindow = 3;
     int32 duration = 4;
 }
@@ -39,5 +28,5 @@ message SearchQuestsRequest {
 }
 
 message SearchQuestsResponse {
-    repeated ShelterQuest orders = 1;
+    repeated ShelterQuest quests = 1;
 }

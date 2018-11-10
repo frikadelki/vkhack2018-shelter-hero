@@ -50,7 +50,7 @@ struct Sh_Generated_LogoutRequest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var toekn: String = String()
+  var token: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -61,8 +61,6 @@ struct Sh_Generated_LogoutResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
-
-  var toekn: String = String()
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -140,27 +138,27 @@ extension Sh_Generated_AuthResponse: SwiftProtobuf.Message, SwiftProtobuf._Messa
 extension Sh_Generated_LogoutRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".LogoutRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "toekn"),
+    1: .same(proto: "token"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.toekn)
+      case 1: try decoder.decodeSingularStringField(value: &self.token)
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.toekn.isEmpty {
-      try visitor.visitSingularStringField(value: self.toekn, fieldNumber: 1)
+    if !self.token.isEmpty {
+      try visitor.visitSingularStringField(value: self.token, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Sh_Generated_LogoutRequest, rhs: Sh_Generated_LogoutRequest) -> Bool {
-    if lhs.toekn != rhs.toekn {return false}
+    if lhs.token != rhs.token {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -168,28 +166,18 @@ extension Sh_Generated_LogoutRequest: SwiftProtobuf.Message, SwiftProtobuf._Mess
 
 extension Sh_Generated_LogoutResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".LogoutResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "toekn"),
-  ]
+  static let _protobuf_nameMap = SwiftProtobuf._NameMap()
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      switch fieldNumber {
-      case 1: try decoder.decodeSingularStringField(value: &self.toekn)
-      default: break
-      }
+    while let _ = try decoder.nextFieldNumber() {
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.toekn.isEmpty {
-      try visitor.visitSingularStringField(value: self.toekn, fieldNumber: 1)
-    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   static func ==(lhs: Sh_Generated_LogoutResponse, rhs: Sh_Generated_LogoutResponse) -> Bool {
-    if lhs.toekn != rhs.toekn {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

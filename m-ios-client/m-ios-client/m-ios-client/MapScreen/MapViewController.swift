@@ -74,7 +74,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
 
     @objc func filterAction(sender: Any) {
-        let filterVC = FilterViewController(venueTags: Set(mapObjects?.venues.flatMap({ $0.tags }) ?? []),
+        let filterVC = FilterViewController(venueTags: Set(mapObjects?.venues.flatMap({ $0.venue.tags }) ?? []),
                                             venueTagsCheked: venueTagsCheked,
                                             taskTags: Set(mapObjects?.shelters.flatMap({ $0.availableOrders.flatMap({ $0.tags }) }) ?? []),
                                             taskTagsCheked: taskTagsCheked,
@@ -113,7 +113,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
         if !venueTagsCheked.isEmpty {
             mapObjects.venues = mapObjects.venues.filter { venue in
-                return !Set(venueTagsCheked).intersection(venue.tags).isEmpty
+                return !Set(venueTagsCheked).intersection(venue.venue.tags).isEmpty
             }
         }
 

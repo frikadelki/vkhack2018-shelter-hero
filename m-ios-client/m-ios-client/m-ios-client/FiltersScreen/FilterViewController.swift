@@ -211,7 +211,7 @@ class FilterViewController: UIViewController {
         timeWindow.from = 0
         timeWindow.to = Int32.max
 
-        let ordersListVC = OrderListViewController(orderTags: taskTagsChacked, timeWindow: timeWindow)
+        let ordersListVC = QuestsSearchViewController(orderTags: taskTagsChacked, timeWindow: timeWindow)
         navigationController?.pushViewController(ordersListVC, animated: true)
     }
 }

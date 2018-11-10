@@ -19,6 +19,50 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+enum Sh_Generated_Transport: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case pedestrian // = 0
+  case publicTransport // = 1
+  case car // = 2
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .pedestrian
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .pedestrian
+    case 1: self = .publicTransport
+    case 2: self = .car
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .pedestrian: return 0
+    case .publicTransport: return 1
+    case .car: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Sh_Generated_Transport: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Sh_Generated_Transport] = [
+    .pedestrian,
+    .publicTransport,
+    .car,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct Sh_Generated_TimeWindow {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -47,9 +91,71 @@ struct Sh_Generated_GeoPoint {
   init() {}
 }
 
+struct Sh_Generated_SearchParams {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var start: Sh_Generated_GeoPoint {
+    get {return _storage._start ?? Sh_Generated_GeoPoint()}
+    set {_uniqueStorage()._start = newValue}
+  }
+  /// Returns true if `start` has been explicitly set.
+  var hasStart: Bool {return _storage._start != nil}
+  /// Clears the value of `start`. Subsequent reads from it will return its default value.
+  mutating func clearStart() {_uniqueStorage()._start = nil}
+
+  var finish: Sh_Generated_GeoPoint {
+    get {return _storage._finish ?? Sh_Generated_GeoPoint()}
+    set {_uniqueStorage()._finish = newValue}
+  }
+  /// Returns true if `finish` has been explicitly set.
+  var hasFinish: Bool {return _storage._finish != nil}
+  /// Clears the value of `finish`. Subsequent reads from it will return its default value.
+  mutating func clearFinish() {_uniqueStorage()._finish = nil}
+
+  var transport: Sh_Generated_Transport {
+    get {return _storage._transport}
+    set {_uniqueStorage()._transport = newValue}
+  }
+
+  var availabilityWindow: Sh_Generated_TimeWindow {
+    get {return _storage._availabilityWindow ?? Sh_Generated_TimeWindow()}
+    set {_uniqueStorage()._availabilityWindow = newValue}
+  }
+  /// Returns true if `availabilityWindow` has been explicitly set.
+  var hasAvailabilityWindow: Bool {return _storage._availabilityWindow != nil}
+  /// Clears the value of `availabilityWindow`. Subsequent reads from it will return its default value.
+  mutating func clearAvailabilityWindow() {_uniqueStorage()._availabilityWindow = nil}
+
+  var timeLimit: Int32 {
+    get {return _storage._timeLimit}
+    set {_uniqueStorage()._timeLimit = newValue}
+  }
+
+  var distanceLimit: Int32 {
+    get {return _storage._distanceLimit}
+    set {_uniqueStorage()._distanceLimit = newValue}
+  }
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "sh.generated"
+
+extension Sh_Generated_Transport: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "PEDESTRIAN"),
+    1: .same(proto: "PUBLIC_TRANSPORT"),
+    2: .same(proto: "CAR"),
+  ]
+}
 
 extension Sh_Generated_TimeWindow: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".TimeWindow"
@@ -116,6 +222,107 @@ extension Sh_Generated_GeoPoint: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   static func ==(lhs: Sh_Generated_GeoPoint, rhs: Sh_Generated_GeoPoint) -> Bool {
     if lhs.lat != rhs.lat {return false}
     if lhs.lon != rhs.lon {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Sh_Generated_SearchParams: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".SearchParams"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "start"),
+    2: .same(proto: "finish"),
+    3: .same(proto: "transport"),
+    4: .same(proto: "availabilityWindow"),
+    5: .same(proto: "timeLimit"),
+    6: .same(proto: "distanceLimit"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _start: Sh_Generated_GeoPoint? = nil
+    var _finish: Sh_Generated_GeoPoint? = nil
+    var _transport: Sh_Generated_Transport = .pedestrian
+    var _availabilityWindow: Sh_Generated_TimeWindow? = nil
+    var _timeLimit: Int32 = 0
+    var _distanceLimit: Int32 = 0
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _start = source._start
+      _finish = source._finish
+      _transport = source._transport
+      _availabilityWindow = source._availabilityWindow
+      _timeLimit = source._timeLimit
+      _distanceLimit = source._distanceLimit
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._start)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._finish)
+        case 3: try decoder.decodeSingularEnumField(value: &_storage._transport)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._availabilityWindow)
+        case 5: try decoder.decodeSingularInt32Field(value: &_storage._timeLimit)
+        case 6: try decoder.decodeSingularInt32Field(value: &_storage._distanceLimit)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._start {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._finish {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+      if _storage._transport != .pedestrian {
+        try visitor.visitSingularEnumField(value: _storage._transport, fieldNumber: 3)
+      }
+      if let v = _storage._availabilityWindow {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+      if _storage._timeLimit != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._timeLimit, fieldNumber: 5)
+      }
+      if _storage._distanceLimit != 0 {
+        try visitor.visitSingularInt32Field(value: _storage._distanceLimit, fieldNumber: 6)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Sh_Generated_SearchParams, rhs: Sh_Generated_SearchParams) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._start != rhs_storage._start {return false}
+        if _storage._finish != rhs_storage._finish {return false}
+        if _storage._transport != rhs_storage._transport {return false}
+        if _storage._availabilityWindow != rhs_storage._availabilityWindow {return false}
+        if _storage._timeLimit != rhs_storage._timeLimit {return false}
+        if _storage._distanceLimit != rhs_storage._distanceLimit {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

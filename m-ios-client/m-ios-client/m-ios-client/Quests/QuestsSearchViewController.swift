@@ -1,5 +1,5 @@
 //
-//  OrderListViewController.swift
+//  QuestsSearchViewController.swift
 //  m-ios-client
 //
 //  Created by Denis Morozov on 10.11.2018.
@@ -9,16 +9,16 @@
 import Foundation
 import UIKit
 
-class OrderListViewController: UIViewController, UITableViewDataSource {
+class QuestsSearchViewController: UIViewController, UITableViewDataSource {
     let tableView = UITableView()
     let activityIndicator = UIActivityIndicatorView()
 
     private let orderTags: Set<String>
     private let timeWindow: Sh_Generated_TimeWindow
 
-    private let orderListController = OrderListController()
+    private let questsSearchController = QuestsSearchController()
 
-    private var ordersList: Sh_Generated_OrdersResponse?
+    private var questsResponse: Sh_Generated_SearchQuestsResponse?
 
     init(orderTags: Set<String>, timeWindow: Sh_Generated_TimeWindow) {
         self.orderTags = orderTags
@@ -28,7 +28,7 @@ class OrderListViewController: UIViewController, UITableViewDataSource {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("on map", comment: ""),
                                                             style: .plain,
                                                             target: self,
-                                                            action: #selector(OrderListViewController.onMapAction(sender:)))
+                                                            action: #selector(QuestsSearchViewController.onMapAction(sender:)))
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -54,15 +54,15 @@ class OrderListViewController: UIViewController, UITableViewDataSource {
             maker.center.equalTo(view)
         }
 
-        var request = Sh_Generated_SearchOrdersRequest()
+        var request = Sh_Generated_SearchQuestsRequest()
         request.orderTags = Array(orderTags)
-        request.timeWindow = timeWindow
+        request.params.availabilityWindow = timeWindow
 
         activityIndicator.startAnimating()
-        orderListController.searchOrders(request: request) { result in
+        questsSearchController.search(request: request) { result in
             switch result {
-            case .success(let ordersList): self.ordersList = ordersList
-            case .error(_): self.ordersList = nil
+            case .success(let questsResponse): self.questsResponse = questsResponse
+            case .error(_): self.questsResponse = nil
             }
             self.tableView.reloadData()
             self.activityIndicator.stopAnimating()
@@ -70,16 +70,16 @@ class OrderListViewController: UIViewController, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ordersList?.orders.count ?? 0
+        return questsResponse?.quests.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "OrderListCellID") ?? UITableViewCell(style: UITableViewCellStyle.subtitle,
-                                                                                                       reuseIdentifier: "OrderListCellID")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "QuestCellID") ?? UITableViewCell(style: UITableViewCellStyle.subtitle,
+                                                                                                   reuseIdentifier: "QuestCellID")
 
-        cell.textLabel?.text = ordersList!.orders[indexPath.row].title
+        cell.textLabel?.text = questsResponse!.quests[indexPath.row].order.title
         cell.textLabel?.numberOfLines = 0
-        cell.detailTextLabel?.text = ordersList!.orders[indexPath.row].description_p
+        cell.detailTextLabel?.text = questsResponse!.quests[indexPath.row].order.description_p
         cell.detailTextLabel?.numberOfLines = 0
 
         return cell
@@ -89,14 +89,14 @@ class OrderListViewController: UIViewController, UITableViewDataSource {
         var mapObjects = Sh_Generated_MapObjectResponse()
         var shelterMapObjectMap: [Int32: Sh_Generated_ShelterMapObject] = [:]
 
-        ordersList?.orders.forEach({ order in
-            var shelterMapObject = shelterMapObjectMap[order.shelter.id]
+        questsResponse?.quests.forEach({ quest in
+            var shelterMapObject = shelterMapObjectMap[quest.order.shelter.id]
             if shelterMapObject == nil {
                 shelterMapObject = Sh_Generated_ShelterMapObject()
-                shelterMapObject?.shelter = order.shelter
+                shelterMapObject?.shelter = quest.order.shelter
             }
-            shelterMapObject?.availableOrders.append(order)
-            shelterMapObjectMap[order.shelter.id] = shelterMapObject
+            shelterMapObject?.availableOrders.append(quest.order)
+            shelterMapObjectMap[quest.order.shelter.id] = shelterMapObject
         })
 
         mapObjects.shelters = shelterMapObjectMap.map({ $0.value })

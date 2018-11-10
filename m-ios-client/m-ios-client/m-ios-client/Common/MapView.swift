@@ -96,8 +96,8 @@ class MapView: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
 
                 mapObjects.venues.forEach({ venue in
                     let annotation = VenueAnnotation()
-                    annotation.coordinate = CLLocationCoordinate2D(latitude: venue.coordinate.lat,
-                                                                   longitude: venue.coordinate.lon)
+                    annotation.coordinate = CLLocationCoordinate2D(latitude: venue.venue.coordinate.lat,
+                                                                   longitude: venue.venue.coordinate.lon)
                     annotation.venue = venue
                     annotations.append(annotation)
                 })
@@ -192,7 +192,7 @@ class MapView: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
             } else {
                 annotationView = VenueAnnotationView(annotation: annotation, reuseIdentifier: "VenueAnnotation")
             }
-            annotationView.image = UIImage(named: annotationVenue.venue.iconName)
+            annotationView.image = UIImage(named: annotationVenue.venue.venue.iconName)
             return annotationView
         }
         return nil

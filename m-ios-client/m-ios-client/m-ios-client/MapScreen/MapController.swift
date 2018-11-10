@@ -16,8 +16,7 @@ class MapController {
     }
 
     func allObjects(completion: @escaping (_ result: Result) -> Void) {
-        var request = Sh_Generated_MapObjectRequest()
-        request.token = AuthController.shared.token
+        let request = Sh_Generated_MapObjectRequest()
 
         let completionOnMainThread = { (result: Result) in
             if Thread.isMainThread {
@@ -57,9 +56,9 @@ class MapController {
         shelter1.shelter.coordinate.lon = 37.622341
         shelter1.shelter.iconName = "shelterIcon"
 
-        var task1 = Sh_Generated_Order()
+        var task1 = Sh_Generated_ShelterOrder()
         task1.tags = ["tag1"]
-        var task2 = Sh_Generated_Order()
+        var task2 = Sh_Generated_ShelterOrder()
         task2.tags = ["tag2"]
 
         shelter1.availableOrders = [task1, task2]
@@ -71,10 +70,10 @@ class MapController {
         shelter2.availableOrders = []
 
         var venue1 = Sh_Generated_VenueMapObject()
-        venue1.coordinate.lat = 55.770683
-        venue1.coordinate.lon = 37.610341
-        venue1.iconName = "venue1"
-        venue1.tags = ["veterinary clinic"]
+        venue1.venue.coordinate.lat = 55.770683
+        venue1.venue.coordinate.lon = 37.610341
+        venue1.venue.iconName = "venue1"
+        venue1.venue.tags = ["veterinary clinic"]
 
         var fakeResponse = Sh_Generated_MapObjectResponse()
         fakeResponse.shelters = [shelter1, shelter2]

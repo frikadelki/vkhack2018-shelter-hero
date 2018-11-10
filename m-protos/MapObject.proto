@@ -2,9 +2,8 @@ syntax = "proto3";
 
 package sh.generated;
 
-import "General.proto";
 import "Shelter.proto";
-import "Order.proto";
+import "Venue.proto";
 
 service MapObjectService {
     rpc allObjects(MapObjectRequest) returns (MapObjectResponse) {}
@@ -14,15 +13,12 @@ message MapObjectRequest {
 }
 
 message VenueMapObject {
-    int32 id = 1;
-    GeoPoint coordinate = 2;
-    string iconName = 3;
-    repeated string tags = 4;
+    Venue venue = 1;
 }
 
 message ShelterMapObject {
     Shelter shelter = 1;
-    repeated Order availableOrders = 2;
+    repeated ShelterOrder availableOrders = 2;
 }
 
 message MapObjectResponse {
