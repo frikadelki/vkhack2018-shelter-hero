@@ -9,24 +9,34 @@
 import Foundation
 import UIKit
 
-class QuestsSearchViewController: UIViewController, UITableViewDataSource {
+class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     let tableView = UITableView()
     let activityIndicator = UIActivityIndicatorView()
 
-    private let request: Sh_Generated_SearchQuestsRequest
+    private let request: Sh_Generated_SearchQuestsRequest?
+    private let questsSearchController: QuestsSearchController?
 
-    private let questsSearchController = QuestsSearchController()
+    private let questRecordController: ShlterQuestRecordController?
 
     private var questsResponse: Sh_Generated_SearchQuestsResponse?
 
     init(request: Sh_Generated_SearchQuestsRequest) {
         self.request = request
+        questsSearchController = QuestsSearchController()
+        questRecordController = nil
         super.init(nibName: nil, bundle: nil)
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("on map", comment: ""),
                                                             style: .plain,
                                                             target: self,
                                                             action: #selector(QuestsSearchViewController.onMapAction(sender:)))
+    }
+
+    init() {
+        self.questRecordController = ShlterQuestRecordController()
+        self.request = nil
+        questsSearchController = nil
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -38,6 +48,7 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource {
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.dataSource = self
+        tableView.delegate = self
         view.addSubview(tableView)
 
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -52,14 +63,29 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource {
             maker.center.equalTo(view)
         }
 
-        activityIndicator.startAnimating()
-        questsSearchController.search(request: request) { result in
-            switch result {
-            case .success(let questsResponse): self.questsResponse = questsResponse
-            case .error(_): self.questsResponse = nil
+        if questsSearchController != nil, let request = request {
+            activityIndicator.startAnimating()
+            questsSearchController?.search(request: request) { result in
+                switch result {
+                case .success(let questsResponse): self.questsResponse = questsResponse
+                case .error(_): self.questsResponse = nil
+                }
+                self.tableView.reloadData()
+                self.activityIndicator.stopAnimating()
             }
-            self.tableView.reloadData()
-            self.activityIndicator.stopAnimating()
+        } else if questRecordController != nil {
+            activityIndicator.startAnimating()
+            questRecordController?.list(completion: { records in
+
+                self.questsResponse = Sh_Generated_SearchQuestsResponse()
+
+                if let records = records {
+                    self.questsResponse?.quests = records.map({ $0.shelterQuest })
+                }
+
+                self.tableView.reloadData()
+                self.activityIndicator.stopAnimating()
+            })
         }
     }
 
@@ -97,5 +123,14 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource {
 
         let mapVC = MapViewController(mapObjects: mapObjects)
         navigationController?.pushViewController(mapVC, animated: true)
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailsVC = QuestDetailsViewController(quest: questsResponse!.quests[indexPath.row], record: nil)
+        navigationController?.pushViewController(detailsVC, animated: true)
+
+        DispatchQueue.main.async {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
 }

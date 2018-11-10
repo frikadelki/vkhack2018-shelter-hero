@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package sh.generated;
+
+import "Quests.proto";
+
+service ShelterQuestRecordService {
+    rpc list(ShelterQuestListRequest) returns (ShelterQuestListReponse) {}
+    rpc start(ShelterQuestStartRequest) returns (ShelterQuestStartResponse) {}
+    rpc updateDemand(ShelterQuestUpdateDemandRequest) returns (ShelterQuestUpdateDemandResponse) {}
+}
+
+message ShelterQuestListRequest {
+    string token = 1;
+}
+
+message ShelterQuestListReponse {
+    repeated ShelterQuestRecord questsRecords = 1;
+}
+
+message ShelterQuestStartRequest {
+    ShelterQuest shelterQuest = 1;
+    string token = 2;
+}
+
+message ShelterQuestStartResponse {
+    ShelterQuestRecord shelterQuestRecord = 1;
+}
+
+message ShelterQuestUpdateDemandRequest {
+    int32 shelterQuestRecordId = 1;
+    int32 demandId = 2;
+    bool check = 3;
+    string token = 4;
+}
+
+message ShelterQuestUpdateDemandResponse {
+}
+
+enum ShelterQuestRecordStatus {
+    IN_PROGRESS = 0;
+    CANCELED = 1;
+    ON_REVIEW = 2;
+    CHECKED = 3;
+    REJECTED = 4;
+    CLOSED = 5;
+}
+
+message ShelterQuestRecord {
+    int32 id = 1;
+    ShelterQuest shelterQuest = 2;
+    ShelterQuestRecordStatus status = 3;
+    int32 startTime = 4;
+    repeated int32 doneDemands = 5;
+}
