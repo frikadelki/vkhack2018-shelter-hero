@@ -40,16 +40,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 
-    func navigateToInprogressOrder(record: Sh_Generated_ShelterQuestRecord) {
+    func navigateToMyQuests() {
         tabBarController.viewControllers?.forEach({ vc in
             if let nc = vc as? UINavigationController {
                 nc.popToRootViewController(animated: false)
             }
         })
         tabBarController.selectedViewController = tabBarController.viewControllers?[2]
-        let viewControllers: [UIViewController] = [QuestsSearchViewController()]
-        // add list quests
-//        viewControllers.append(QuestDetailsViewController(quest: record.shelterQuest, record: record))
-        (tabBarController.selectedViewController as? UINavigationController)?.setViewControllers(viewControllers, animated: true)
+        DispatchQueue.main.async {
+            let nc = (self.tabBarController.selectedViewController as? UINavigationController)
+            nc?.setViewControllers([QuestsSearchViewController()], animated: true)
+        }
     }
 }

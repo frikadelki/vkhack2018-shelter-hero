@@ -153,8 +153,8 @@ class QuestDetailsViewController: UIViewController
 
     @objc private func startQuest(sender: Any) {
         recordController.start(shelterQuest: quest) { record in
-            if let record = record {
-                (UIApplication.shared.delegate as? AppDelegate)?.navigateToInprogressOrder(record: record)
+            if record != nil {
+                (UIApplication.shared.delegate as? AppDelegate)?.navigateToMyQuests()
             }
         }
     }
