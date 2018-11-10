@@ -1,6 +1,6 @@
 #include "Routing.h"
 
-#include "OrderPlanner.h"
+#include "RecommendationsSearcher.h"
 #include "ToString.h"
 
 #include <iostream>
@@ -108,12 +108,17 @@ void testOrderPlanner()
     demandShelter.mutable_events()->Add()->CopyFrom(eventShelter);
 
     Order orderShopShelter;
+    orderShopShelter.set_id(42);
     orderShopShelter.mutable_demands()->Add()->CopyFrom(demandShop);
     orderShopShelter.mutable_demands()->Add()->CopyFrom(demandShelter);
 
-    const Opt<Trip>& trip = planOrder(orderShopShelter, searchParams);
+    Task task;
+    task.mutable_params()->CopyFrom(searchParams);
+    task.mutable_orders()->Add()->CopyFrom(orderShopShelter);
 
-    std::cout << toString(trip.value()) << std::endl;
+    const Recommendations recommendations = findRecommendations(task);
+
+    std::cout << toString(recommendations) << std::endl;
 }
 
 int main()
