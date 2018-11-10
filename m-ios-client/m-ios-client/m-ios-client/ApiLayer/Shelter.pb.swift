@@ -29,6 +29,11 @@ struct Sh_Generated_Shelter {
     set {_uniqueStorage()._id = newValue}
   }
 
+  var name: String {
+    get {return _storage._name}
+    set {_uniqueStorage()._name = newValue}
+  }
+
   var coordinate: Sh_Generated_GeoPoint {
     get {return _storage._coordinate ?? Sh_Generated_GeoPoint()}
     set {_uniqueStorage()._coordinate = newValue}
@@ -113,12 +118,14 @@ extension Sh_Generated_Shelter: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   static let protoMessageName: String = _protobuf_package + ".Shelter"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
-    2: .same(proto: "coordinate"),
-    3: .same(proto: "iconName"),
+    2: .same(proto: "name"),
+    3: .same(proto: "coordinate"),
+    4: .same(proto: "iconName"),
   ]
 
   fileprivate class _StorageClass {
     var _id: Int32 = 0
+    var _name: String = String()
     var _coordinate: Sh_Generated_GeoPoint? = nil
     var _iconName: String = String()
 
@@ -128,6 +135,7 @@ extension Sh_Generated_Shelter: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
 
     init(copying source: _StorageClass) {
       _id = source._id
+      _name = source._name
       _coordinate = source._coordinate
       _iconName = source._iconName
     }
@@ -146,8 +154,9 @@ extension Sh_Generated_Shelter: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularInt32Field(value: &_storage._id)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._coordinate)
-        case 3: try decoder.decodeSingularStringField(value: &_storage._iconName)
+        case 2: try decoder.decodeSingularStringField(value: &_storage._name)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._coordinate)
+        case 4: try decoder.decodeSingularStringField(value: &_storage._iconName)
         default: break
         }
       }
@@ -159,11 +168,14 @@ extension Sh_Generated_Shelter: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
       if _storage._id != 0 {
         try visitor.visitSingularInt32Field(value: _storage._id, fieldNumber: 1)
       }
+      if !_storage._name.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 2)
+      }
       if let v = _storage._coordinate {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
       }
       if !_storage._iconName.isEmpty {
-        try visitor.visitSingularStringField(value: _storage._iconName, fieldNumber: 3)
+        try visitor.visitSingularStringField(value: _storage._iconName, fieldNumber: 4)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -175,6 +187,7 @@ extension Sh_Generated_Shelter: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._id != rhs_storage._id {return false}
+        if _storage._name != rhs_storage._name {return false}
         if _storage._coordinate != rhs_storage._coordinate {return false}
         if _storage._iconName != rhs_storage._iconName {return false}
         return true
