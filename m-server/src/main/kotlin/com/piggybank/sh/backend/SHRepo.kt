@@ -1,9 +1,6 @@
 package com.piggybank.sh.backend
 
-import com.piggybank.sh.backend.db.ShelterEntity
-import com.piggybank.sh.backend.db.SheltersOrdersTable
-import com.piggybank.sh.backend.db.SheltersTable
-//import com.piggybank.sh.backend.db.VolunteersTable
+import com.piggybank.sh.backend.db.*
 import com.piggybank.sh.generated.Shelter
 import com.piggybank.sh.generated.ShelterMapObject
 import com.piggybank.sh.genex.geoPoint
@@ -15,9 +12,11 @@ class SHRepo(private val db: Database) {
     init {
         transaction(db) {
             SchemaUtils.create(
-                    //VolunteersTable,
+                    VolunteersTable,
+                    VenuesTable,
                     SheltersTable,
-                    SheltersOrdersTable)
+                    SheltersOrdersTable,
+                    OrderDemandsTable)
         }
 
         initSheltersData()
