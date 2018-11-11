@@ -1,5 +1,6 @@
 package com.piggybank.sh.backend.db
 
+import com.piggybank.sh.generated.Chat
 import com.piggybank.sh.generated.ShelterQuest
 import com.piggybank.sh.generated.ShelterQuestRecordStatus
 import org.jetbrains.exposed.dao.EntityID
@@ -16,6 +17,8 @@ object QuestRecordTable : IntIdTable() {
     val startTime = integer("start_time_epoch_millis")
 
     val status = text("status")
+
+    val embeddedChat = text("embedded_chat")
 }
 
 class QuestRecordEntity(id: EntityID<Int>) : IntEntity(id) {
@@ -36,6 +39,8 @@ class QuestRecordEntity(id: EntityID<Int>) : IntEntity(id) {
         }
 
     var demands by OrderDemandEntity via QuestRecordsDoneDemandsTable
+
+    var embeddedChat by ProtobufMessageDelegator<Chat>(QuestRecordTable.embeddedChat) { Chat.newBuilder() }
 }
 
 object QuestRecordsDoneDemandsTable : Table() {

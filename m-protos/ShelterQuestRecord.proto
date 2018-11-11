@@ -63,4 +63,14 @@ message ShelterQuestRecord {
     ShelterQuestRecordStatus status = 3;
     int32 startTime = 4;
     repeated int32 doneDemandsIds = 5;
+    Chat chat = 6;
+}
+
+message ChatMessage {
+    string authorNickname = 1;
+    string text = 2;
+}
+
+message Chat {
+    repeated ChatMessage messages = 1;
 }

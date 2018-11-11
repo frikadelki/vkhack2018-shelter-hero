@@ -94,7 +94,12 @@ class SHRepo(val db: Database) {
             principalToken = token
             startTime = (System.currentTimeMillis()/1000).toInt()
             status = ShelterQuestRecordStatus.IN_PROGRESS
+            embeddedChat = initChat()
         }
+    }
+
+    private fun initChat() : Chat {
+        return Chat.newBuilder().build()
     }
 }
 
