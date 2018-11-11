@@ -37,5 +37,6 @@ fun QuestRecordEntity.toShelterQuestRecord(): ShelterQuestRecord {
             .setStatus(status)
             .setStartTime(startTime)
             .addAllDoneDemandsIds(demands.map { it.id.value })
+            .setChat(embeddedChat)
             .build()
 }

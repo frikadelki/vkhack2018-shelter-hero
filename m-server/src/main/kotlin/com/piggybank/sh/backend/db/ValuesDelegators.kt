@@ -31,7 +31,9 @@ class StringListDelegator(private val textColumn: Column<String>, private val se
     operator fun getValue(entity: IntEntity, property: KProperty<*>): List<String> {
         return entity.run {
             val columnValue = textColumn.lookup()
-            return@run columnValue.split(separator)
+            val listValues = columnValue.split(separator)
+            return@run if (listValues.isEmpty()
+                    || (listValues.count() == 1 && listValues[0].isBlank())) emptyList() else listValues
         }
     }
 
