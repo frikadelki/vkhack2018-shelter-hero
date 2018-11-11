@@ -17,4 +17,8 @@ extension UIColor {
     static var ray_background: UIColor {
         return UIColor(red: 248 / 255.0, green: 248 / 255.0, blue: 248 / 255.0, alpha: 1.0)
     }
+
+    static var ray_separator: UIColor {
+        return UIColor(red: 237 / 255.0, green: 237 / 255.0, blue: 237 / 255.0, alpha: 1.0)
+    }
 }

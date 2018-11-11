@@ -117,6 +117,8 @@ class QuestDetailsViewController: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.title = NSLocalizedString("task title", comment: "")
+
         view.backgroundColor = .white
 
         scrollView.refreshControl = refreshControl

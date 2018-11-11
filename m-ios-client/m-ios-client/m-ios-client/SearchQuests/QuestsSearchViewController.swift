@@ -81,6 +81,8 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
         questRecordController = nil
         super.init(nibName: nil, bundle: nil)
 
+        self.title = NSLocalizedString("tasks title", comment: "")
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("on map", comment: ""),
                                                             style: .plain,
                                                             target: self,
@@ -92,6 +94,8 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
         self.request = nil
         questsSearchController = nil
         super.init(nibName: nil, bundle: nil)
+
+        self.title = NSLocalizedString("tasks title", comment: "")
     }
 
     required init?(coder aDecoder: NSCoder) {

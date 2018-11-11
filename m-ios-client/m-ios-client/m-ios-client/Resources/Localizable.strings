@@ -5,10 +5,11 @@
 "show all map objects" = "Показать все";
 "search" = "Найти";
 "map tab" = "Карта";
-"tasks tab" = "Задачи";
+"donate tab" = "Пожертвовать";
+"tasks tab" = "Задания";
 "my quests tab" = "Профиль";
 "on map" = "На карте";
-"duration limit" = "Задание займет:";
+"duration limit" = "Длительность не более";
 "hours" = "ч.";
 "minutes" = "мин.";
 "distance limit" = "Задания находится от меня в:";
@@ -34,3 +35,12 @@
 "box" = "Пункты приема";
 "pet-shop" = "Зоомагазины";
 "apply" = "Применить";
+"map title" = "Карта";
+"tasks title" = "Задания";
+"user title" = "Профиль";
+"task title" = "Задание";
+"filters title" = "Фильтры";
+"remote" = "Удаленная работа";
+"car" = "С наличием авто";
+"strong" = "Требует физической силы";
+"all-ages" = "Для всех возрастов";

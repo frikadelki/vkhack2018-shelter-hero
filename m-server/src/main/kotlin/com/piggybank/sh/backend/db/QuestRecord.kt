@@ -1,12 +1,12 @@
 package com.piggybank.sh.backend.db
 
 import com.piggybank.sh.generated.ShelterQuest
+import com.piggybank.sh.generated.ShelterQuestRecordStatus
 import org.jetbrains.exposed.dao.EntityID
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.IntIdTable
 import org.jetbrains.exposed.sql.Table
-import sh.generated.ShelterQuestRecordOuterClass
 
 object QuestRecordTable : IntIdTable() {
     val quest = text("quest")
@@ -25,8 +25,8 @@ class QuestRecordEntity(id: EntityID<Int>) : IntEntity(id) {
 
     private var _status by QuestRecordTable.status
 
-    var status: ShelterQuestRecordOuterClass.ShelterQuestRecordStatus
-        get() = ShelterQuestRecordOuterClass.ShelterQuestRecordStatus.valueOf(_status)
+    var status: ShelterQuestRecordStatus
+        get() = ShelterQuestRecordStatus.valueOf(_status)
         set(value) {
             _status = value.name
         }

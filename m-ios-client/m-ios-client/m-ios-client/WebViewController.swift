@@ -8,7 +8,20 @@
 
 import Foundation
 import UIKit
+import WebKit
 
 class WebViewController: UIViewController {
 
+    let webView = WKWebView()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(webView)
+
+        webView.snp.makeConstraints { maker in
+            maker.edges.equalToSuperview()
+        }
+    }
 }

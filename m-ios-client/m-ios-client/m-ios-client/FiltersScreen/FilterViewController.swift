@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class RayButton: UIView {
     let button = UIButton()
@@ -41,6 +42,7 @@ class CheckBoxElement: UIView {
     let imageView: UIImageView
     let label: UILabel
     let checkBox: UISwitch
+    private var labelToImage: Constraint!
     override init(frame: CGRect) {
         imageView = UIImageView()
         checkBox = UISwitch()
@@ -65,8 +67,11 @@ class CheckBoxElement: UIView {
         }
 
         label.snp.makeConstraints { maker in
-            maker.leading.equalTo(imageView.snp.trailing).offset(16)
-            maker.centerY.equalTo(imageView)
+            labelToImage = maker.leading.equalTo(imageView.snp.trailing).offset(16).constraint
+            maker.leading.equalTo(self).offset(30)
+            maker.top.equalTo(self)
+            maker.bottom.equalTo(self)
+            maker.height.equalTo(56)
         }
 
         checkBox.snp.makeConstraints { maker in
@@ -77,6 +82,24 @@ class CheckBoxElement: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    func setWithoutImage() {
+        labelToImage.deactivate()
+        imageView.removeFromSuperview()
+    }
+
+    func addSeparator() {
+        let separator = UIView()
+        separator.backgroundColor = .ray_separator
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(separator)
+        separator.snp.makeConstraints { maker in
+            maker.leading.equalTo(self).offset(30)
+            maker.trailing.equalTo(self).offset(-30)
+            maker.height.equalTo(1)
+            maker.bottom.equalTo(self)
+        }
     }
 }
 
@@ -123,6 +146,8 @@ class FilterViewController: UIViewController {
         self.style = style
         super.init(nibName: nil, bundle: nil)
 
+        self.title = NSLocalizedString("filters title", comment: "")
+
         switch self.style {
         case .apply:
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("show all map objects", comment: ""),
@@ -148,9 +173,9 @@ class FilterViewController: UIViewController {
                                                         title: NSLocalizedString("venues tags", comment: ""))
         self.venueTagsControls = venueTagsControls
 
-        let (tasksView, taskTagsControls) = makeViews(tags: taskTags,
-                                                      checkedTags: taskTagsCheked,
-                                                      title: NSLocalizedString("tasks tags", comment: ""))
+        let (tasksView, taskTagsControls) = makeViews2(tags: taskTags,
+                                                       checkedTags: taskTagsCheked,
+                                                       title: NSLocalizedString("filters title", comment: ""))
 
         self.taskTagsControls = taskTagsControls
 
@@ -160,14 +185,33 @@ class FilterViewController: UIViewController {
             views.append(venuesView)
         }
 
-        if let tasksView = tasksView {
-            views.append(tasksView)
+        if style == .search {
+            let titleWrapper = UIView()
+            titleWrapper.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(titleWrapper)
+
+            let title = UILabel()
+            title.translatesAutoresizingMaskIntoConstraints = false
+            title.font = UIFont.boldSystemFont(ofSize: 32)
+            title.text = "Фильтры"
+            titleWrapper.addSubview(title)
+
+            title.snp.makeConstraints { maker in
+                maker.top.equalToSuperview().offset(10)
+                maker.leading.equalToSuperview().offset(30)
+                maker.trailing.equalToSuperview().offset(-30)
+                maker.bottom.equalToSuperview().offset(-10)
+            }
+
+            views.append(titleWrapper)
+
+            views.append(addDurationLimit())
+////            views.append(addDistanceLimit())
+//            views.append(addTransport())
         }
 
-        if style == .search {
-            views.append(addDurationLimit())
-//            views.append(addDistanceLimit())
-            views.append(addTransport())
+        if let tasksView = tasksView {
+            views.append(tasksView)
         }
 
         let button = RayButton()
@@ -239,12 +283,68 @@ class FilterViewController: UIViewController {
         return (view, tagsControls)
     }
 
+    func makeViews2(tags: [String], checkedTags: Set<String>, title titleString: String) -> (view: UIView?, controls: [CheckBoxElement]?) {
+        guard !tags.isEmpty else {
+            return (nil, nil)
+        }
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        let titleWrapper = UIView()
+        titleWrapper.translatesAutoresizingMaskIntoConstraints = false
+        titleWrapper.backgroundColor = UIColor.ray_background
+        view.addSubview(titleWrapper)
+
+        let title = UILabel()
+        title.translatesAutoresizingMaskIntoConstraints = false
+        title.font = UIFont.boldSystemFont(ofSize: 12)
+        title.textColor = .gray
+        title.text = "ПОКАЗЫВАТЬ ЗАДАНИЯ"
+        titleWrapper.addSubview(title)
+
+        let tagsControls = tags.map({ tag -> CheckBoxElement in
+            let checkBox = CheckBoxElement()
+            checkBox.setWithoutImage()
+            checkBox.translatesAutoresizingMaskIntoConstraints = false
+            checkBox.checkBox.isOn = checkedTags.contains(tag)
+            checkBox.label.text = NSLocalizedString(tag, comment: "")
+            checkBox.label.font = UIFont.systemFont(ofSize: 16)
+            return checkBox
+        })
+
+        let checkboxsStackView = UIStackView(arrangedSubviews: tagsControls.map { $0 as UIView })
+        checkboxsStackView.translatesAutoresizingMaskIntoConstraints = false
+        checkboxsStackView.axis = .vertical
+        view.addSubview(checkboxsStackView)
+
+        titleWrapper.snp.makeConstraints { maker in
+            maker.top.leading.trailing.equalTo(view)
+            maker.height.equalTo(46)
+        }
+
+        title.snp.makeConstraints { maker in
+            maker.leading.equalTo(titleWrapper).offset(30)
+            maker.trailing.equalTo(titleWrapper).offset(-30)
+            maker.bottom.equalTo(titleWrapper).offset(-10)
+        }
+
+        checkboxsStackView.snp.makeConstraints { maker in
+            maker.top.equalTo(titleWrapper.snp.bottom).offset(12)
+            maker.leading.equalTo(view)
+            maker.trailing.equalTo(view)
+            maker.bottom.equalTo(view)
+        }
+
+        return (view, tagsControls)
+    }
+
     func addDurationLimit() -> UIView {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
 
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16)
         view.addSubview(label)
 
         durationLimitLabel = label
@@ -262,15 +362,15 @@ class FilterViewController: UIViewController {
 
         label.snp.makeConstraints { maker in
             maker.top.equalTo(view).offset(10)
-            maker.leading.equalTo(view).offset(20)
-            maker.trailing.equalTo(view).offset(-20)
+            maker.leading.equalTo(view).offset(30)
+            maker.trailing.equalTo(view).offset(-30)
         }
 
         slider.snp.makeConstraints { maker in
             maker.top.equalTo(label.snp.bottom).offset(10)
-            maker.leading.equalTo(view).offset(20)
-            maker.trailing.equalTo(view).offset(-20)
-            maker.bottom.equalTo(view)
+            maker.leading.equalTo(view).offset(30)
+            maker.trailing.equalTo(view).offset(-30)
+            maker.bottom.equalTo(view).offset(-15)
         }
 
         return view
@@ -386,15 +486,17 @@ class FilterViewController: UIViewController {
         var request = Sh_Generated_SearchQuestsRequest()
         request.orderTags = Array(taskTagsChacked)
         request.params.availabilityWindow = timeWindow
-//        request.params.distanceLimit = (Int32(distanceLimitSlider!.value) / 100) * 100
-        request.params.distanceLimit = .max
         request.params.timeLimit = (Int32(durationLimitSlider!.value) / 10) * 10
-        if transportSegmented!.selectedSegmentIndex == 0 {
-            request.params.transport = Sh_Generated_Transport.car
-        } else if transportSegmented!.selectedSegmentIndex == 1 {
-            request.params.transport = Sh_Generated_Transport.publicTransport
+        if taskTagsChacked.contains("car") {
+            request.params.transport = .car
         } else {
+            request.params.transport = .publicTransport
+        }
+
+        if taskTagsChacked.contains("remote") {
             request.params.distanceLimit = 1
+        } else {
+            request.params.distanceLimit = .max
         }
 
         let ordersListVC = QuestsSearchViewController(request: request)

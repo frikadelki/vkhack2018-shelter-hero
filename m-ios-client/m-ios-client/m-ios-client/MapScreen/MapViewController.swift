@@ -52,7 +52,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = nil
+        self.title = NSLocalizedString("map title", comment: "")
 
         mapView = MapView(frame: view.bounds)
         mapView.showsUserLocation = true
