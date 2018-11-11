@@ -118,3 +118,8 @@ class RecommendationsClient(host: String, port: Int) {
         channel.shutdown()
     }
 }
+
+class ShelterQuestRecordServiceImpl : ShelterQuestRecordServiceGrpc.ShelterQuestRecordServiceImplBase() {
+    override fun start(request: ShelterQuestStartRequest?, responseObserver: StreamObserver<ShelterQuestResponse>?) {
+    }
+}
