@@ -245,7 +245,9 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
         cell.descriptionLabel.text = questsResponse!.quests[indexPath.row].order.description_p
         cell.descriptionLabel.numberOfLines = 0
 
-        cell.tagLabel.text = NSLocalizedString(questsResponse!.quests[indexPath.row].order.tags.first!, comment: "").uppercased()
+        if let tag = questsResponse!.quests[indexPath.row].order.tags.first {
+            cell.tagLabel.text = NSLocalizedString(tag, comment: "").uppercased()
+        }
 
         cell.nearLabel.isHidden = indexPath.row >= 2
         cell.nearIcon.isHidden = indexPath.row >= 2
@@ -297,10 +299,7 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
     }
 
     func getRecord(index: Int) -> Sh_Generated_ShelterQuestRecord? {
-//        return records?.first(where: { record in
-//            record.shelterQuest.id == questsResponse!.quests[index].id
-//        })
-        return nil
+        return records?[index]
     }
 
     @objc private func refreshWeatherData(_ sender: Any) {

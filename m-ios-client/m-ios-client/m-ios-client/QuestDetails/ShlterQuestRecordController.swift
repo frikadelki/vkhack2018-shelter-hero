@@ -16,7 +16,7 @@ class ShlterQuestRecordController {
         var request = Sh_Generated_ShelterQuestStartRequest()
         request.shelterQuest = shelterQuest
         request.token = AuthController.shared.token
-        let call = try? client.start(request) { response, _ in
+        let call = try? client.start(request) { response, callResult in
 
             if ApiConfig().fakeResponses {
                 Thread.sleep(forTimeInterval: 1)

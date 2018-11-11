@@ -117,6 +117,13 @@ class QuestDetailsViewController: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        if record != nil {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Чат",
+                                                                style: .plain,
+                                                                target: self,
+                                                                action: #selector(openChatAction(sender:)))
+        }
+
         self.title = NSLocalizedString("task title", comment: "")
 
         view.backgroundColor = .white
@@ -293,6 +300,12 @@ extension QuestDetailsViewController
             self.refreshControl.endRefreshing()
             self.scrollView.isUserInteractionEnabled = true
         }
+    }
+
+    @objc private func openChatAction(sender: Any) {
+        guard let record = record else { return }
+        let vc = ChatViewController(chat: record.chat)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

@@ -11,7 +11,7 @@ import Foundation
 class AuthController {
     static let shared: AuthController = AuthController()
 
-    private(set) var token: String = ""
+    private(set) var token: String = "12345"
 
     let client = Sh_Generated_AuthServiceServiceClient(address: ApiConfig().address, secure: false)
 
