@@ -39,7 +39,7 @@ namespace protobuf_General_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[3];
+  static const ::google::protobuf::internal::ParseTable schema[4];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -54,6 +54,9 @@ extern GeoPointDefaultTypeInternal _GeoPoint_default_instance_;
 class SearchParams;
 class SearchParamsDefaultTypeInternal;
 extern SearchParamsDefaultTypeInternal _SearchParams_default_instance_;
+class Stats;
+class StatsDefaultTypeInternal;
+extern StatsDefaultTypeInternal _Stats_default_instance_;
 class TimeWindow;
 class TimeWindowDefaultTypeInternal;
 extern TimeWindowDefaultTypeInternal _TimeWindow_default_instance_;
@@ -63,6 +66,7 @@ namespace google {
 namespace protobuf {
 template<> ::sh::generated::GeoPoint* Arena::CreateMaybeMessage<::sh::generated::GeoPoint>(Arena*);
 template<> ::sh::generated::SearchParams* Arena::CreateMaybeMessage<::sh::generated::SearchParams>(Arena*);
+template<> ::sh::generated::Stats* Arena::CreateMaybeMessage<::sh::generated::Stats>(Arena*);
 template<> ::sh::generated::TimeWindow* Arena::CreateMaybeMessage<::sh::generated::TimeWindow>(Arena*);
 }  // namespace protobuf
 }  // namespace google
@@ -467,6 +471,116 @@ class SearchParams : public ::google::protobuf::Message /* @@protoc_insertion_po
   mutable ::google::protobuf::internal::CachedSize _cached_size_;
   friend struct ::protobuf_General_2eproto::TableStruct;
 };
+// -------------------------------------------------------------------
+
+class Stats : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:sh.generated.Stats) */ {
+ public:
+  Stats();
+  virtual ~Stats();
+
+  Stats(const Stats& from);
+
+  inline Stats& operator=(const Stats& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  Stats(Stats&& from) noexcept
+    : Stats() {
+    *this = ::std::move(from);
+  }
+
+  inline Stats& operator=(Stats&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const Stats& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const Stats* internal_default_instance() {
+    return reinterpret_cast<const Stats*>(
+               &_Stats_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    3;
+
+  void Swap(Stats* other);
+  friend void swap(Stats& a, Stats& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Stats* New() const final {
+    return CreateMaybeMessage<Stats>(NULL);
+  }
+
+  Stats* New(::google::protobuf::Arena* arena) const final {
+    return CreateMaybeMessage<Stats>(arena);
+  }
+  void CopyFrom(const ::google::protobuf::Message& from) final;
+  void MergeFrom(const ::google::protobuf::Message& from) final;
+  void CopyFrom(const Stats& from);
+  void MergeFrom(const Stats& from);
+  void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) final;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const final;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Stats* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // int32 timeSpent = 1;
+  void clear_timespent();
+  static const int kTimeSpentFieldNumber = 1;
+  ::google::protobuf::int32 timespent() const;
+  void set_timespent(::google::protobuf::int32 value);
+
+  // int32 distanceTraveled = 2;
+  void clear_distancetraveled();
+  static const int kDistanceTraveledFieldNumber = 2;
+  ::google::protobuf::int32 distancetraveled() const;
+  void set_distancetraveled(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:sh.generated.Stats)
+ private:
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::int32 timespent_;
+  ::google::protobuf::int32 distancetraveled_;
+  mutable ::google::protobuf::internal::CachedSize _cached_size_;
+  friend struct ::protobuf_General_2eproto::TableStruct;
+};
 // ===================================================================
 
 
@@ -746,9 +860,43 @@ inline void SearchParams::set_distancelimit(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:sh.generated.SearchParams.distanceLimit)
 }
 
+// -------------------------------------------------------------------
+
+// Stats
+
+// int32 timeSpent = 1;
+inline void Stats::clear_timespent() {
+  timespent_ = 0;
+}
+inline ::google::protobuf::int32 Stats::timespent() const {
+  // @@protoc_insertion_point(field_get:sh.generated.Stats.timeSpent)
+  return timespent_;
+}
+inline void Stats::set_timespent(::google::protobuf::int32 value) {
+  
+  timespent_ = value;
+  // @@protoc_insertion_point(field_set:sh.generated.Stats.timeSpent)
+}
+
+// int32 distanceTraveled = 2;
+inline void Stats::clear_distancetraveled() {
+  distancetraveled_ = 0;
+}
+inline ::google::protobuf::int32 Stats::distancetraveled() const {
+  // @@protoc_insertion_point(field_get:sh.generated.Stats.distanceTraveled)
+  return distancetraveled_;
+}
+inline void Stats::set_distancetraveled(::google::protobuf::int32 value) {
+  
+  distancetraveled_ = value;
+  // @@protoc_insertion_point(field_set:sh.generated.Stats.distanceTraveled)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

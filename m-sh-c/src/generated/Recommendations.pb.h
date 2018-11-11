@@ -39,7 +39,7 @@ namespace protobuf_Recommendations_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[9];
+  static const ::google::protobuf::internal::ParseTable schema[8];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -66,9 +66,6 @@ extern OrderDefaultTypeInternal _Order_default_instance_;
 class Recommendations;
 class RecommendationsDefaultTypeInternal;
 extern RecommendationsDefaultTypeInternal _Recommendations_default_instance_;
-class Stats;
-class StatsDefaultTypeInternal;
-extern StatsDefaultTypeInternal _Stats_default_instance_;
 class Task;
 class TaskDefaultTypeInternal;
 extern TaskDefaultTypeInternal _Task_default_instance_;
@@ -85,7 +82,6 @@ template<> ::sh::generated::Event* Arena::CreateMaybeMessage<::sh::generated::Ev
 template<> ::sh::generated::Location* Arena::CreateMaybeMessage<::sh::generated::Location>(Arena*);
 template<> ::sh::generated::Order* Arena::CreateMaybeMessage<::sh::generated::Order>(Arena*);
 template<> ::sh::generated::Recommendations* Arena::CreateMaybeMessage<::sh::generated::Recommendations>(Arena*);
-template<> ::sh::generated::Stats* Arena::CreateMaybeMessage<::sh::generated::Stats>(Arena*);
 template<> ::sh::generated::Task* Arena::CreateMaybeMessage<::sh::generated::Task>(Arena*);
 template<> ::sh::generated::Trip* Arena::CreateMaybeMessage<::sh::generated::Trip>(Arena*);
 }  // namespace protobuf
@@ -818,116 +814,6 @@ class Action : public ::google::protobuf::Message /* @@protoc_insertion_point(cl
 };
 // -------------------------------------------------------------------
 
-class Stats : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:sh.generated.Stats) */ {
- public:
-  Stats();
-  virtual ~Stats();
-
-  Stats(const Stats& from);
-
-  inline Stats& operator=(const Stats& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  #if LANG_CXX11
-  Stats(Stats&& from) noexcept
-    : Stats() {
-    *this = ::std::move(from);
-  }
-
-  inline Stats& operator=(Stats&& from) noexcept {
-    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
-      if (this != &from) InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-  #endif
-  static const ::google::protobuf::Descriptor* descriptor();
-  static const Stats& default_instance();
-
-  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const Stats* internal_default_instance() {
-    return reinterpret_cast<const Stats*>(
-               &_Stats_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    6;
-
-  void Swap(Stats* other);
-  friend void swap(Stats& a, Stats& b) {
-    a.Swap(&b);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline Stats* New() const final {
-    return CreateMaybeMessage<Stats>(NULL);
-  }
-
-  Stats* New(::google::protobuf::Arena* arena) const final {
-    return CreateMaybeMessage<Stats>(arena);
-  }
-  void CopyFrom(const ::google::protobuf::Message& from) final;
-  void MergeFrom(const ::google::protobuf::Message& from) final;
-  void CopyFrom(const Stats& from);
-  void MergeFrom(const Stats& from);
-  void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input) final;
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const final;
-  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
-      bool deterministic, ::google::protobuf::uint8* target) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(Stats* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return NULL;
-  }
-  inline void* MaybeArenaPtr() const {
-    return NULL;
-  }
-  public:
-
-  ::google::protobuf::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // int32 timeSpent = 1;
-  void clear_timespent();
-  static const int kTimeSpentFieldNumber = 1;
-  ::google::protobuf::int32 timespent() const;
-  void set_timespent(::google::protobuf::int32 value);
-
-  // int32 distanceTraveled = 2;
-  void clear_distancetraveled();
-  static const int kDistanceTraveledFieldNumber = 2;
-  ::google::protobuf::int32 distancetraveled() const;
-  void set_distancetraveled(::google::protobuf::int32 value);
-
-  // @@protoc_insertion_point(class_scope:sh.generated.Stats)
- private:
-
-  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
-  ::google::protobuf::int32 timespent_;
-  ::google::protobuf::int32 distancetraveled_;
-  mutable ::google::protobuf::internal::CachedSize _cached_size_;
-  friend struct ::protobuf_Recommendations_2eproto::TableStruct;
-};
-// -------------------------------------------------------------------
-
 class Trip : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:sh.generated.Trip) */ {
  public:
   Trip();
@@ -963,7 +849,7 @@ class Trip : public ::google::protobuf::Message /* @@protoc_insertion_point(clas
                &_Trip_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    7;
+    6;
 
   void Swap(Trip* other);
   friend void swap(Trip& a, Trip& b) {
@@ -1118,7 +1004,7 @@ class Recommendations : public ::google::protobuf::Message /* @@protoc_insertion
                &_Recommendations_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    7;
 
   void Swap(Recommendations* other);
   friend void swap(Recommendations& a, Recommendations& b) {
@@ -1623,38 +1509,6 @@ inline void Action::set_distancetraveled(::google::protobuf::int32 value) {
 
 // -------------------------------------------------------------------
 
-// Stats
-
-// int32 timeSpent = 1;
-inline void Stats::clear_timespent() {
-  timespent_ = 0;
-}
-inline ::google::protobuf::int32 Stats::timespent() const {
-  // @@protoc_insertion_point(field_get:sh.generated.Stats.timeSpent)
-  return timespent_;
-}
-inline void Stats::set_timespent(::google::protobuf::int32 value) {
-  
-  timespent_ = value;
-  // @@protoc_insertion_point(field_set:sh.generated.Stats.timeSpent)
-}
-
-// int32 distanceTraveled = 2;
-inline void Stats::clear_distancetraveled() {
-  distancetraveled_ = 0;
-}
-inline ::google::protobuf::int32 Stats::distancetraveled() const {
-  // @@protoc_insertion_point(field_get:sh.generated.Stats.distanceTraveled)
-  return distancetraveled_;
-}
-inline void Stats::set_distancetraveled(::google::protobuf::int32 value) {
-  
-  distancetraveled_ = value;
-  // @@protoc_insertion_point(field_set:sh.generated.Stats.distanceTraveled)
-}
-
-// -------------------------------------------------------------------
-
 // Trip
 
 // int32 orderId = 1;
@@ -1801,12 +1655,6 @@ Trip::actions() const {
 inline bool Trip::has_stats() const {
   return this != internal_default_instance() && stats_ != NULL;
 }
-inline void Trip::clear_stats() {
-  if (GetArenaNoVirtual() == NULL && stats_ != NULL) {
-    delete stats_;
-  }
-  stats_ = NULL;
-}
 inline const ::sh::generated::Stats& Trip::_internal_stats() const {
   return *stats_;
 }
@@ -1835,7 +1683,7 @@ inline ::sh::generated::Stats* Trip::mutable_stats() {
 inline void Trip::set_allocated_stats(::sh::generated::Stats* stats) {
   ::google::protobuf::Arena* message_arena = GetArenaNoVirtual();
   if (message_arena == NULL) {
-    delete stats_;
+    delete reinterpret_cast< ::google::protobuf::MessageLite*>(stats_);
   }
   if (stats) {
     ::google::protobuf::Arena* submessage_arena = NULL;
@@ -1888,8 +1736,6 @@ Recommendations::recommendations() const {
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
