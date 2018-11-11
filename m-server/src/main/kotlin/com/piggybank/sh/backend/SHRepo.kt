@@ -105,8 +105,8 @@ class SHRepo(val db: Database) {
         }
         return Chat.newBuilder()
                 .addAllMessages(listOf<ChatMessage>(
-                        chatMessageOf("", ""),
-                        chatMessageOf("", "")
+                        chatMessageOf("Николай Лебедев", "Что нужно для работы по этому заданию?"),
+                        chatMessageOf("Анна Антонова", "Только приехать в приют и быть в удобной одежде и обуви.")
                 ))
                 .build()
     }
