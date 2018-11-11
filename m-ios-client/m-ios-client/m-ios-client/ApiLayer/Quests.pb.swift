@@ -33,6 +33,15 @@ struct Sh_Generated_ShelterQuest {
   /// Clears the value of `order`. Subsequent reads from it will return its default value.
   mutating func clearOrder() {_uniqueStorage()._order = nil}
 
+  var stats: Sh_Generated_Stats {
+    get {return _storage._stats ?? Sh_Generated_Stats()}
+    set {_uniqueStorage()._stats = newValue}
+  }
+  /// Returns true if `stats` has been explicitly set.
+  var hasStats: Bool {return _storage._stats != nil}
+  /// Clears the value of `stats`. Subsequent reads from it will return its default value.
+  mutating func clearStats() {_uniqueStorage()._stats = nil}
+
   var steps: [Sh_Generated_ShelterQuestStep] {
     get {return _storage._steps}
     set {_uniqueStorage()._steps = newValue}
@@ -135,11 +144,13 @@ extension Sh_Generated_ShelterQuest: SwiftProtobuf.Message, SwiftProtobuf._Messa
   static let protoMessageName: String = _protobuf_package + ".ShelterQuest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "order"),
-    2: .same(proto: "steps"),
+    2: .same(proto: "stats"),
+    3: .same(proto: "steps"),
   ]
 
   fileprivate class _StorageClass {
     var _order: Sh_Generated_ShelterOrder? = nil
+    var _stats: Sh_Generated_Stats? = nil
     var _steps: [Sh_Generated_ShelterQuestStep] = []
 
     static let defaultInstance = _StorageClass()
@@ -148,6 +159,7 @@ extension Sh_Generated_ShelterQuest: SwiftProtobuf.Message, SwiftProtobuf._Messa
 
     init(copying source: _StorageClass) {
       _order = source._order
+      _stats = source._stats
       _steps = source._steps
     }
   }
@@ -165,7 +177,8 @@ extension Sh_Generated_ShelterQuest: SwiftProtobuf.Message, SwiftProtobuf._Messa
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._order)
-        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._steps)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._stats)
+        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._steps)
         default: break
         }
       }
@@ -177,8 +190,11 @@ extension Sh_Generated_ShelterQuest: SwiftProtobuf.Message, SwiftProtobuf._Messa
       if let v = _storage._order {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
+      if let v = _storage._stats {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
       if !_storage._steps.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._steps, fieldNumber: 2)
+        try visitor.visitRepeatedMessageField(value: _storage._steps, fieldNumber: 3)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -190,6 +206,7 @@ extension Sh_Generated_ShelterQuest: SwiftProtobuf.Message, SwiftProtobuf._Messa
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._order != rhs_storage._order {return false}
+        if _storage._stats != rhs_storage._stats {return false}
         if _storage._steps != rhs_storage._steps {return false}
         return true
       }

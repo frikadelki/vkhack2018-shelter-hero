@@ -12,6 +12,9 @@ import SnapKit
 
 class QuestViewCell : UITableViewCell {
 
+    let tagLabel = UILabel()
+    let nearLabel = UILabel()
+    let nearIcon = UIImageView(image: UIImage(named: "small-location"))
     let questTitle = UILabel()
     let descriptionLabel = UILabel()
     let backView = UIView()
@@ -27,6 +30,20 @@ class QuestViewCell : UITableViewCell {
         backView.layer.cornerRadius = 4
         contentView.addSubview(backView)
 
+        tagLabel.translatesAutoresizingMaskIntoConstraints = false
+        tagLabel.font = UIFont.boldSystemFont(ofSize: 10)
+        tagLabel.textColor = UIColor.ray_gray
+        backView.addSubview(tagLabel)
+
+        nearIcon.translatesAutoresizingMaskIntoConstraints = false
+        backView.addSubview(nearIcon)
+
+        nearLabel.translatesAutoresizingMaskIntoConstraints = false
+        nearLabel.font = UIFont.systemFont(ofSize: 10)
+        nearLabel.textColor = UIColor.ray_orange
+        nearLabel.text = "Рядом с вами!"
+        backView.addSubview(nearLabel)
+
         questTitle.font = UIFont.boldSystemFont(ofSize: 18)
         questTitle.translatesAutoresizingMaskIntoConstraints = false
         backView.addSubview(questTitle)
@@ -35,8 +52,23 @@ class QuestViewCell : UITableViewCell {
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         backView.addSubview(descriptionLabel)
 
+        tagLabel.snp.makeConstraints { maker in
+            maker.leading.equalToSuperview().offset(16)
+            maker.bottom.equalTo(questTitle.snp.top).offset(-8)
+        }
+
+        nearLabel.snp.makeConstraints { maker in
+            maker.trailing.equalToSuperview().offset(-16)
+            maker.bottom.equalTo(questTitle.snp.top).offset(-8)
+        }
+
+        nearIcon.snp.makeConstraints { maker in
+            maker.trailing.equalTo(nearLabel.snp.leading).offset(-4)
+            maker.centerY.equalTo(nearLabel)
+        }
+
         questTitle.snp.makeConstraints { maker in
-            maker.top.equalTo(backView).offset(8)
+            maker.top.equalTo(backView).offset(32)
             maker.leading.equalTo(backView).offset(16)
             maker.trailing.equalTo(backView).offset(-16)
         }
@@ -45,7 +77,7 @@ class QuestViewCell : UITableViewCell {
             maker.top.equalTo(questTitle.snp.bottom).offset(10)
             maker.leading.equalTo(questTitle)
             maker.trailing.equalTo(questTitle)
-            maker.bottom.equalTo(backView).offset(-8)
+            maker.bottom.equalTo(backView).offset(-20)
         }
 
         backView.snp.makeConstraints { maker in
@@ -64,6 +96,7 @@ class QuestViewCell : UITableViewCell {
 class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     private let tableView = UITableView()
     private let activityIndicator = UIActivityIndicatorView()
+    private let errorLabel = UILabel()
 
     private let request: Sh_Generated_SearchQuestsRequest?
     private let questsSearchController: QuestsSearchController?
@@ -116,6 +149,14 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
 
         refreshControl.addTarget(self, action: #selector(refreshWeatherData(_:)), for: .valueChanged)
 
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(errorLabel)
+
+        errorLabel.snp.makeConstraints { maker in
+            maker.center.equalTo(view)
+        }
+        errorLabel.isHidden = true
+
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.activityIndicatorViewStyle = .gray
         activityIndicator.hidesWhenStopped = true
@@ -142,6 +183,7 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
         if displayActivity {
             tableView.alpha = 0.5
             activityIndicator.startAnimating()
+            self.errorLabel.isHidden = true
         }
 
         let completion = {
@@ -155,8 +197,16 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
         if questsSearchController != nil, let request = request {
             questsSearchController?.search(request: request) { result in
                 switch result {
-                case .success(let questsResponse): self.questsResponse = questsResponse
-                case .error(_): self.questsResponse = nil
+                case .success(let questsResponse):
+                    self.questsResponse = questsResponse
+                    if questsResponse.quests.count == 0 {
+                        self.errorLabel.text = "Список пуск"
+                        self.errorLabel.isHidden = false
+                    }
+                case .error(_):
+                    self.questsResponse = nil
+                    self.errorLabel.text = "Произошла ошибка"
+                    self.errorLabel.isHidden = false
                 }
                 completion()
             }
@@ -166,6 +216,13 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
                 self.records = records
                 if let records = records {
                     self.questsResponse?.quests = records.map({ $0.shelterQuest })
+                    if records.count == 0 {
+                        self.errorLabel.text = "Список пуск"
+                        self.errorLabel.isHidden = false
+                    }
+                } else {
+                    self.errorLabel.text = "Произошла ошибка"
+                    self.errorLabel.isHidden = false
                 }
                 completion()
             })
@@ -187,6 +244,11 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
 
         cell.descriptionLabel.text = questsResponse!.quests[indexPath.row].order.description_p
         cell.descriptionLabel.numberOfLines = 0
+
+        cell.tagLabel.text = NSLocalizedString(questsResponse!.quests[indexPath.row].order.tags.first!, comment: "").uppercased()
+
+        cell.nearLabel.isHidden = indexPath.row >= 2
+        cell.nearIcon.isHidden = indexPath.row >= 2
 
 //        let record = getRecord(index: indexPath.row)
 //        if let record = record {
