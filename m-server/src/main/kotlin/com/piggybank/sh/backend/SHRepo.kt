@@ -205,67 +205,71 @@ private fun initSheltersOrders(db: Database, shelters: List<ShelterEntity>) {
         }
     })
 
-    return
-
-    SheltersOrderEntity.new {
-        title = "Публикации о животных"
-        description = "Публиковать посты о животных в соцсетях"
-        tags = listOf("remote", "all-ages")
-
-        addDemand {
+    run(db, {
+        SheltersOrderEntity.new {
+            title = "Публикации о животных"
+            description = "Публиковать посты о животных в соцсетях"
+            tags = listOf("remote", "all-ages")
+            shelter = shelters[3]
+        }
+    }, { entity ->
+        entity.addDemand {
             description = "Опубликовать пост о животном"
             type = OrderDemandType.Plain
             duration = 30
         }
-    }
+    })
 
-    SheltersOrderEntity.new {
-        title = "Погулять с собаками в приюте"
-        description = "Приехать в приют и погулять с собакой"
-        tags = listOf()
-
-        addDemand {
+    run(db, {
+        SheltersOrderEntity.new {
+            title = "Погулять с собаками в приюте"
+            description = "Приехать в приют и погулять с собакой"
+            tags = listOf()
+            shelter = shelters[1]
+        }
+    }, { entity ->
+        entity.addDemand {
             description = "Приехать в приют"
             type = OrderDemandType.ShelterAction
             duration = 20
             timeWindow = timeWindowOf(0, Int.MAX_VALUE)
             shelter = shelters[1]
         }
-
-        addDemand {
+        entity.addDemand {
             description = "Погулять с собакой"
             type = OrderDemandType.ShelterAction
             duration = 40
             timeWindow = timeWindowOf(0, Int.MAX_VALUE)
             shelter = shelters[1]
         }
-    }
+    })
 
-    SheltersOrderEntity.new {
-        title = "Помощь фотографа"
-        description = "Сделать портфолио для собак"
-        tags = listOf("all-ages")
-
-        addDemand {
+    run(db, {
+        SheltersOrderEntity.new {
+            title = "Помощь фотографа"
+            description = "Сделать портфолио для собак"
+            tags = listOf("all-ages")
+            shelter = shelters[2]
+        }
+    }, { entity ->
+        entity.addDemand {
             description = "Приехать в приют"
             type = OrderDemandType.ShelterAction
             duration = 20
             timeWindow = timeWindowOf(0, Int.MAX_VALUE)
             shelter = shelters[2]
         }
-
-        addDemand {
+        entity.addDemand {
             description = "Фотографировать собак"
             type = OrderDemandType.ShelterAction
             duration = 60
             timeWindow = timeWindowOf(0, Int.MAX_VALUE)
             shelter = shelters[2]
         }
-
-        addDemand {
+        entity.addDemand {
             description = "Обработать и выслать фотографии"
             type = OrderDemandType.Plain
             duration = 180
         }
-    }
+    })
 }
