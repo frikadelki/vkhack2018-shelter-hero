@@ -14,10 +14,13 @@ class GrpcServer(private val app: SHApp) {
     private var started = false
     private var shutdown = false
 
+    // private val recommendationsHost = "172.20.38.33"
+    private val recommendationsHost = "vps456808.ovh.net"
+    private val recommendationsPort = 12100
     private val port = 50051
     private val server = ServerBuilder.forPort(port)
             .addService(MapObjectServiceImpl(app))
-            .addService(QuestServiceImpl(app, RecommendationsClient("172.20.38.33", 12100)))
+            .addService(QuestServiceImpl(app, RecommendationsClient(recommendationsHost, recommendationsPort)))
             .addService(ShelterQuestRecordServiceImpl(app))
             .build()
 
