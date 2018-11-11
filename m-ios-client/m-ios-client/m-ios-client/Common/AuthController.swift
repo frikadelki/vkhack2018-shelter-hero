@@ -13,15 +13,13 @@ class AuthController {
 
     private(set) var token: String = ""
 
-    let fakeResponses: Bool = true
-
     func regiter(login: String, password: String, completion: @escaping (_ susses: Bool) -> Void) {
         var request = Sh_Generated_AuthRequest()
         request.login = login
         request.password = password
         do {
             let _ = try Sh_Generated_AuthServiceServiceClient(address: ApiConfig().address, secure: false).register(request) { response, _ in
-                if self.fakeResponses {
+                if ApiConfig().fakeResponses {
                     self.token = "fake_token"
                     completion(true)
                 } else if let response = response {
@@ -43,7 +41,7 @@ class AuthController {
         request.password = password
         do {
             let _ = try Sh_Generated_AuthServiceServiceClient(address: ApiConfig().address, secure: false).login(request) { response, _ in
-                if self.fakeResponses {
+                if ApiConfig().fakeResponses {
                     self.token = "fake_token"
                     completion(true)
                 } else if let response = response {

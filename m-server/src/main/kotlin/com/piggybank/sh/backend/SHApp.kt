@@ -1,13 +1,17 @@
 package com.piggybank.sh.backend
 
-import com.piggybank.sh.backend.db.OrderDemandEntity
-import com.piggybank.sh.backend.db.OrderDemandType
-import com.piggybank.sh.backend.db.SheltersOrderEntity
-import com.piggybank.sh.backend.db.VenueEntity
+import com.piggybank.sh.backend.db.*
 import com.piggybank.sh.generated.*
 import com.piggybank.sh.genex.locationOf
 import com.piggybank.sh.genex.timeWindowOf
 import org.jetbrains.exposed.sql.Database
+
+class SearchTaskCalc(val task: Task, val eventsDump: Map<Int, EventCalc>)
+
+class EventCalc(val event: Event,
+                val demandEntity: OrderDemandEntity,
+                val venue: VenueEntity?,
+                val shelter: ShelterEntity?)
 
 class SHApp(db: Database) {
     private val repo = SHRepo(db)
@@ -18,9 +22,11 @@ class SHApp(db: Database) {
 
     fun orderEntity(orderId: Int): SheltersOrderEntity  = repo.orderEntity(orderId)
 
-    fun prepareSearchTask(params: SearchParams, acceptableOrdersTags: List<String>): Task {
+    fun prepareSearchTask(params: SearchParams, acceptableOrdersTags: List<String>): SearchTaskCalc {
         var eventsIdsSequence = 0
         fun nextEventId() = eventsIdsSequence++
+
+        val eventsDump = mutableMapOf<Int, EventCalc>()
 
         fun mapPlainDemand(demandEntity: OrderDemandEntity): Demand {
             val event = Event.newBuilder()
@@ -29,6 +35,7 @@ class SHApp(db: Database) {
                     .setTimeWindow(demandEntity.timeWindow ?: timeWindowOf(0, 24 * 60))
                     .setDuration(demandEntity.duration)
                     .build()
+            eventsDump[event.id] = EventCalc(event, demandEntity, null, null)
 
             return Demand.newBuilder()
                     .addAllEvents(listOf(event))
@@ -43,6 +50,7 @@ class SHApp(db: Database) {
                     .setTimeWindow(demandEntity.timeWindow ?: timeWindowOf(8 * 60, 20 * 60))
                     .setDuration(demandEntity.duration)
                     .build()
+            eventsDump[event.id] = EventCalc(event, demandEntity, null, shelter)
 
             return Demand.newBuilder()
                     .addAllEvents(listOf(event))
@@ -55,12 +63,14 @@ class SHApp(db: Database) {
             }
 
             val events = suitableVenues.map {
-                return@map Event.newBuilder()
+                val event = Event.newBuilder()
                         .setId(nextEventId())
                         .setLocation(locationOf(it.location))
                         .setTimeWindow(demandEntity.timeWindow ?:timeWindowOf(8 * 60, 20 * 60))
                         .setDuration(demandEntity.duration)
                         .build()
+                eventsDump[event.id] = EventCalc(event, demandEntity, it, null)
+                return@map event
             }
 
             return Demand.newBuilder()
@@ -92,9 +102,11 @@ class SHApp(db: Database) {
                 }
                 .map(::mapShelterOrderEntity)
 
-        return Task.newBuilder()
+        val task = Task.newBuilder()
                 .setParams(params)
                 .addAllOrders(openOrders)
                 .build()
+
+        return SearchTaskCalc(task, eventsDump)
     }
 }

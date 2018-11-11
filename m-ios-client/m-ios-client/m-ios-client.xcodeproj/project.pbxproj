@@ -33,6 +33,8 @@
 		CBDAC89F2197190B003053E9 /* ShelterQuestRecord.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC89D2197190B003053E9 /* ShelterQuestRecord.grpc.swift */; };
 		CBDAC8A8219752E2003053E9 /* ShlterQuestRecordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC8A6219752E2003053E9 /* ShlterQuestRecordController.swift */; };
 		CBDAC8A9219752E2003053E9 /* QuestDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC8A7219752E2003053E9 /* QuestDetailsViewController.swift */; };
+		CBDAC8AB21978A49003053E9 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC8AA21978A49003053E9 /* WebViewController.swift */; };
+		CBDAC8AD219796B0003053E9 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDAC8AC219796B0003053E9 /* UIColor.swift */; };
 		CBDEDA4B2195C0DA009F337A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDEDA4A2195C0DA009F337A /* AppDelegate.swift */; };
 		CBDEDA4D2195C0DA009F337A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBDEDA4C2195C0DA009F337A /* MapViewController.swift */; };
 		CBDEDA522195C0DC009F337A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBDEDA512195C0DC009F337A /* Assets.xcassets */; };
@@ -71,6 +73,8 @@
 		CBDAC89D2197190B003053E9 /* ShelterQuestRecord.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShelterQuestRecord.grpc.swift; sourceTree = "<group>"; };
 		CBDAC8A6219752E2003053E9 /* ShlterQuestRecordController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShlterQuestRecordController.swift; sourceTree = "<group>"; };
 		CBDAC8A7219752E2003053E9 /* QuestDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestDetailsViewController.swift; sourceTree = "<group>"; };
+		CBDAC8AA21978A49003053E9 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		CBDAC8AC219796B0003053E9 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		CBDEDA472195C0DA009F337A /* m-ios-client.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "m-ios-client.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBDEDA4A2195C0DA009F337A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CBDEDA4C2195C0DA009F337A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -141,6 +145,7 @@
 				CBD2BFDE21963ED5005006DD /* AuthController.swift */,
 				CBD2BFE021963F57005006DD /* ApiConfig.swift */,
 				CBD2BFE22196422E005006DD /* MapView.swift */,
+				CBDAC8AC219796B0003053E9 /* UIColor.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -221,6 +226,7 @@
 				CBD2BFC92195F7EF005006DD /* m-protos */,
 				CBD2BFC42195F7C0005006DD /* ApiLayer */,
 				CBDEDA4A2195C0DA009F337A /* AppDelegate.swift */,
+				CBDAC8AA21978A49003053E9 /* WebViewController.swift */,
 			);
 			path = "m-ios-client";
 			sourceTree = "<group>";
@@ -372,7 +378,9 @@
 				CBD2BFE32196422E005006DD /* MapView.swift in Sources */,
 				CBDAC89E2197190B003053E9 /* ShelterQuestRecord.pb.swift in Sources */,
 				CBDEDA4D2195C0DA009F337A /* MapViewController.swift in Sources */,
+				CBDAC8AD219796B0003053E9 /* UIColor.swift in Sources */,
 				CBD2BFDF21963ED5005006DD /* AuthController.swift in Sources */,
+				CBDAC8AB21978A49003053E9 /* WebViewController.swift in Sources */,
 				CBD2BFC82195F7C0005006DD /* MapObject.grpc.swift in Sources */,
 				CBDAC8A8219752E2003053E9 /* ShlterQuestRecordController.swift in Sources */,
 				CBD2BFF52196C0A9005006DD /* QuestsSearchViewController.swift in Sources */,

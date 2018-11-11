@@ -38,7 +38,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
         super.init(nibName: nil, bundle: nil)
 
         if presetMapObjects == nil {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("filter", comment: ""),
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "settings")?.withRenderingMode(.alwaysOriginal),
                                                                 style: .plain,
                                                                 target: self,
                                                                 action: #selector(MapViewController.filterAction(sender:)))

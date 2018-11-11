@@ -119,18 +119,14 @@ class MapView: MKMapView, MKMapViewDelegate, CLLocationManagerDelegate {
             maker.edges.equalTo(self)
         }
 
-        let me = UILabel(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
-        me.backgroundColor = .white
+        let me = UIImageView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        me.image = UIImage(named: "my-location")
         me.translatesAutoresizingMaskIntoConstraints = false
         me.isUserInteractionEnabled = true
-        me.textAlignment = .center
-        me.text = "me"
         addSubview(me)
         me.snp.makeConstraints { maker in
             maker.trailing.equalTo(self).offset(-16)
             maker.bottom.equalTo(self.safeAreaLayoutGuide).offset(-20)
-            maker.width.equalTo(44)
-            maker.height.equalTo(44)
         }
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(MapView.myLocation(sender:)))

@@ -13,37 +13,47 @@ import SnapKit
 class QuestViewCell : UITableViewCell {
 
     let questTitle = UILabel()
-    let questStatus = UILabel()
-
-    private var statusWidth: Constraint!
+    let descriptionLabel = UILabel()
+    let backView = UIView()
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        questTitle.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(questTitle)
+        separatorInset = .init(top: 0, left: 9999, bottom: 0, right: -9999)
 
-        questStatus.font = UIFont.systemFont(ofSize: 12)
-        questStatus.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(questStatus)
+        backView.translatesAutoresizingMaskIntoConstraints = false
+        backView.backgroundColor = UIColor.ray_background
+        backView.layer.masksToBounds = true
+        backView.layer.cornerRadius = 4
+        contentView.addSubview(backView)
+
+        questTitle.font = UIFont.boldSystemFont(ofSize: 18)
+        questTitle.translatesAutoresizingMaskIntoConstraints = false
+        backView.addSubview(questTitle)
+
+        descriptionLabel.font = UIFont.systemFont(ofSize: 14)
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        backView.addSubview(descriptionLabel)
 
         questTitle.snp.makeConstraints { maker in
-            maker.top.equalTo(contentView).offset(10)
-            maker.leading.equalTo(contentView).offset(20)
-            maker.trailing.equalTo(contentView).offset(-20)
+            maker.top.equalTo(backView).offset(8)
+            maker.leading.equalTo(backView).offset(16)
+            maker.trailing.equalTo(backView).offset(-16)
         }
 
-        questStatus.snp.makeConstraints { maker in
-            maker.top.equalTo(questTitle.snp.bottom)
+        descriptionLabel.snp.makeConstraints { maker in
+            maker.top.equalTo(questTitle.snp.bottom).offset(10)
             maker.leading.equalTo(questTitle)
-            maker.bottom.equalTo(contentView).offset(-10)
-            statusWidth = maker.height.equalTo(0).constraint
+            maker.trailing.equalTo(questTitle)
+            maker.bottom.equalTo(backView).offset(-8)
         }
-    }
 
-    func setStatus(_ status: String) {
-        statusWidth.deactivate()
-        questStatus.text = status
+        backView.snp.makeConstraints { maker in
+            maker.top.equalToSuperview().offset(6)
+            maker.leading.equalToSuperview().offset(16)
+            maker.bottom.equalToSuperview().offset(-6)
+            maker.trailing.equalToSuperview().offset(-16)
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -168,21 +178,23 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
             cell = QuestViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "QuestCellID")
         }
 
-        let record = getRecord(index: indexPath.row)
-
         cell.questTitle.text = questsResponse!.quests[indexPath.row].order.title
         cell.questTitle.numberOfLines = 0
 
-        if let record = record {
-            switch record.status {
-            case .inProgress: cell.setStatus(NSLocalizedString("status in progress", comment: ""))
-            case .onReview: cell.setStatus(NSLocalizedString("status on reniew", comment: ""))
-            case .checked, .closed: cell.setStatus(NSLocalizedString("status is closed", comment: ""))
-            case .rejected: cell.setStatus(NSLocalizedString("status is rejecred", comment: ""))
-            case .canceled: cell.setStatus(NSLocalizedString("status is canceled", comment: ""))
-            default: assertionFailure("Unknown status")
-            }
-        }
+        cell.descriptionLabel.text = questsResponse!.quests[indexPath.row].order.description_p
+        cell.descriptionLabel.numberOfLines = 0
+
+//        let record = getRecord(index: indexPath.row)
+//        if let record = record {
+//            switch record.status {
+//            case .inProgress: cell.setStatus(NSLocalizedString("status in progress", comment: ""))
+//            case .onReview: cell.setStatus(NSLocalizedString("status on reniew", comment: ""))
+//            case .checked, .closed: cell.setStatus(NSLocalizedString("status is closed", comment: ""))
+//            case .rejected: cell.setStatus(NSLocalizedString("status is rejecred", comment: ""))
+//            case .canceled: cell.setStatus(NSLocalizedString("status is canceled", comment: ""))
+//            default: assertionFailure("Unknown status")
+//            }
+//        }
 
         return cell
     }

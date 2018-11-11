@@ -8,30 +8,70 @@
 
 import UIKit
 
+class RayButton: UIView {
+    let button = UIButton()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
+        button.backgroundColor = UIColor.ray_orange
+        button.setTitle(NSLocalizedString("apply", comment: "").uppercased(), for: .normal)
+
+        button.layer.masksToBounds = true
+        button.layer.cornerRadius = 4
+
+        addSubview(button)
+
+        button.snp.makeConstraints { maker in
+            maker.top.equalTo(self).offset(32)
+            maker.bottom.equalTo(self).offset(-16)
+            maker.leading.equalTo(self).offset(32)
+            maker.trailing.equalTo(self).offset(-32)
+            maker.height.equalTo(56)
+        }
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 class CheckBoxElement: UIView {
+    let imageView: UIImageView
     let label: UILabel
     let checkBox: UISwitch
     override init(frame: CGRect) {
+        imageView = UIImageView()
         checkBox = UISwitch()
         label = UILabel()
         super.init(frame: frame)
 
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(imageView)
+
+        checkBox.onTintColor = UIColor.ray_orange
         checkBox.translatesAutoresizingMaskIntoConstraints = false
         addSubview(checkBox)
 
+        label.font = UIFont.systemFont(ofSize: 20)
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
 
-        checkBox.snp.makeConstraints { maker in
-            maker.leading.equalTo(self).offset(20)
-            maker.top.equalTo(self).offset(10)
-            maker.bottom.equalTo(self).offset(-10)
+        imageView.snp.makeConstraints { maker in
+            maker.top.equalTo(self).offset(20)
+            maker.leading.equalTo(self).offset(30)
+            maker.bottom.equalTo(self)
         }
 
         label.snp.makeConstraints { maker in
-            maker.leading.equalTo(checkBox.snp.trailing).offset(16)
-            maker.centerY.equalTo(checkBox)
-            maker.trailing.equalTo(self).offset(-16)
+            maker.leading.equalTo(imageView.snp.trailing).offset(16)
+            maker.centerY.equalTo(imageView)
+        }
+
+        checkBox.snp.makeConstraints { maker in
+            maker.trailing.equalTo(self).offset(-30)
+            maker.centerY.equalTo(label)
         }
     }
 
@@ -85,15 +125,12 @@ class FilterViewController: UIViewController {
 
         switch self.style {
         case .apply:
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("apply", comment: ""),
+            navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("show all map objects", comment: ""),
                                                                 style: .plain,
                                                                 target: self,
-                                                                action: #selector(FilterViewController.applyAction(sender:)))
+                                                                action: #selector(FilterViewController.showAllAction(sender:)))
         case .search:
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("search", comment: ""),
-                                                                style: .plain,
-                                                                target: self,
-                                                                action: #selector(FilterViewController.nextAction(sender:)))
+            break
         }
     }
 
@@ -133,6 +170,15 @@ class FilterViewController: UIViewController {
             views.append(addTransport())
         }
 
+        let button = RayButton()
+        switch style {
+        case .apply:
+            button.button.addTarget(self, action: #selector(applyAction(sender:)), for: .touchUpInside)
+        case .search:
+            button.button.addTarget(self, action: #selector(nextAction(sender:)), for: .touchUpInside)
+        }
+        views.append(button)
+
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
 
@@ -159,12 +205,13 @@ class FilterViewController: UIViewController {
 
         let title = UILabel()
         title.translatesAutoresizingMaskIntoConstraints = false
-        title.font = UIFont.systemFont(ofSize: 22)
+        title.font = UIFont.boldSystemFont(ofSize: 32)
         title.text = titleString
         view.addSubview(title)
 
         let tagsControls = tags.map({ tag -> CheckBoxElement in
             let checkBox = CheckBoxElement()
+            checkBox.imageView.image = UIImage(named: tag + "-icon")
             checkBox.translatesAutoresizingMaskIntoConstraints = false
             checkBox.checkBox.isOn = checkedTags.contains(tag)
             checkBox.label.text = NSLocalizedString(tag, comment: "")
@@ -177,13 +224,13 @@ class FilterViewController: UIViewController {
         view.addSubview(checkboxsStackView)
 
         title.snp.makeConstraints { maker in
-            maker.top.equalTo(view).offset(16)
-            maker.leading.equalTo(view).offset(20)
-            maker.trailing.equalTo(view).offset(-20)
+            maker.top.equalTo(view).offset(20)
+            maker.leading.equalTo(view).offset(30)
+            maker.trailing.equalTo(view).offset(-30)
         }
 
         checkboxsStackView.snp.makeConstraints { maker in
-            maker.top.equalTo(title.snp.bottom).offset(8)
+            maker.top.equalTo(title.snp.bottom)
             maker.leading.equalTo(view)
             maker.trailing.equalTo(view)
             maker.bottom.equalTo(view)
@@ -292,6 +339,12 @@ class FilterViewController: UIViewController {
         }
 
         return view;
+    }
+
+    @objc func showAllAction(sender: Any) {
+        delegate?.filterViewControllerApplyFilters(self,
+                                                   venueTags: Set(),
+                                                   taskTags: Set())
     }
 
     @objc func applyAction(sender: Any) {
