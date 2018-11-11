@@ -17,7 +17,9 @@ class SHRepo(private val db: Database) {
                     VenuesTable,
                     SheltersTable,
                     SheltersOrdersTable,
-                    OrdersDemandsTable)
+                    OrdersDemandsTable,
+                    QuestRecordTable,
+                    QuestRecordsDoneDemandsTable)
         }
 
         transaction(db) {
@@ -30,7 +32,7 @@ class SHRepo(private val db: Database) {
     fun shelterMapObjects(): Iterable<ShelterMapObject> = transaction(db) {
         return@transaction ShelterEntity.all().map {
             return@map ShelterMapObject.newBuilder()
-                    .setShelter(it.shelter())
+                    .setShelter(it.toShelter())
                     .addAllAvailableOrders(emptyList())
                     .build()
         }
@@ -39,7 +41,7 @@ class SHRepo(private val db: Database) {
     fun venuesMapObjects(): Iterable<VenueMapObject> = transaction(db) {
         return@transaction VenueEntity.all().map {
             return@map VenueMapObject.newBuilder()
-                    .setVenue(it.venue())
+                    .setVenue(it.toVenue())
                     .build()
         }
     }

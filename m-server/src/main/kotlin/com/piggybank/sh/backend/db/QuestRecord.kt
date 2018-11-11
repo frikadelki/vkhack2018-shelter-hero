@@ -11,7 +11,9 @@ import org.jetbrains.exposed.sql.Table
 object QuestRecordTable : IntIdTable() {
     val quest = text("quest")
 
-    val startTimeEpochMillis = long("start_time_epoch_millis")
+    val principalToken = text("principal_token")
+
+    val startTime = integer("start_time_epoch_millis")
 
     val status = text("status")
 }
@@ -19,9 +21,11 @@ object QuestRecordTable : IntIdTable() {
 class QuestRecordEntity(id: EntityID<Int>) : IntEntity(id) {
     companion object : IntEntityClass<QuestRecordEntity>(SheltersTable)
 
-    var startTimeEpochMillis by QuestRecordTable.startTimeEpochMillis
-
     var quest by ProtobufMessageDelegator<ShelterQuest>(QuestRecordTable.quest) { ShelterQuest.newBuilder() }
+
+    var principalToken by QuestRecordTable.principalToken
+
+    var startTime by QuestRecordTable.startTime
 
     private var _status by QuestRecordTable.status
 
@@ -31,10 +35,10 @@ class QuestRecordEntity(id: EntityID<Int>) : IntEntity(id) {
             _status = value.name
         }
 
-    var demands by OrderDemandEntity via QuestRecordsDoneDemands
+    var demands by OrderDemandEntity via QuestRecordsDoneDemandsTable
 }
 
-object QuestRecordsDoneDemands : Table() {
+object QuestRecordsDoneDemandsTable : Table() {
     val questRecord = reference("quest_record", QuestRecordTable).primaryKey(0)
     val demand = reference("demand", OrdersDemandsTable).primaryKey(1)
 }

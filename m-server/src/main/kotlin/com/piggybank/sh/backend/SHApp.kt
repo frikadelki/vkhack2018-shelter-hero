@@ -110,4 +110,13 @@ class SHApp(db: Database) {
 
         return@transaction SearchTaskCalc(task, eventsDump)
     }
+
+    fun startQuest(token: String, shelterQuest: ShelterQuest) = transaction {
+        return@transaction QuestRecordEntity.new {
+            quest = shelterQuest
+            principalToken = token
+            startTime = (System.currentTimeMillis()/1000).toInt()
+            status = ShelterQuestRecordStatus.IN_PROGRESS
+        }
+    }
 }

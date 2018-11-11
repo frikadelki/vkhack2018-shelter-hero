@@ -2,9 +2,10 @@ package com.piggybank.sh.backend.db
 
 import com.piggybank.sh.generated.Shelter
 import com.piggybank.sh.generated.ShelterDemand
+import com.piggybank.sh.generated.ShelterQuestRecord
 import com.piggybank.sh.generated.Venue
 
-fun VenueEntity.venue(): Venue {
+fun VenueEntity.toVenue(): Venue {
     return Venue.newBuilder()
             .setId(id.value)
             .setCoordinate(location)
@@ -13,7 +14,7 @@ fun VenueEntity.venue(): Venue {
             .build()
 }
 
-fun ShelterEntity.shelter(): Shelter {
+fun ShelterEntity.toShelter(): Shelter {
     return Shelter.newBuilder()
             .setId(id.value)
             .setName(name)
@@ -22,9 +23,19 @@ fun ShelterEntity.shelter(): Shelter {
             .build()
 }
 
-fun OrderDemandEntity.shelterDemand(): ShelterDemand {
+fun OrderDemandEntity.toShelterDemand(): ShelterDemand {
     return ShelterDemand.newBuilder()
             .setId(id.value)
             .setText(description)
+            .build()
+}
+
+fun QuestRecordEntity.toShelterQuestRecord(): ShelterQuestRecord {
+    return ShelterQuestRecord.newBuilder()
+            .setId(id.value)
+            .setShelterQuest(quest)
+            .setStatus(status)
+            .setStartTime(startTime)
+            .addAllDoneDemandsIds(demands.map { it.id.value })
             .build()
 }

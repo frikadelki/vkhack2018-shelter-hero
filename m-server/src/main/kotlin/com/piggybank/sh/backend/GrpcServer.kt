@@ -1,7 +1,8 @@
 package com.piggybank.sh.backend
 
-import com.piggybank.sh.backend.db.shelterDemand
-import com.piggybank.sh.backend.db.venue
+import com.piggybank.sh.backend.db.toShelterDemand
+import com.piggybank.sh.backend.db.toShelterQuestRecord
+import com.piggybank.sh.backend.db.toVenue
 import com.piggybank.sh.generated.*
 import io.grpc.ServerBuilder
 import io.grpc.stub.StreamObserver
@@ -75,8 +76,8 @@ class QuestServiceImpl(private val app: SHApp,
                         val eventCalc = searchTaskCalc.eventsDump[it.eventId]!!
                         val demandEntity = eventCalc.demandEntity
                         return@map ShelterQuestStep.newBuilder()
-                                .setDemand(demandEntity.shelterDemand())
-                                .setVenue(eventCalc.venue?.venue())
+                                .setDemand(demandEntity.toShelterDemand())
+                                .setVenue(eventCalc.venue?.toVenue())
                                 .setTimeWindow(eventCalc.event.timeWindow)
                                 .setDuration(eventCalc.event.duration)
                                 .build()
@@ -119,7 +120,13 @@ class RecommendationsClient(host: String, port: Int) {
     }
 }
 
-class ShelterQuestRecordServiceImpl : ShelterQuestRecordServiceGrpc.ShelterQuestRecordServiceImplBase() {
-    override fun start(request: ShelterQuestStartRequest?, responseObserver: StreamObserver<ShelterQuestResponse>?) {
+class ShelterQuestRecordServiceImpl(private val app: SHApp) : ShelterQuestRecordServiceGrpc.ShelterQuestRecordServiceImplBase() {
+    override fun start(request: ShelterQuestStartRequest, responseObserver: StreamObserver<ShelterQuestResponse>) {
+        val record = app.startQuest(request.token, request.shelterQuest)
+        val response = ShelterQuestResponse.newBuilder()
+                .setShelterQuestRecord(record.toShelterQuestRecord())
+                .build()
+        responseObserver.onNext(response)
+        responseObserver.onCompleted()
     }
 }
