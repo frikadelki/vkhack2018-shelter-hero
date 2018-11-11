@@ -13,12 +13,14 @@ class AuthController {
 
     private(set) var token: String = ""
 
+    let client = Sh_Generated_AuthServiceServiceClient(address: ApiConfig().address, secure: false)
+
     func regiter(login: String, password: String, completion: @escaping (_ susses: Bool) -> Void) {
         var request = Sh_Generated_AuthRequest()
         request.login = login
         request.password = password
         do {
-            let _ = try Sh_Generated_AuthServiceServiceClient(address: ApiConfig().address, secure: false).register(request) { response, _ in
+            let _ = try client.register(request) { response, _ in
                 if ApiConfig().fakeResponses {
                     self.token = "fake_token"
                     completion(true)
@@ -40,7 +42,7 @@ class AuthController {
         request.login = login
         request.password = password
         do {
-            let _ = try Sh_Generated_AuthServiceServiceClient(address: ApiConfig().address, secure: false).login(request) { response, _ in
+            let _ = try client.login(request) { response, _ in
                 if ApiConfig().fakeResponses {
                     self.token = "fake_token"
                     completion(true)
@@ -61,7 +63,7 @@ class AuthController {
         var request = Sh_Generated_LogoutRequest()
         request.token = token
         do {
-            let _ = try Sh_Generated_AuthServiceServiceClient(address: ApiConfig().address, secure: false).logout(request) { _, _ in
+            let _ = try client.logout(request) { _, _ in
                 self.token = ""
                 completion()
             }

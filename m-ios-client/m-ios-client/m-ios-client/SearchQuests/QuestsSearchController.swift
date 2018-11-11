@@ -15,6 +15,8 @@ class QuestsSearchController {
         case error(error: Error)
     }
 
+    let client = Sh_Generated_QuestsServiceServiceClient(address: ApiConfig().address, secure: false)
+
     func search(request: Sh_Generated_SearchQuestsRequest, completion: @escaping (_ result: Result) -> Void) {
 
         let completionOnMainThread = { (result: Result) in
@@ -28,7 +30,7 @@ class QuestsSearchController {
         }
 
         do {
-            let _ = try Sh_Generated_QuestsServiceServiceClient(address: ApiConfig().address, secure: false).search(request) { response, callResult in
+            let _ = try client.search(request) { response, callResult in
                 if ApiConfig().fakeResponses {
                     Thread.sleep(forTimeInterval: 1)
                     self.fakeResponse(request: request, completion: completionOnMainThread)
