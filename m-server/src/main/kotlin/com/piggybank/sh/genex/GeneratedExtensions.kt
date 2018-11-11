@@ -1,5 +1,6 @@
 package com.piggybank.sh.genex
 
+import com.piggybank.sh.generated.ChatMessage
 import com.piggybank.sh.generated.GeoPoint
 import com.piggybank.sh.generated.Location
 import com.piggybank.sh.generated.TimeWindow
@@ -24,5 +25,12 @@ fun locationOf(point: GeoPoint): Location {
     return Location.newBuilder()
             .setId(0)
             .setGeoPoint(point)
+            .build()
+}
+
+fun chatMessageOf(authorNickname: String, text: String): ChatMessage {
+    return ChatMessage.newBuilder()
+            .setAuthorNickname(authorNickname)
+            .setText(text)
             .build()
 }

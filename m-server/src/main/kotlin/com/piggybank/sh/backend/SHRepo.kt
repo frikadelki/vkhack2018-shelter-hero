@@ -2,6 +2,7 @@ package com.piggybank.sh.backend
 
 import com.piggybank.sh.backend.db.*
 import com.piggybank.sh.generated.*
+import com.piggybank.sh.genex.chatMessageOf
 import com.piggybank.sh.genex.geoPointOf
 import com.piggybank.sh.genex.timeWindowOf
 import org.jetbrains.exposed.sql.Database
@@ -94,12 +95,20 @@ class SHRepo(val db: Database) {
             principalToken = token
             startTime = (System.currentTimeMillis()/1000).toInt()
             status = ShelterQuestRecordStatus.IN_PROGRESS
-            embeddedChat = initChat()
+            embeddedChat = initChat(shelterQuest.order.tagsList.isEmpty())
         }
     }
 
-    private fun initChat() : Chat {
-        return Chat.newBuilder().build()
+    private fun initChat(boolean: Boolean) : Chat {
+        if (!boolean) {
+            return Chat.newBuilder().build();
+        }
+        return Chat.newBuilder()
+                .addAllMessages(listOf<ChatMessage>(
+                        chatMessageOf("", ""),
+                        chatMessageOf("", "")
+                ))
+                .build()
     }
 }
 
