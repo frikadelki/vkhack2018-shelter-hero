@@ -9,6 +9,6 @@
 import Foundation
 
 class ApiConfig {
-    let address: String = "172.20.38.64:50051"
+    let address: String = "vps456808.ovh.net:50051"
     let fakeResponses: Bool = false
 }
