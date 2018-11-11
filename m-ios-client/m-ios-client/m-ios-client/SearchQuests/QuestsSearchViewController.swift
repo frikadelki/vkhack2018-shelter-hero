@@ -235,9 +235,10 @@ class QuestsSearchViewController: UIViewController, UITableViewDataSource, UITab
     }
 
     func getRecord(index: Int) -> Sh_Generated_ShelterQuestRecord? {
-        return records?.first(where: { record in
-            record.shelterQuest.id == questsResponse!.quests[index].id
-        })
+//        return records?.first(where: { record in
+//            record.shelterQuest.id == questsResponse!.quests[index].id
+//        })
+        return nil
     }
 
     @objc private func refreshWeatherData(_ sender: Any) {

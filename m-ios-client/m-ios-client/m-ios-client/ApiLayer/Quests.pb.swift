@@ -24,11 +24,6 @@ struct Sh_Generated_ShelterQuest {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var id: Int32 {
-    get {return _storage._id}
-    set {_uniqueStorage()._id = newValue}
-  }
-
   var order: Sh_Generated_ShelterOrder {
     get {return _storage._order ?? Sh_Generated_ShelterOrder()}
     set {_uniqueStorage()._order = newValue}
@@ -139,13 +134,11 @@ fileprivate let _protobuf_package = "sh.generated"
 extension Sh_Generated_ShelterQuest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".ShelterQuest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "id"),
-    2: .same(proto: "order"),
-    3: .same(proto: "steps"),
+    1: .same(proto: "order"),
+    2: .same(proto: "steps"),
   ]
 
   fileprivate class _StorageClass {
-    var _id: Int32 = 0
     var _order: Sh_Generated_ShelterOrder? = nil
     var _steps: [Sh_Generated_ShelterQuestStep] = []
 
@@ -154,7 +147,6 @@ extension Sh_Generated_ShelterQuest: SwiftProtobuf.Message, SwiftProtobuf._Messa
     private init() {}
 
     init(copying source: _StorageClass) {
-      _id = source._id
       _order = source._order
       _steps = source._steps
     }
@@ -172,9 +164,8 @@ extension Sh_Generated_ShelterQuest: SwiftProtobuf.Message, SwiftProtobuf._Messa
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
-        case 1: try decoder.decodeSingularInt32Field(value: &_storage._id)
-        case 2: try decoder.decodeSingularMessageField(value: &_storage._order)
-        case 3: try decoder.decodeRepeatedMessageField(value: &_storage._steps)
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._order)
+        case 2: try decoder.decodeRepeatedMessageField(value: &_storage._steps)
         default: break
         }
       }
@@ -183,14 +174,11 @@ extension Sh_Generated_ShelterQuest: SwiftProtobuf.Message, SwiftProtobuf._Messa
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if _storage._id != 0 {
-        try visitor.visitSingularInt32Field(value: _storage._id, fieldNumber: 1)
-      }
       if let v = _storage._order {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
       if !_storage._steps.isEmpty {
-        try visitor.visitRepeatedMessageField(value: _storage._steps, fieldNumber: 3)
+        try visitor.visitRepeatedMessageField(value: _storage._steps, fieldNumber: 2)
       }
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -201,7 +189,6 @@ extension Sh_Generated_ShelterQuest: SwiftProtobuf.Message, SwiftProtobuf._Messa
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._id != rhs_storage._id {return false}
         if _storage._order != rhs_storage._order {return false}
         if _storage._steps != rhs_storage._steps {return false}
         return true

@@ -286,7 +286,7 @@ extension QuestDetailsViewController
 
     @objc private func refreshWeatherData(_ sender: Any) {
         self.scrollView.isUserInteractionEnabled = false
-        recordController.questRecord(shelterQuest: quest) { record in
+        recordController.questRecord(shelterQuest: record!) { record in
             if let record = record {
                 self.record = record
             }

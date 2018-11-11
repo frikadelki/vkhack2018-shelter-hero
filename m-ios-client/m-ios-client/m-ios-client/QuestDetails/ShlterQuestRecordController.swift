@@ -75,7 +75,6 @@ class ShlterQuestRecordController {
         shelter.iconName = "shelterIcon"
 
         var quest1 = Sh_Generated_ShelterQuest()
-        quest1.id = 1
         quest1.order.tags = ["tag1"]
         quest1.order.title = "Катать собак на автомибиле"
         quest1.order.description_p = "Необходимо катать собак на автомобиле с открытм окном. Собаки будут высовывать голову из окна и язык из рта против ветра. Собаки будут счастливы"
@@ -85,16 +84,15 @@ class ShlterQuestRecordController {
         quest1.steps.append(quest1_step1)
 
         var quest2 = Sh_Generated_ShelterQuest()
-        quest2.id = 2
         quest2.order.tags = ["tag2"]
-        quest2.order.title = "Кидать говно в вальере"
-        quest2.order.description_p = "Если ты устал на работе и хочешь покидать говно в вальере, то это преддложение для тебя. Лопату надо купить."
+        quest2.order.title = "Играть с котятами"
+        quest2.order.description_p = "Необходимо смастерить игрушку - бумажка на ниточке и играть с котятами"
         quest2.order.shelter = shelter
         var quest2_step1 = Sh_Generated_ShelterQuestStep()
         quest2_step1.demand.id = 123
-        quest2_step1.demand.text = "Купить лопату"
+        quest2_step1.demand.text = "Смастерить игрушку"
         var quest2_step2 = Sh_Generated_ShelterQuestStep()
-        quest2_step2.demand.text = "Покидать говно"
+        quest2_step2.demand.text = "Играть с котятами"
         quest2.steps.append(quest2_step1)
         quest2.steps.append(quest2_step2)
 
@@ -167,7 +165,7 @@ class ShlterQuestRecordController {
         }
     }
 
-    func questRecord(shelterQuest: Sh_Generated_ShelterQuest, completion: @escaping (_ record: Sh_Generated_ShelterQuestRecord?) -> Void) {
+    func questRecord(shelterQuest: Sh_Generated_ShelterQuestRecord, completion: @escaping (_ record: Sh_Generated_ShelterQuestRecord?) -> Void) {
         var request = Sh_Generated_ShelterQuestRequest()
         request.id = shelterQuest.id
         request.token = AuthController.shared.token
@@ -176,7 +174,7 @@ class ShlterQuestRecordController {
             if ApiConfig().fakeResponses {
                 Thread.sleep(forTimeInterval: 1)
                 DispatchQueue.main.async {
-                    self.fakeStartReponse(shelterQuest: shelterQuest, completion: completion)
+                    completion(shelterQuest)
                 }
             } else {
                 DispatchQueue.main.async {

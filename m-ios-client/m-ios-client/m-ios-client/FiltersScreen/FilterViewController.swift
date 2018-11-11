@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import CoreLocation
 
 class RayButton: UIView {
     let button = UIButton()
@@ -17,7 +18,6 @@ class RayButton: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .heavy)
         button.backgroundColor = UIColor.ray_orange
-        button.setTitle(NSLocalizedString("apply", comment: "").uppercased(), for: .normal)
 
         button.layer.masksToBounds = true
         button.layer.cornerRadius = 4
@@ -197,7 +197,7 @@ class FilterViewController: UIViewController {
             titleWrapper.addSubview(title)
 
             title.snp.makeConstraints { maker in
-                maker.top.equalToSuperview().offset(10)
+                maker.top.equalToSuperview().offset(20)
                 maker.leading.equalToSuperview().offset(30)
                 maker.trailing.equalToSuperview().offset(-30)
                 maker.bottom.equalToSuperview().offset(-10)
@@ -217,8 +217,10 @@ class FilterViewController: UIViewController {
         let button = RayButton()
         switch style {
         case .apply:
+            button.button.setTitle(NSLocalizedString("apply", comment: "").uppercased(), for: .normal)
             button.button.addTarget(self, action: #selector(applyAction(sender:)), for: .touchUpInside)
         case .search:
+            button.button.setTitle(NSLocalizedString("search", comment: "").uppercased(), for: .normal)
             button.button.addTarget(self, action: #selector(nextAction(sender:)), for: .touchUpInside)
         }
         views.append(button)
@@ -487,6 +489,9 @@ class FilterViewController: UIViewController {
         request.orderTags = Array(taskTagsChacked)
         request.params.availabilityWindow = timeWindow
         request.params.timeLimit = (Int32(durationLimitSlider!.value) / 10) * 10
+        request.params.start.lat = CLLocationManager().location?.coordinate.latitude ?? 0
+        request.params.start.lon = CLLocationManager().location?.coordinate.longitude ?? 0
+        request.params.finish = request.params.start
         if taskTagsChacked.contains("car") {
             request.params.transport = .car
         } else {
