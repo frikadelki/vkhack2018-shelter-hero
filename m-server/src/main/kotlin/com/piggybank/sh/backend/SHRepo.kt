@@ -1,15 +1,14 @@
 package com.piggybank.sh.backend
 
 import com.piggybank.sh.backend.db.*
-import com.piggybank.sh.generated.ShelterMapObject
-import com.piggybank.sh.generated.VenueMapObject
+import com.piggybank.sh.generated.*
 import com.piggybank.sh.genex.geoPointOf
 import com.piggybank.sh.genex.timeWindowOf
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 
-class SHRepo(private val db: Database) {
+class SHRepo(val db: Database) {
     init {
         transaction(db) {
             SchemaUtils.create(
@@ -53,6 +52,48 @@ class SHRepo(private val db: Database) {
 
     fun orderEntity(orderId: Int): SheltersOrderEntity = transaction(db) {
         return@transaction SheltersOrderEntity.findById(orderId)!!
+    }
+
+    fun mapTrip(trip: Trip, searchTaskCalc: SearchTaskCalc): ShelterQuest = transaction(db) {
+        val orderEntity = orderEntity(trip.orderId)
+
+        val fakishShelter =  Shelter.newBuilder()
+                .setId(orderEntity.shelter.id.value)
+                .setName(orderEntity.shelter.name)
+                .setIconName(orderEntity.shelter.iconName)
+                .build()
+
+        val order = ShelterOrder.newBuilder()
+                .setTitle(orderEntity.title)
+                .setDescription(orderEntity.description)
+                .addAllTags(orderEntity.tags)
+                .setShelter(fakishShelter)
+                .build()
+
+        val steps = trip.actionsList.map {
+            val eventCalc = searchTaskCalc.eventsDump[it.eventId]!!
+            val demandEntity = eventCalc.demandEntity
+            return@map ShelterQuestStep.newBuilder()
+                    .setDemand(demandEntity.toShelterDemand())
+                    .apply { eventCalc.venue?.let { venueEntity -> setVenue(venueEntity.toVenue()) } }
+                    .setTimeWindow(eventCalc.event.timeWindow)
+                    .setDuration(eventCalc.event.duration)
+                    .build()
+        }
+
+        return@transaction ShelterQuest.newBuilder()
+                .setOrder(order)
+                .addAllSteps(steps)
+                .build()
+    }
+
+    fun newQuestRecord(token: String, shelterQuest: ShelterQuest) = transaction(db) {
+        return@transaction QuestRecordEntity.new {
+            quest = shelterQuest
+            principalToken = token
+            startTime = (System.currentTimeMillis()/1000).toInt()
+            status = ShelterQuestRecordStatus.IN_PROGRESS
+        }
     }
 }
 

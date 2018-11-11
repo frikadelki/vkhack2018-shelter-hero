@@ -1,13 +1,12 @@
 package com.piggybank.sh.backend
 
-import com.piggybank.sh.backend.db.toShelterDemand
 import com.piggybank.sh.backend.db.toShelterQuestRecord
-import com.piggybank.sh.backend.db.toVenue
 import com.piggybank.sh.generated.*
 import io.grpc.ServerBuilder
 import io.grpc.stub.StreamObserver
 import io.grpc.ManagedChannelBuilder
 import io.grpc.ManagedChannel
+import org.jetbrains.exposed.sql.transactions.transaction
 
 class GrpcServer(private val app: SHApp) {
     private var started = false
@@ -52,60 +51,19 @@ class MapObjectServiceImpl(private val app: SHApp) : MapObjectServiceGrpc.MapObj
 class QuestServiceImpl(private val app: SHApp,
                        private val recommendationsClient: RecommendationsClient)
     : QuestsServiceGrpc.QuestsServiceImplBase() {
-    override fun search(request: SearchQuestsRequest, responseObserver: StreamObserver<SearchQuestsResponse>) {
+    override fun search(request: SearchQuestsRequest, responseObserver: StreamObserver<SearchQuestsResponse>) = transaction {
+
         val searchTaskCalc = app.prepareSearchTask(request.params, request.orderTagsList)
-        recommendationsClient.searcher.findRecommendations(searchTaskCalc.task, object : StreamObserver<Recommendations> {
-            override fun onNext(value: Recommendations) {
-                fun mapTrip(trip: Trip): ShelterQuest {
-                    val orderEntity = app.orderEntity(trip.orderId)
 
-                    val fakishShelter =  Shelter.newBuilder()
-                            .setId(orderEntity.shelter.id.value)
-                            .setName(orderEntity.shelter.name)
-                            .setIconName(orderEntity.shelter.iconName)
-                            .build()
-
-                    val order = ShelterOrder.newBuilder()
-                            .setTitle(orderEntity.title)
-                            .setDescription(orderEntity.description)
-                            .addAllTags(orderEntity.tags)
-                            .setShelter(fakishShelter)
-                            .build()
-
-                    val steps = trip.actionsList.map {
-                        val eventCalc = searchTaskCalc.eventsDump[it.eventId]!!
-                        val demandEntity = eventCalc.demandEntity
-                        return@map ShelterQuestStep.newBuilder()
-                                .setDemand(demandEntity.toShelterDemand())
-                                .setVenue(eventCalc.venue?.toVenue())
-                                .setTimeWindow(eventCalc.event.timeWindow)
-                                .setDuration(eventCalc.event.duration)
-                                .build()
-                    }
-
-                    return ShelterQuest.newBuilder()
-                            .setOrder(order)
-                            .addAllSteps(steps)
-                            .build()
-                }
-
-                val quests = value.recommendationsList.map(::mapTrip)
-
-                val response = SearchQuestsResponse.newBuilder()
-                        .addAllQuests(quests)
-                        .build()
-                responseObserver.onNext(response)
-                responseObserver.onCompleted()
-            }
-
-            override fun onError(t: Throwable?) {
-                responseObserver.onError(Throwable(t))
-            }
-
-            override fun onCompleted() {
-            }
-        })
+        val recommendations = recommendationsClient.searcher.findRecommendations(searchTaskCalc.task)!!
+        val quests = recommendations.recommendationsList.map { app.mapTrip(it, searchTaskCalc) }
+        val response = SearchQuestsResponse.newBuilder()
+                .addAllQuests(quests)
+                .build()
+        responseObserver.onNext(response)
+        responseObserver.onCompleted()
     }
+
 }
 
 class RecommendationsClient(host: String, port: Int) {
@@ -113,7 +71,7 @@ class RecommendationsClient(host: String, port: Int) {
             .usePlaintext(true)
             .build()!!
 
-    val searcher = RecommendationsSearcherGrpc.newStub(channel)!!
+    val searcher = RecommendationsSearcherGrpc.newBlockingStub(channel)!!
 
     fun shutdown() {
         channel.shutdown()

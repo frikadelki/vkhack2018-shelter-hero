@@ -23,7 +23,9 @@ class SHApp(db: Database) {
 
     fun orderEntity(orderId: Int): SheltersOrderEntity  = repo.orderEntity(orderId)
 
-    fun prepareSearchTask(params: SearchParams, acceptableOrdersTags: List<String>): SearchTaskCalc = transaction {
+    fun mapTrip(trip: Trip, searchTaskCalc: SearchTaskCalc): ShelterQuest = repo.mapTrip(trip, searchTaskCalc)
+
+    fun prepareSearchTask(params: SearchParams, acceptableOrdersTags: List<String>): SearchTaskCalc = transaction(repo.db) {
         var eventsIdsSequence = 0
         fun nextEventId() = eventsIdsSequence++
 
@@ -111,12 +113,7 @@ class SHApp(db: Database) {
         return@transaction SearchTaskCalc(task, eventsDump)
     }
 
-    fun startQuest(token: String, shelterQuest: ShelterQuest) = transaction {
-        return@transaction QuestRecordEntity.new {
-            quest = shelterQuest
-            principalToken = token
-            startTime = (System.currentTimeMillis()/1000).toInt()
-            status = ShelterQuestRecordStatus.IN_PROGRESS
-        }
+    fun startQuest(token: String, shelterQuest: ShelterQuest): QuestRecordEntity {
+        return repo.newQuestRecord(token, shelterQuest)
     }
 }
