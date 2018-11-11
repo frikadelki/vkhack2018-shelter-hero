@@ -154,14 +154,8 @@ class SHRepo(private val db: Database) {
 
     fun venuesMapObjects(): Iterable<VenueMapObject> = transaction(db) {
         return@transaction VenueEntity.all().map {
-            val venue = Venue.newBuilder()
-                    .setId(it.id.value)
-                    .setCoordinate(it.location)
-                    .setIconName(it.iconName)
-                    .addAllTags(it.tags)
-                    .build()
             return@map VenueMapObject.newBuilder()
-                    .setVenue(venue)
+                    .setVenue(it.venue())
                     .build()
         }
     }
@@ -174,13 +168,4 @@ class SHRepo(private val db: Database) {
     fun orderEntity(orderId: Int): SheltersOrderEntity = transaction(db) {
         return@transaction SheltersOrderEntity.findById(orderId)!!
     }
-}
-
-fun ShelterEntity.shelter(): Shelter {
-    return Shelter.newBuilder()
-            .setId(id.value)
-            .setName(name)
-            .setIconName(iconName)
-            .setCoordinate(location)
-            .build()
 }

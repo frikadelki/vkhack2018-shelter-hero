@@ -1,5 +1,7 @@
 package com.piggybank.sh.backend
 
+import com.piggybank.sh.backend.db.shelterDemand
+import com.piggybank.sh.backend.db.venue
 import com.piggybank.sh.generated.*
 import io.grpc.ServerBuilder
 import io.grpc.stub.StreamObserver
@@ -50,8 +52,8 @@ class QuestServiceImpl(private val app: SHApp,
                        private val recommendationsClient: RecommendationsClient)
     : QuestsServiceGrpc.QuestsServiceImplBase() {
     override fun search(request: SearchQuestsRequest, responseObserver: StreamObserver<SearchQuestsResponse>) {
-        val searchTask = app.prepareSearchTask(request.params, request.orderTagsList)
-        recommendationsClient.searcher.findRecommendations(searchTask, object : StreamObserver<Recommendations> {
+        val searchTaskCalc = app.prepareSearchTask(request.params, request.orderTagsList)
+        recommendationsClient.searcher.findRecommendations(searchTaskCalc.task, object : StreamObserver<Recommendations> {
             override fun onNext(value: Recommendations) {
                 fun mapTrip(trip: Trip): ShelterQuest {
                     val orderEntity = app.orderEntity(trip.orderId)
@@ -69,8 +71,20 @@ class QuestServiceImpl(private val app: SHApp,
                             .setShelter(fakishShelter)
                             .build()
 
+                    val steps = trip.actionsList.map {
+                        val eventCalc = searchTaskCalc.eventsDump[it.eventId]!!
+                        val demandEntity = eventCalc.demandEntity
+                        return@map ShelterQuestStep.newBuilder()
+                                .setDemand(demandEntity.shelterDemand())
+                                .setVenue(eventCalc.venue?.venue())
+                                .setTimeWindow(eventCalc.event.timeWindow)
+                                .setDuration(eventCalc.event.duration)
+                                .build()
+                    }
+
                     return ShelterQuest.newBuilder()
                             .setOrder(order)
+                            .addAllSteps(steps)
                             .build()
                 }
 
