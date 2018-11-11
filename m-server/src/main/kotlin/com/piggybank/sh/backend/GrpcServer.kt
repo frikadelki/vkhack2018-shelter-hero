@@ -16,6 +16,7 @@ class GrpcServer(private val app: SHApp) {
     private val server = ServerBuilder.forPort(port)
             .addService(MapObjectServiceImpl(app))
             .addService(QuestServiceImpl(app, RecommendationsClient("172.20.38.33", 12100)))
+            .addService(ShelterQuestRecordServiceImpl(app))
             .build()
 
     fun start() {
