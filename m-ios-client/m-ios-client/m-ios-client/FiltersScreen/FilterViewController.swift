@@ -346,6 +346,8 @@ class FilterViewController: UIViewController {
 
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.minimumScaleFactor = 0.5
+        label.adjustsFontSizeToFitWidth = true
         label.font = UIFont.systemFont(ofSize: 16)
         view.addSubview(label)
 
