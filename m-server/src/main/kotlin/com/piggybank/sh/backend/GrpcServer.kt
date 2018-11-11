@@ -80,7 +80,7 @@ class RecommendationsClient(host: String, port: Int) {
 }
 
 class ShelterQuestRecordServiceImpl(private val app: SHApp) : ShelterQuestRecordServiceGrpc.ShelterQuestRecordServiceImplBase() {
-    override fun start(request: ShelterQuestStartRequest, responseObserver: StreamObserver<ShelterQuestResponse>) {
+    override fun start(request: ShelterQuestStartRequest, responseObserver: StreamObserver<ShelterQuestResponse>) = transaction {
         val record = app.startQuest(request.token, request.shelterQuest)
         val response = ShelterQuestResponse.newBuilder()
                 .setShelterQuestRecord(record.toShelterQuestRecord())

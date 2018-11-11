@@ -22,7 +22,7 @@ object QuestRecordTable : IntIdTable() {
 }
 
 class QuestRecordEntity(id: EntityID<Int>) : IntEntity(id) {
-    companion object : IntEntityClass<QuestRecordEntity>(SheltersTable)
+    companion object : IntEntityClass<QuestRecordEntity>(QuestRecordTable)
 
     var quest by ProtobufMessageDelegator<ShelterQuest>(QuestRecordTable.quest) { ShelterQuest.newBuilder() }
 
