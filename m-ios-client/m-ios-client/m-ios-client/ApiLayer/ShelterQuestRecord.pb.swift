@@ -222,11 +222,46 @@ struct Sh_Generated_ShelterQuestRecord {
     set {_uniqueStorage()._doneDemandsIds = newValue}
   }
 
+  var chat: Sh_Generated_Chat {
+    get {return _storage._chat ?? Sh_Generated_Chat()}
+    set {_uniqueStorage()._chat = newValue}
+  }
+  /// Returns true if `chat` has been explicitly set.
+  var hasChat: Bool {return _storage._chat != nil}
+  /// Clears the value of `chat`. Subsequent reads from it will return its default value.
+  mutating func clearChat() {_uniqueStorage()._chat = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct Sh_Generated_ChatMessage {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var authorNickname: String = String()
+
+  var text: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Sh_Generated_Chat {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var messages: [Sh_Generated_ChatMessage] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
 }
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -541,6 +576,7 @@ extension Sh_Generated_ShelterQuestRecord: SwiftProtobuf.Message, SwiftProtobuf.
     3: .same(proto: "status"),
     4: .same(proto: "startTime"),
     5: .same(proto: "doneDemandsIds"),
+    6: .same(proto: "chat"),
   ]
 
   fileprivate class _StorageClass {
@@ -549,6 +585,7 @@ extension Sh_Generated_ShelterQuestRecord: SwiftProtobuf.Message, SwiftProtobuf.
     var _status: Sh_Generated_ShelterQuestRecordStatus = .inProgress
     var _startTime: Int32 = 0
     var _doneDemandsIds: [Int32] = []
+    var _chat: Sh_Generated_Chat? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -560,6 +597,7 @@ extension Sh_Generated_ShelterQuestRecord: SwiftProtobuf.Message, SwiftProtobuf.
       _status = source._status
       _startTime = source._startTime
       _doneDemandsIds = source._doneDemandsIds
+      _chat = source._chat
     }
   }
 
@@ -580,6 +618,7 @@ extension Sh_Generated_ShelterQuestRecord: SwiftProtobuf.Message, SwiftProtobuf.
         case 3: try decoder.decodeSingularEnumField(value: &_storage._status)
         case 4: try decoder.decodeSingularInt32Field(value: &_storage._startTime)
         case 5: try decoder.decodeRepeatedInt32Field(value: &_storage._doneDemandsIds)
+        case 6: try decoder.decodeSingularMessageField(value: &_storage._chat)
         default: break
         }
       }
@@ -603,6 +642,9 @@ extension Sh_Generated_ShelterQuestRecord: SwiftProtobuf.Message, SwiftProtobuf.
       if !_storage._doneDemandsIds.isEmpty {
         try visitor.visitPackedInt32Field(value: _storage._doneDemandsIds, fieldNumber: 5)
       }
+      if let v = _storage._chat {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -617,10 +659,75 @@ extension Sh_Generated_ShelterQuestRecord: SwiftProtobuf.Message, SwiftProtobuf.
         if _storage._status != rhs_storage._status {return false}
         if _storage._startTime != rhs_storage._startTime {return false}
         if _storage._doneDemandsIds != rhs_storage._doneDemandsIds {return false}
+        if _storage._chat != rhs_storage._chat {return false}
         return true
       }
       if !storagesAreEqual {return false}
     }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Sh_Generated_ChatMessage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ChatMessage"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "authorNickname"),
+    2: .same(proto: "text"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularStringField(value: &self.authorNickname)
+      case 2: try decoder.decodeSingularStringField(value: &self.text)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.authorNickname.isEmpty {
+      try visitor.visitSingularStringField(value: self.authorNickname, fieldNumber: 1)
+    }
+    if !self.text.isEmpty {
+      try visitor.visitSingularStringField(value: self.text, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Sh_Generated_ChatMessage, rhs: Sh_Generated_ChatMessage) -> Bool {
+    if lhs.authorNickname != rhs.authorNickname {return false}
+    if lhs.text != rhs.text {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Sh_Generated_Chat: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Chat"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "messages"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.messages)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.messages.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.messages, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Sh_Generated_Chat, rhs: Sh_Generated_Chat) -> Bool {
+    if lhs.messages != rhs.messages {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
