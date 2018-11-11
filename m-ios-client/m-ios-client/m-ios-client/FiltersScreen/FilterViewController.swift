@@ -491,8 +491,8 @@ class FilterViewController: UIViewController {
         request.orderTags = Array(taskTagsChacked)
         request.params.availabilityWindow = timeWindow
         request.params.timeLimit = (Int32(durationLimitSlider!.value) / 10) * 10
-        request.params.start.lat = CLLocationManager().location?.coordinate.latitude ?? 0
-        request.params.start.lon = CLLocationManager().location?.coordinate.longitude ?? 0
+        request.params.start.lat = 55.756683
+        request.params.start.lon = 37.622341
         request.params.finish = request.params.start
         if taskTagsChacked.contains("car") {
             request.params.transport = .car
