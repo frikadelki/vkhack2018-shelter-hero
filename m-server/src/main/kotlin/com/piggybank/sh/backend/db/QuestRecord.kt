@@ -24,7 +24,7 @@ class QuestRecordEntity(id: EntityID<Int>) : IntEntity(id) {
     var quest by ProtobufMessageDelegator<ShelterQuest>(QuestRecordTable.quest) { ShelterQuest.newBuilder() }
 
     private var _status by QuestRecordTable.status
-    
+
     var status: ShelterQuestRecordOuterClass.ShelterQuestRecordStatus
         get() = ShelterQuestRecordOuterClass.ShelterQuestRecordStatus.valueOf(_status)
         set(value) {

@@ -23,7 +23,7 @@ class SHRepo(private val db: Database) {
         transaction(db) {
             val shelters = initSheltersData()
             initVenuesData()
-            initSheltersOrders(shelters)
+            initSheltersOrders(db, shelters)
         }
     }
 
@@ -172,13 +172,23 @@ private fun initVenuesData()
     }
 }
 
-private fun initSheltersOrders(shelters: List<ShelterEntity>) {
-    SheltersOrderEntity.new {
-        title = "Корм для приюта"
-        description = "Купить корм и привезти его в приют"
-        tags = listOf("car", "strong")
+private fun run(db: Database,
+                entityFactory: () -> SheltersOrderEntity,
+                demandsInit: (entity: SheltersOrderEntity) -> Unit) {
+    val entity = transaction(db) { entityFactory() }
+    transaction(db) { demandsInit(entity) }
+}
 
-        addDemand {
+private fun initSheltersOrders(db: Database, shelters: List<ShelterEntity>) {
+    run(db, {
+        SheltersOrderEntity.new {
+            title = "Корм для приюта"
+            description = "Купить корм и привезти его в приют"
+            tags = listOf("car", "strong")
+            shelter = shelters[0]
+        }
+    }, { entity ->
+        entity.addDemand {
             description = "Купить корм в зоомагазине"
             type = OrderDemandType.VenueAction
             duration = 15
@@ -186,14 +196,16 @@ private fun initSheltersOrders(shelters: List<ShelterEntity>) {
             suitableVenueTag = "pet-shop"
         }
 
-        addDemand {
+        entity.addDemand {
             description = "Привезти корм в приют"
             type = OrderDemandType.ShelterAction
             duration = 20
             timeWindow = timeWindowOf(0, Int.MAX_VALUE)
             shelter = shelters[0]
         }
-    }
+    })
+
+    return
 
     SheltersOrderEntity.new {
         title = "Публикации о животных"
