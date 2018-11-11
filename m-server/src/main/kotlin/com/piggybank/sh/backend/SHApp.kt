@@ -5,6 +5,7 @@ import com.piggybank.sh.generated.*
 import com.piggybank.sh.genex.locationOf
 import com.piggybank.sh.genex.timeWindowOf
 import org.jetbrains.exposed.sql.Database
+import org.jetbrains.exposed.sql.transactions.transaction
 
 class SearchTaskCalc(val task: Task, val eventsDump: Map<Int, EventCalc>)
 
@@ -22,7 +23,7 @@ class SHApp(db: Database) {
 
     fun orderEntity(orderId: Int): SheltersOrderEntity  = repo.orderEntity(orderId)
 
-    fun prepareSearchTask(params: SearchParams, acceptableOrdersTags: List<String>): SearchTaskCalc {
+    fun prepareSearchTask(params: SearchParams, acceptableOrdersTags: List<String>): SearchTaskCalc = transaction {
         var eventsIdsSequence = 0
         fun nextEventId() = eventsIdsSequence++
 
@@ -98,7 +99,7 @@ class SHApp(db: Database) {
 
         val openOrders = repo.openSheltersOrders()
                 .filter { order ->
-                    return@filter acceptableOrdersTags.any { order.tags.contains(it) }
+                    return@filter acceptableOrdersTags.isEmpty() || acceptableOrdersTags.any { order.tags.contains(it) }
                 }
                 .map(::mapShelterOrderEntity)
 
@@ -107,6 +108,6 @@ class SHApp(db: Database) {
                 .addAllOrders(openOrders)
                 .build()
 
-        return SearchTaskCalc(task, eventsDump)
+        return@transaction SearchTaskCalc(task, eventsDump)
     }
 }
