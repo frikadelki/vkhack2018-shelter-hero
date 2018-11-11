@@ -1,5 +1,7 @@
 package com.piggybank.sh.backend
 
+import com.piggybank.sh.backend.db.QuestRecordEntity
+import com.piggybank.sh.backend.db.QuestRecordTable
 import com.piggybank.sh.backend.db.toShelterQuestRecord
 import com.piggybank.sh.generated.*
 import io.grpc.ServerBuilder
@@ -80,6 +82,21 @@ class RecommendationsClient(host: String, port: Int) {
 }
 
 class ShelterQuestRecordServiceImpl(private val app: SHApp) : ShelterQuestRecordServiceGrpc.ShelterQuestRecordServiceImplBase() {
+    override fun list(request: ShelterQuestListRequest, responseObserver: StreamObserver<ShelterQuestListResponse>) = transaction {
+        val questRecordsEntities = QuestRecordEntity.find {
+            QuestRecordTable.principalToken eq request.token
+        }
+        val questRecords = questRecordsEntities.map {
+            it.toShelterQuestRecord()
+        }
+
+        val response = ShelterQuestListResponse.newBuilder()
+                .addAllQuestsRecords(questRecords)
+                .build()
+        responseObserver.onNext(response)
+        responseObserver.onCompleted()
+    }
+
     override fun start(request: ShelterQuestStartRequest, responseObserver: StreamObserver<ShelterQuestResponse>) = transaction {
         val record = app.startQuest(request.token, request.shelterQuest)
         val response = ShelterQuestResponse.newBuilder()
