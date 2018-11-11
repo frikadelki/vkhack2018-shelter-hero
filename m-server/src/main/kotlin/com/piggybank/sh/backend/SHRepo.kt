@@ -20,8 +20,9 @@ class SHRepo(private val db: Database) {
         }
 
         transaction(db) {
-            initSheltersData()
+            val shelters = initSheltersData()
             initVenuesData()
+            initSheltersOrders(shelters)
         }
     }
 
@@ -52,8 +53,9 @@ class SHRepo(private val db: Database) {
     }
 }
 
-private fun initSheltersData()
+private fun initSheltersData(): List<ShelterEntity>
 {
+    val shelters = mutableListOf<ShelterEntity>()
     val sheltersData : Array<String> = arrayOf(
             "Муркоша, 55.881332, 37.678433"
             , "Дубовая роща, 55.818184, 37.615347"
@@ -78,12 +80,15 @@ private fun initSheltersData()
     for (shelterData: String in sheltersData) {
         val splitted : List<String> = shelterData.split(',')
 
-        ShelterEntity.new {
+        val shelterEntity = ShelterEntity.new {
             name = splitted[0].trim()
             iconName = "shelter"
             location = geoPointOf(splitted[1].trim().toDouble(), splitted[2].trim().toDouble())
         }
+        shelters.add(shelterEntity)
     }
+
+    return shelters
 }
 
 private fun initVenuesData()
@@ -162,6 +167,19 @@ private fun initVenuesData()
             }
 
             tags = tagsInternal
+        }
+    }
+}
+
+private fun initSheltersOrders(shelters: List<ShelterEntity>) {
+    SheltersOrderEntity.new {
+        title = ""
+        description = ""
+        tags = listOf("a", "b")
+        addDemand {
+            description = "hello"
+            type = OrderDemandType.ShelterAction
+            shelter = shelters[0]
         }
     }
 }
