@@ -4,6 +4,7 @@ import com.piggybank.sh.backend.db.*
 import com.piggybank.sh.generated.ShelterMapObject
 import com.piggybank.sh.generated.VenueMapObject
 import com.piggybank.sh.genex.geoPointOf
+import com.piggybank.sh.genex.timeWindowOf
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -173,13 +174,86 @@ private fun initVenuesData()
 
 private fun initSheltersOrders(shelters: List<ShelterEntity>) {
     SheltersOrderEntity.new {
-        title = ""
-        description = ""
-        tags = listOf("a", "b")
+        title = "Корм для приюта"
+        description = "Купить корм и привезти его в приют"
+        tags = listOf("car", "strong")
+
         addDemand {
-            description = "hello"
+            description = "Купить корм в зоомагазине"
+            type = OrderDemandType.VenueAction
+            duration = 15
+            timeWindow = timeWindowOf(0, Int.MAX_VALUE)
+            suitableVenueTag = "pet-shop"
+        }
+
+        addDemand {
+            description = "Привезти корм в приют"
             type = OrderDemandType.ShelterAction
+            duration = 20
+            timeWindow = timeWindowOf(0, Int.MAX_VALUE)
             shelter = shelters[0]
+        }
+    }
+
+    SheltersOrderEntity.new {
+        title = "Публикации о животных"
+        description = "Публиковать посты о животных в соцсетях"
+        tags = listOf("remote", "all-ages")
+
+        addDemand {
+            description = "Опубликовать пост о животном"
+            type = OrderDemandType.Plain
+            duration = 30
+        }
+    }
+
+    SheltersOrderEntity.new {
+        title = "Погулять с собаками в приюте"
+        description = "Приехать в приют и погулять с собакой"
+        tags = listOf()
+
+        addDemand {
+            description = "Приехать в приют"
+            type = OrderDemandType.ShelterAction
+            duration = 20
+            timeWindow = timeWindowOf(0, Int.MAX_VALUE)
+            shelter = shelters[1]
+        }
+
+        addDemand {
+            description = "Погулять с собакой"
+            type = OrderDemandType.ShelterAction
+            duration = 40
+            timeWindow = timeWindowOf(0, Int.MAX_VALUE)
+            shelter = shelters[1]
+        }
+    }
+
+    SheltersOrderEntity.new {
+        title = "Помощь фотографа"
+        description = "Сделать портфолио для собак"
+        tags = listOf("all-ages")
+
+        addDemand {
+            description = "Приехать в приют"
+            type = OrderDemandType.ShelterAction
+            duration = 20
+            timeWindow = timeWindowOf(0, Int.MAX_VALUE)
+            shelter = shelters[2]
+        }
+
+        addDemand {
+            description = "Фотографировать собак"
+            type = OrderDemandType.ShelterAction
+            duration = 60
+            timeWindow = timeWindowOf(0, Int.MAX_VALUE)
+            shelter = shelters[2]
+        }
+
+        addDemand {
+            description = "Обработать и выслать фотографии"
+            type = OrderDemandType.Plain
+            duration = 180
         }
     }
 }
