@@ -6,6 +6,7 @@ option java_package = "com.piggybank.sh.generated";
 package sh.generated;
 
 import "Quests.proto";
+import "General.proto";
 
 service ShelterQuestRecordService {
     rpc list(ShelterQuestListRequest) returns (ShelterQuestListResponse) {}

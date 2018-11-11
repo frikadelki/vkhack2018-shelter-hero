@@ -33,3 +33,9 @@ message SearchParams
     int32 timeLimit = 5;
     int32 distanceLimit = 6;
 }
+
+message Stats
+{
+    int32 timeSpent = 1;
+    int32 distanceTraveled = 2;
+}

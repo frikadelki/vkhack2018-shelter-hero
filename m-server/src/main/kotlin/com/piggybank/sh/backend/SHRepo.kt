@@ -83,6 +83,7 @@ class SHRepo(val db: Database) {
 
         return@transaction ShelterQuest.newBuilder()
                 .setOrder(order)
+                .setStats(trip.stats)
                 .addAllSteps(steps)
                 .build()
     }

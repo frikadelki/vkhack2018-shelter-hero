@@ -49,12 +49,6 @@ message Action
     int32 distanceTraveled = 4;
 }
 
-message Stats
-{
-    int32 timeSpent = 1;
-    int32 distanceTraveled = 2;
-}
-
 message Trip
 {
     int32 orderId = 1;

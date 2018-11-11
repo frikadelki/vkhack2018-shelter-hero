@@ -15,7 +15,8 @@ service QuestsService {
 
 message ShelterQuest {
     ShelterOrder order = 1;
-    repeated ShelterQuestStep steps = 2;
+    Stats stats = 2;
+    repeated ShelterQuestStep steps = 3;
 }
 
 message ShelterQuestStep {
